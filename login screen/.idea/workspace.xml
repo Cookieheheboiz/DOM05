@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5024ff6f-2b18-4b21-9c4d-829d0478081b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../category/src/main/java/com/example/phan_loai/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../category/src/main/java/com/example/phan_loai/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../category/src/main/java/com/example/phan_loai/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../category/src/main/java/com/example/phan_loai/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../category/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../category/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../category/src/main/resources/com/example/phan_loai/phan_loai.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../category/src/main/resources/com/example/phan_loai/phan_loai.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DOM05/BTL_OOP/LibraryManagement/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DOM05/BTL_OOP/LibraryManagement/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DOM05/BTL_OOP/LibraryManagement/src/main/resources/com/librarymanagement/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DOM05/BTL_OOP/LibraryManagement/src/main/resources/com/librarymanagement/hello-view.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="j06" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/DOM05" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "hungtrannhatt"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Cookieheheboiz/DOM05.git",
+    "accountId": "4b532e79-fcc6-4b76-908b-7ac694d009de"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2nQJCkAEpSEtjeZjRKPchNksVJZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "'huy'",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.librarymanagement.HelloApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.librarymanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="login screen" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="login screen" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5024ff6f-2b18-4b21-9c4d-829d0478081b" name="Changes" comment="" />
+      <created>1728899243319</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728899243319</updated>
+      <workItem from="1728899244322" duration="1533000" />
+      <workItem from="1729155205029" duration="4903000" />
+      <workItem from="1729502655914" duration="171000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

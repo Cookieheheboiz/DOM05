@@ -11,6 +11,7 @@ module com.example.phan_loai {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires java.sql;
 
     opens com.example.phan_loai to javafx.fxml;
     exports com.example.phan_loai;

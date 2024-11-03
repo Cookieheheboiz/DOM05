@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="scenePane" prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.phan_loai.controler2">
+    <children>
+        <ImageView fx:id="ImageLoad" fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../Image/88811cee-31eb-490d-8c1a-48245caf53cd.jpg" />
+            </image>
+        </ImageView>
+        <ProgressBar fx:id="Progress" layoutX="350.0" layoutY="626.0" prefWidth="200.0" />
+        <Text fx:id="Loading" fill="#edebeb" fontSmoothingType="LCD" layoutX="366.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="10.0" text="Loading......." textAlignment="CENTER" wrappingWidth="167.13" />
+    </children>
+</AnchorPane>

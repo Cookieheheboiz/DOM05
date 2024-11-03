@@ -1,17 +1,19 @@
 package com.example.phan_loai;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -19,65 +21,145 @@ public class HelloController implements Initializable {
     @FXML
     private Button exit;
 
+    @FXML
+    private AnchorPane scenePane;
 
     @FXML
-    private Button entertain;
+    private TableView<Book> AddToTable;
+    @FXML
+    private TableColumn<Book, String> AddTitle;
+    @FXML
+    private TableColumn<Book, String> AddAuthor;
 
     @FXML
-    private Button academic;
-    // FXML reference to the ListView in the FXML file
+    private SplitMenuButton entertain;
+
     @FXML
-    private ListView<String> categoryList;
+    private SplitMenuButton academic;
 
-    // FXML reference to the Label in the FXML file
+    private Stage stage;
+
     @FXML
-    private ListView<String> category2;
-
-    // List of categories
-    String[] book = {"Truyện tranh", "Tiểu thuyết", "Sách phiêu lưu", "Sách giả tưởng","Sách hài hước"};
-    String curr;
-
-    String[] book2 = {"Sách giáo khoa", "Sách tham khảo", "Giáo trình", "Sách khoa học","Sách học thuật nâng cao"};
-
-
-    public void initialize(URL a, ResourceBundle b) {
-
-        categoryList.getItems().addAll(book2); //hoc thuat
-        categoryList.setVisible(false);
-
-        categoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                curr = categoryList.getSelectionModel().getSelectedItem();
-
-            }
-        });
-
-        category2.getItems().addAll(book); //giai tri
-        category2.setVisible(false);
-
-        category2.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                curr = category2.getSelectionModel().getSelectedItem();
-
-            }
-        });
-        academic.setOnAction(event -> {
-            category2.setVisible(false);
-            categoryList.setVisible(true);
-        });
-
-        entertain.setOnAction(event -> {
-            category2.setVisible(true);
-            categoryList.setVisible(true);
-        });
+    public void exitButton(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to exit?");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            stage = (Stage) scenePane.getScene().getWindow();
+            stage.close();
+        }
     }
+
     @FXML
-    public void exitButton(javafx.event.ActionEvent event) {
-        Stage stage = (Stage) exit.getScene().getWindow();
-        stage.close();
+    public void AddEntertain(ActionEvent actionEvent) {
+        entertain.getItems().clear();
+
+        String[] entertainGenres = {"Truyện tranh", "Tiểu thuyết", "Sách phiêu lưu", "Sách giả tưởng", "Sách hài hước"};
+
+        for (String genre : entertainGenres) {
+            MenuItem item = new MenuItem(genre);
+            item.setOnAction(this::handleGenreSelection);  // Add action on menu item click
+            entertain.getItems().add(item);
+        }
     }
+
+    @FXML
+    public void AddAcademic(ActionEvent actionEvent) {
+        academic.getItems().clear();
+
+        String[] academicGenres = {"Sách giáo khoa", "Sách tham khảo", "Giáo trình", "Sách học thuật nâng cao"};
+
+        for (String genre : academicGenres) {
+            MenuItem item = new MenuItem(genre);
+            item.setOnAction(this::handleGenreSelection);
+            academic.getItems().add(item);
+        }
+    }
+
+    @FXML
+    public void handleGenreSelection(ActionEvent actionEvent) {
+        // Extract the source of the event, which is a MenuItem
+        MenuItem clickedItem = (MenuItem) actionEvent.getSource();
+
+        // Get the text (genre) of the selected MenuItem
+        String selectedGenre = clickedItem.getText();
+
+        // Now load books based on the selected genre
+        loadBooksByGenre(selectedGenre);
+    }
+
+    public void loadBooksByGenre(String genre) {
+        // Clear the current table view
+        AddToTable.getItems().clear();
+
+        DatabaseConnector databaseConnector = new DatabaseConnector();
+        Connection connection = databaseConnector.getConnection();
+
+        String query = "SELECT title, author FROM books WHERE genre = ?";  // Assuming your table is named 'books' and has columns 'title' and 'author'
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, genre);  // Set the genre parameter
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Create a list of Book objects to store the data
+            ObservableList<Book> books = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String bookTitle = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                books.add(new Book(bookTitle, author));
+            }
+
+            // Close the resources
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+            // Set the items for the table view
+            AddToTable.setItems(books);
+
+            // Map the table columns to the Book class properties
+            AddTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+            AddAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Error loading books for the selected genre.");
+            errorAlert.showAndWait();
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Initialize entertainment and academic menus
+        AddEntertain(null);  // Populating SplitMenuButton for entertainment genres
+        AddAcademic(null);   // Populating SplitMenuButton for academic genres
+
+        // Configure the TableView columns on initialization
+        AddTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        AddAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+    }
+
+    public class Book {
+        private final String title;
+        private final String author;
+
+        public Book(String title, String author) {
+            this.title = title;
+            this.author = author;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+    }
+
 }
