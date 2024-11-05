@@ -13,6 +13,7 @@ module com.librarymanagement {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens com.librarymanagement to javafx.fxml;
     exports com.librarymanagement;

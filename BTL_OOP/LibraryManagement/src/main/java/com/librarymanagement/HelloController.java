@@ -1,6 +1,9 @@
 package com.librarymanagement;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -8,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.util.ResourceBundle;
@@ -41,7 +45,10 @@ public class HelloController {
     public void signupButtonAction(ActionEvent event) {
         Stage stage = (Stage) SignupButton.getScene().getWindow();
         stage.close();
+        createAccount();
+
     }
+
 
     public void validateLogin() {
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -61,6 +68,21 @@ public class HelloController {
                     loginMessageLabel.setText("Please try again");
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void createAccount() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Register-view.fxml"));
+            Stage registerStage = new Stage();
+            registerStage.initStyle(StageStyle.UNDECORATED);
+            registerStage.setScene(new Scene(root, 900, 900));
+            registerStage.setTitle("Signup");
+            registerStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
