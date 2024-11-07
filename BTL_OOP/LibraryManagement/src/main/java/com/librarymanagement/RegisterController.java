@@ -16,6 +16,7 @@ import javafx.scene.control.DateCell;
 
 
 import javafx.event.ActionEvent;
+import javafx.scene.effect.Reflection;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
@@ -51,12 +52,27 @@ public class RegisterController {
     private TextField PhonenumberField;
     @FXML
     private TextField UsernameField;
+    @FXML
+    private TextField UpHead;
 
 
     public void closeButtonAction(ActionEvent event) {
         Stage stage = (Stage) CloseButton.getScene().getWindow();
         stage.close();
         Platform.exit();
+    }
+
+    public void textinHead() {
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.7); // Độ dài của phần phản chiếu
+        reflection.setTopOffset(10.0); // Khoảng cách giữa phần chính và phần phản chiếu
+        reflection.setTopOpacity(0.7); // Độ mờ của phần đầu của phản chiếu
+        reflection.setBottomOpacity(0.0);
+        UpHead.setEffect(reflection);
+
+
+
+
     }
 
     public void registerButtonAction(ActionEvent event) {

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -14,7 +15,9 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(new Scene(root, 900, 900));
+        Scene scene = new Scene(root, 900, 900);
+        scene.getStylesheets().add("D:\\DOM05\\BTL_OOP\\LibraryManagement\\src\\main\\resources\\com\\librarymanagement\\css\\font-menutop.css");
+        stage.setScene(scene);
         stage.setTitle("Hello!");
         stage.show();
     }
