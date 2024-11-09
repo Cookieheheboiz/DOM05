@@ -26,6 +26,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class RegisterController {
     private Stage stage;
@@ -47,7 +48,7 @@ public class RegisterController {
     @FXML
     private TextField LastnameField;
     @FXML
-    private TextField BirthdayField;
+    private DatePicker BirthdayField;
     @FXML
     private TextField PhonenumberField;
     @FXML
@@ -56,10 +57,27 @@ public class RegisterController {
     private TextField UpHead;
 
 
-    public void closeButtonAction(ActionEvent event) {
+    public void closeAndopenmain() {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
+            Stage returnMain = new Stage();
+            returnMain.initStyle(StageStyle.UNDECORATED);
+            returnMain.setScene(new Scene(root, 900, 900));
+            returnMain.setTitle("Hello!");
+            returnMain.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+
+    }
+
+    public void closeButtonAction() {
         Stage stage = (Stage) CloseButton.getScene().getWindow();
         stage.close();
-        Platform.exit();
+        closeAndopenmain();
     }
 
     public void textinHead() {
@@ -95,12 +113,13 @@ public class RegisterController {
         String Last_name = LastnameField.getText();
         String Username = UsernameField.getText();
         String Password = passwordFillField.getText();
-        String DateOfBirth = BirthdayField.getText();
+        LocalDate DateOfBirth = BirthdayField.getValue();
+        String formattedDateOfBirth = DateOfBirth != null ? DateOfBirth.toString() : null;
         String PhoneNumber = PhonenumberField.getText();
 
 
         String insertField = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, DateOfBirth, PhoneNumber) VALUES('";
-        String insertValue = ID + "','" + First_name + "','" + Last_name + "','" + Username + "','" +  Password + "','" + DateOfBirth + "','" + PhoneNumber +"')";
+        String insertValue = ID + "','" + First_name + "','" + Last_name + "','" + Username + "','" +  Password + "','" + formattedDateOfBirth + "','" + PhoneNumber +"')";
         String insertToRegister = insertField + insertValue;
 
 

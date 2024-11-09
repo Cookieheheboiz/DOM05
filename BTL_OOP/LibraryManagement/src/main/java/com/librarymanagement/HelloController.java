@@ -36,6 +36,8 @@ public class HelloController {
 
     public void loginButtonOnAction(ActionEvent event) {
         if (usernameTextField.getText().isBlank() == false || passwordTextField.getText().isBlank() == false) {
+            Stage stage = (Stage) SignupButton.getScene().getWindow();
+            stage.close();
             validateLogin();
         } else {
             loginMessageLabel.setText("You are tried to login, but it's failed");
@@ -64,6 +66,12 @@ public class HelloController {
             while(resultSet.next()) {
                 if (resultSet.getInt(1) == 1) {
                     loginMessageLabel.setText("Congratulations, you are logged in");
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
+                    Stage menuStage = new Stage();
+                    menuStage.initStyle(StageStyle.UNDECORATED);
+                    menuStage.setScene(new Scene(root, 900, 900));
+                    menuStage.setTitle("Signup");
+                    menuStage.show();
                 } else {
                     loginMessageLabel.setText("Please try again");
                 }

@@ -2,6 +2,7 @@
     -fx-background-color: transparents;
     -fx-border-color: transparent;
     -fx-font-size: 20px;
+    -fx-border-radius: 18px;
     -fx-text-fill: #ffff00;
     -fx-effect: dropshadow(one-pass-box, black, 2, 0.5, 0, 0);
 }
