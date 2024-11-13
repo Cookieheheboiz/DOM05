@@ -93,6 +93,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <DatePicker fx:id="BirthdayField" layoutX="179.0" layoutY="487.0" prefWidth="483.0" />
+      <DatePicker fx:id="BirthdayField" layoutX="187.0" layoutY="489.0" prefWidth="483.0" />
    </children>
 </Pane>

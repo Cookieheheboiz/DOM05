@@ -8,7 +8,7 @@
 }
 .button:hover
 {
-    -fx-background-color: #055941;
+    -fx-background-color: #ffff00;
     -fx-background-radius: 5px;
     -fx-text-fill: #CECE62;
 }
