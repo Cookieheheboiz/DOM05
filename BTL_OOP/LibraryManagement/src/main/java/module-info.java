@@ -14,7 +14,6 @@ module com.librarymanagement {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
-    requires com.google.gson;
 
     opens com.librarymanagement to javafx.fxml;
     exports com.librarymanagement;
