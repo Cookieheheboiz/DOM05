@@ -50,7 +50,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="Storagemn" layoutX="181.0" layoutY="504.0" mnemonicParsing="false" onAction="#AddStorage" prefHeight="46.0" prefWidth="193.0" stylesheets="@../css/ButtonHover.css" text="Kho sách">
+      <Button fx:id="Storagemn" layoutX="181.0" layoutY="504.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="193.0" stylesheets="@../css/ButtonHover.css" text="Kho sách">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -82,11 +82,5 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="SearchBook" layoutX="207.0" layoutY="299.0" mnemonicParsing="false" onAction="#FindBook" prefHeight="50.0" prefWidth="167.0" stylesheets="@../css/ButtonHover.css" text="Tìm kiếm" />
-      <ImageView fitHeight="42.0" fitWidth="55.0" layoutX="199.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../image/bt_search.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>
