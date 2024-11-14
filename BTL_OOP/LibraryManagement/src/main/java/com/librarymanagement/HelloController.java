@@ -66,7 +66,7 @@ public class HelloController {
             while(resultSet.next()) {
                 if (resultSet.getInt(1) == 1) {
                     loginMessageLabel.setText("Congratulations, you are logged in");
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/loading.fxml"));
                     Stage menuStage = new Stage();
                     menuStage.initStyle(StageStyle.UNDECORATED);
                     menuStage.setScene(new Scene(root, 900, 900));
