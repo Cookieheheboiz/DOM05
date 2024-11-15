@@ -1,4 +1,0 @@
-.semiTransparentPane {
-    -fx-background-color: rgba(128, 128, 128, 0.5);
-    -fx-backdrop-blur-type: blur(15px);
-}
