@@ -14,10 +14,15 @@
                 <Image url="@../../../image/857a64ef-1d60-4fce-a626-364105d18e22.jpg" />
             </image>
         </ImageView>
-        <ProgressBar fx:id="Progress" layoutX="350.0" layoutY="626.0" prefWidth="200.0" />
-        <Text fx:id="Loading" fill="#edebeb" fontSmoothingType="LCD" layoutX="366.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="10.0" text="Loading......." textAlignment="CENTER" wrappingWidth="167.13">
+        <ProgressBar fx:id="Progress" layoutX="350.0" layoutY="626.0" prefHeight="18.0" prefWidth="237.0" />
+        <Text fx:id="Loading" fill="#edebeb" fontSmoothingType="LCD" layoutX="382.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="10.0" text="Loading......." textAlignment="CENTER" wrappingWidth="167.13">
          <font>
             <Font size="15.0" />
          </font></Text>
+      <ImageView fitHeight="138.0" fitWidth="237.0" layoutX="347.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/fireflies_3.gif" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

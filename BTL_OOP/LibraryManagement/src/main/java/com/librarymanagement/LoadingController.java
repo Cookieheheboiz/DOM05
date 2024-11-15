@@ -37,25 +37,24 @@ public class LoadingController implements Initializable {
     }
 
     private void startLoading() {
-        Progress.setProgress(0);  // Initialize progress to 0
+        Progress.setProgress(0);
 
         Timeline timeline = new Timeline();
 
-        timeline.setCycleCount(1);  // Run only once
+        timeline.setCycleCount(1);
 
         for (int i = 0; i <= 22; i++) {
-            final int progressValue = i; // Need to make this final for the lambda
+            final int progressValue = i;
             timeline.getKeyFrames().add(new KeyFrame(
-                    Duration.seconds(i * 0.3), // Change this to adjust the timing
-                    event -> Progress.setProgress(progressValue / 20.0) // Incrementally set the progress
+                    Duration.seconds(i * 0.3),
+                    event -> Progress.setProgress(progressValue / 20.0)
             ));
         }
 
         timeline.setOnFinished(event -> {
-            loadNextPage();  // Call method to load the next page after loading completes
+            loadNextPage();
         });
 
-        // Start the timeline animation
         timeline.play();
     }
     private void loadNextPage() {
