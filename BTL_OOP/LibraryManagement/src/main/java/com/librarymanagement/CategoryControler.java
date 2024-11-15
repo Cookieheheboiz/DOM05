@@ -1,5 +1,6 @@
 package com.librarymanagement;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -150,7 +150,7 @@ public class CategoryControler implements Initializable {
                 String bookTitle = resultSet.getString("title");
                 String author = resultSet.getString("author");
                 String publisher = resultSet.getString("publisher");
-                books.add(new Book(bookTitle, author,publisher));
+                books.add(new Book(bookTitle, author, publisher));
             }
 
             resultSet.close();
