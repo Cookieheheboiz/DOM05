@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 
 
 public class DatabaseConnection {
-    public static Connection databaseLink;
+    public Connection databaseLink;
 
-    public static Connection getConnection() {
+    public Connection getConnection() {
         String databaseName = "librarymanagement";
         String databaseUser = "root";
-        String databasePassword = "123456";
+        String databasePassword = "Dangquochuy24982765@";
         String url = "jdbc:mysql://localhost/" + databaseName;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
