@@ -117,4 +117,25 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+
+    public void employee() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/User-view.fxml"));
+            Stage employ = new Stage();
+            employ.initStyle(StageStyle.UNDECORATED);
+            employ.setScene(new Scene(root, 900, 900));
+            employ.setTitle("Hello!");
+            employ.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void employeeAction() {
+        Stage stage = (Stage) employeeField.getScene().getWindow();
+        stage.close();
+        employee();
+    }
 }

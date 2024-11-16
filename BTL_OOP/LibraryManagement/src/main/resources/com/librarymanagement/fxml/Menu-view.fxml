@@ -42,7 +42,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="employeeField" layoutX="503.0" layoutY="381.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Nhân viên">
+      <Button fx:id="employeeField" layoutX="503.0" layoutY="381.0" mnemonicParsing="false" onAction="#employeeAction" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Nhân viên">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                <image>
