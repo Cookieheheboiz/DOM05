@@ -40,7 +40,7 @@
                      </color>
                   </DropShadow>
                </effect></Button>
-            <Button fx:id="SignupButton" layoutX="188.0" layoutY="655.0" mnemonicParsing="false" onAction="#signupButtonAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="SignUp">
+            <Button fx:id="SignupButton" layoutX="188.0" layoutY="690.0" mnemonicParsing="false" onAction="#signupButtonAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="SignUp">
                <effect>
                   <DropShadow height="61.12" radius="31.225" spread="0.38" width="65.78">
                      <color>
