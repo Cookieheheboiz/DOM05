@@ -28,7 +28,7 @@ public class UserController {
     @FXML
     private TableColumn<Employee, String> AddName;
     @FXML
-    private TableColumn<Employee, String> AddMail;
+    private TableColumn<Employee, String> AddRole;
     @FXML
     private TableColumn<Employee, String> AddUsername;
     @FXML
@@ -39,14 +39,14 @@ public class UserController {
     public static class Employee {
         private String ID;
         private String Name;
-        private String Mail;
+        private String Role;
         private String Username;
         private String Password;
 
-        public Employee(String ID, String name, String mail, String username, String password) {
+        public Employee(String ID, String name, String Role, String username, String password) {
             this.ID = ID;
             this.Name = name;
-            this.Mail = mail;
+            this.Role = Role;
             this.Username = username;
             this.Password = password;
         }
@@ -67,12 +67,12 @@ public class UserController {
             this.Name = name;
         }
 
-        public String getMail() {
-            return Mail;
+        public String getRole() {
+            return Role;
         }
 
-        public void setMail(String mail) {
-            this.Mail = mail;
+        public void setRole(String Role) {
+            this.Role = Role;
         }
 
         public String getUsername() {
@@ -99,7 +99,7 @@ public class UserController {
         DatabaseConnection databaseConnector = new DatabaseConnection();
         Connection connection = databaseConnector.getConnection();
 
-        String query = "SELECT ID, Full_name, Mail, Username, Password FROM user_id";
+        String query = "SELECT ID, Full_name, MyRole, Username, Password FROM user_id";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -111,11 +111,11 @@ public class UserController {
             while (resultSet.next()) {
                 String id = resultSet.getString("ID");
                 String fullname = resultSet.getString("Full_name");
-                String mail = resultSet.getString("Mail");
+                String role = resultSet.getString("MyRole");
                 String username = resultSet.getString("Username");
                 String pass = resultSet.getString("Password");
 
-                employees.add(new Employee(id, fullname, mail, username, pass));
+                employees.add(new Employee(id, fullname, role, username, pass));
             }
 
             // Close the resources
@@ -129,7 +129,7 @@ public class UserController {
             // Map the table columns to the Employee class properties
             AddID.setCellValueFactory(new PropertyValueFactory<>("ID"));
             AddName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            AddMail.setCellValueFactory(new PropertyValueFactory<>("Mail"));
+            AddRole.setCellValueFactory(new PropertyValueFactory<>("Role"));
             AddUsername.setCellValueFactory(new PropertyValueFactory<>("Username"));
             AddPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
 
@@ -146,7 +146,7 @@ public class UserController {
         // Set up the columns
         AddID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         AddName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        AddMail.setCellValueFactory(new PropertyValueFactory<>("Mail"));
+        AddRole.setCellValueFactory(new PropertyValueFactory<>("MyRole"));
         AddUsername.setCellValueFactory(new PropertyValueFactory<>("Username"));
         AddPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
 
