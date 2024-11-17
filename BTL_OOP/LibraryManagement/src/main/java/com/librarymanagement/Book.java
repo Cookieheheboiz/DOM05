@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 
 public class Book {
+    private int id;
     private String title;
     private String author;
     private String publisher;
@@ -16,6 +17,24 @@ public class Book {
     private String borrowerName;
     private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
     private LocalDate returnDate;
+
+    // Constructor cho bảng `docs`
+    public Book(int id, String title, String author, String publisher, String category) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.category = category;
+    }
+
+    // Constructor cho bảng `borrowed_books`
+    public Book(int id, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
+        this.id = id;
+        this.title = bookName; // Dùng title thay cho book_name
+        this.borrowerName = borrowerName;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+    }
 
     public Book(String title, String author, String publisher, String year, String category, ImageView coverImage) {
         this.title = title;
@@ -56,6 +75,14 @@ public class Book {
     public ImageView getCoverImage() { return coverImage; }
     public String getBookID() {
         return bookID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBookName() {

@@ -3,6 +3,7 @@ package com.librarymanagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -32,29 +33,25 @@ public class MenuController {
     @FXML
     private Button LogoutField;
 
-    // Phương thức mở giao diện mượn và trả sách
-    @FXML
-    private void openBorrowAndReturn() {
+    public void showBorrowAndReturnView(ActionEvent event) {
         try {
-            // Lấy Stage hiện tại từ button borrowAndReturn và đóng cửa sổ menu
-            Stage currentStage = (Stage) borrowAndReturn.getScene().getWindow();
-            currentStage.close();
+            // Tải giao diện BorrowAndReturn.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
 
-            // Tải giao diện borrowAndReturn từ file FXML
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturn.fxml"));
-            Stage borrowAndReturnStage = new Stage();
-            borrowAndReturnStage.initStyle(StageStyle.DECORATED);
-            borrowAndReturnStage.setTitle("Mượn và Trả Sách");
-            borrowAndReturnStage.setScene(new Scene(root, 900, 900));
-            borrowAndReturnStage.show();
-        } catch (Exception e) {
+            // Lấy Stage hiện tại từ sự kiện (menu)
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Tạo và hiển thị giao diện mới
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Borrow and Return Books");
+            stage.show();
+
+            // Đóng giao diện menu
+            currentStage.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @FXML
-    private void initialize() {
-        // Thiết lập sự kiện cho nút borrowAndReturn
-        borrowAndReturn.setOnAction(event -> openBorrowAndReturn());
     }
 
     public void Logout() {
