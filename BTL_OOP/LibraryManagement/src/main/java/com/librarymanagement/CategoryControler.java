@@ -33,7 +33,7 @@ public class CategoryControler implements Initializable {
     private AnchorPane scenePane;
 
     @FXML
-    private TableView<Book> AddToTable;
+    TableView<Book> AddToTable;
     @FXML
     private TableColumn<Book, String> AddTitle;
     @FXML
@@ -158,7 +158,7 @@ public class CategoryControler implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize entertainment and academic menus
         // Populating SplitMenuButton for entertainment genres
-           // Populating SplitMenuButton for academic genres
+        // Populating SplitMenuButton for academic genres
 
         // Configure the TableView columns on initialization
         AddTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -169,22 +169,18 @@ public class CategoryControler implements Initializable {
 
     public void Back(ActionEvent actionEvent) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
-        Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
+            Parent root = loader.load();
 
-        // Get the current stage (window)
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            // Get the current stage (window)
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
-        // Set the new scene with the previous screen
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+            // Set the new scene with the previous screen
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    }
-
 }
-
-
-

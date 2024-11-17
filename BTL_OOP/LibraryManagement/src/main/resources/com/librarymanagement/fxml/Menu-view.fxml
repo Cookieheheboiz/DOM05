@@ -58,14 +58,15 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="borrowAndReturn" layoutX="180.0" layoutY="613.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Mượn-trả sách">
+      <Button fx:id="borrowAndReturn" layoutX="180.0" layoutY="613.0" mnemonicParsing="false" onAction="#showBorrowAndReturnView" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Mượn-trả sách">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../image/vector-checklist-icon-design-removebg-preview.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+      </Button>
       <Button fx:id="Gamefield" layoutX="493.0" layoutY="500.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Game">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
