@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="900" prefWidth="900" spacing="10" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowAndReturnController">
+<VBox alignment="CENTER" prefHeight="900" prefWidth="900" spacing="10" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.borrowAndReturnController">
     <children>
         <Button onAction="#onBorrowBooks" prefHeight="223.0" prefWidth="302.0" text="Mượn sách" />
         <Button onAction="#onReturnBooks" prefHeight="242.0" prefWidth="302.0" text="Trả sách" />

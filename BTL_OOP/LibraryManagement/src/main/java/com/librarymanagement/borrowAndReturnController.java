@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
-public class BorrowAndReturnController {
+public class borrowAndReturnController {
 
     public void onBorrowBooks(ActionEvent event) {
         loadView("/com/librarymanagement/fxml/BorrowView.fxml", event);
