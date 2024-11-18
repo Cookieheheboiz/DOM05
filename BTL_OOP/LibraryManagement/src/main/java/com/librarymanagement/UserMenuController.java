@@ -19,6 +19,10 @@ public class UserMenuController {
     private Button LibCard;
     @FXML
     private Button LogOutbutton;
+    private String nextPath;
+
+
+
 
     public void Logout() {
         try {

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoadingController implements Initializable {
+public class LoadingController extends HelloController implements Initializable {
     @FXML
     private AnchorPane scenePane;
 
@@ -50,27 +51,26 @@ public class LoadingController implements Initializable {
                     event -> Progress.setProgress(progressValue / 20.0) // Incrementally set the progress
             ));
         }
-
-        timeline.setOnFinished(event -> {
-            loadNextPage();
-        });
-
-
+        timeline.setOnFinished(event -> loadNextPage());
         timeline.play();
     }
     private void loadNextPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
-            Pane nextPage = loader.load();
+            // Load the next scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(nextScenePath));
+            Parent nextPage = loader.load();
 
-            stage = (Stage) scenePane.getScene().getWindow();
-
-
-            Scene scene = new Scene(nextPage);
-            stage.setScene(scene);
+            // Get the current stage and set the new scene
+            Stage stage = (Stage) scenePane.getScene().getWindow();
+            stage.setScene(new Scene(nextPage));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Setter for nextScenePath
+    public void setNextScenePath(String nextScenePath) {
+        this.nextScenePath = nextScenePath;
     }
 }

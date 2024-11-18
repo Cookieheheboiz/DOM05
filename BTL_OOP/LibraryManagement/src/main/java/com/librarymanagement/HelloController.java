@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -32,6 +33,8 @@ public class HelloController {
     @FXML
     private PasswordField passwordTextField;
 
+    public String nextScenePath;
+
     private boolean checkClose = false;
 
 
@@ -43,7 +46,7 @@ public class HelloController {
             validateLogin();
             if(checkClose) {
                 System.out.println("sadas");
-                stage.close();
+
             }
             else {
                 System.out.println("You are tried to login, but it's failed");
@@ -83,11 +86,12 @@ public class HelloController {
                 if ("Admin".equals(retrievedRole)) {
                     loginMessageLabel.setText("Welcome, Admin!");
                     checkClose = true;
-                    loadScene1();
+                    showLoadingScene("/com/librarymanagement/fxml/Menu-view.fxml");
+
                 } else if ("User".equals(retrievedRole)) {
                     loginMessageLabel.setText("Welcome, User!");
                     checkClose = true;
-                    loadScene2();
+                    showLoadingScene("/com/librarymanagement/fxml/UserMenu-view.fxml");
                 } else {
                     loginMessageLabel.setText("Invalid role. Please contact support.");
                 }
@@ -149,6 +153,32 @@ public class HelloController {
             e.printStackTrace();
             e.getCause();
         }
+    }
+
+    private void showLoadingScene(String nextScenePath) {
+        try {
+            // Load the loading screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/loading.fxml"));
+            Parent loadingRoot = loader.load();
+
+            // Get the LoadingController instance
+            LoadingController loadingController = loader.getController();
+
+            // Set the next scene path in the LoadingController
+            loadingController.setNextScenePath(nextScenePath);
+
+            // Show the loading scene
+            Stage stage = (Stage) LoginButton.getScene().getWindow();
+            Scene loadingScene = new Scene(loadingRoot);
+            stage.setScene(loadingScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setNextScenePath(String nextScenePath) {
+        this.nextScenePath = nextScenePath;
     }
 
 
