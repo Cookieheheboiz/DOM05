@@ -1,5 +1,7 @@
 package com.librarymanagement;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,8 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.stage.StageStyle;
-
+import javafx.util.Duration;
+import com.librarymanagement.LoadingController;
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -95,11 +99,20 @@ public class HelloController {
                 // If no record is found
                 loginMessageLabel.setText("Incorrect username or password. Please try again.");
             }
+
+            loginMessageLabel.setText("Congratulations, you are logged in");
+
         } catch (Exception e) {
             e.printStackTrace();
             loginMessageLabel.setText("An error occurred during login. Please try again.");
         }
+
+
+
+
     }
+
+
 
 
 
@@ -117,6 +130,8 @@ public class HelloController {
             e.getCause();
         }
     }
+
+
 
     private void loadScene1() {
         try {
@@ -151,12 +166,7 @@ public class HelloController {
         }
     }
 
+    public void handleForgetPass(ActionEvent actionEvent) {
 
-    public boolean isCheckClose() {
-        return checkClose;
-    }
-
-    public void setCheckClose(boolean checkClose) {
-        this.checkClose = checkClose;
     }
 }

@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -18,6 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoadingController implements Initializable {
+
     @FXML
     private AnchorPane scenePane;
 
@@ -37,11 +37,11 @@ public class LoadingController implements Initializable {
     }
 
     private void startLoading() {
-        Progress.setProgress(0);
+        Progress.setProgress(0);  // Initialize progress to 0
 
         Timeline timeline = new Timeline();
 
-        timeline.setCycleCount(1);
+        timeline.setCycleCount(1);  // Run only once
 
         for (int i = 0; i <= 22; i++) {
             final int progressValue = i; // Need to make this final for the lambda
@@ -52,16 +52,17 @@ public class LoadingController implements Initializable {
         }
 
         timeline.setOnFinished(event -> {
-            loadNextPage();
+            loadNextPage();  // Call method to load the next page after loading completes
         });
 
-
+        // Start the timeline animation
         timeline.play();
     }
     private void loadNextPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
-            Pane nextPage = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("phan_loai.fxml")); // Update with your actual FXML file path
+            AnchorPane nextPage = loader.load();
+
 
             stage = (Stage) scenePane.getScene().getWindow();
 
