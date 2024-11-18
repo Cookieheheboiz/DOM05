@@ -24,7 +24,7 @@ public class UserMenuController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
             Stage logout = new Stage();
-            logout.initStyle(StageStyle.UNDECORATED);
+
             logout.setScene(new Scene(root, 900, 900));
             logout.setTitle("Hello!");
             logout.show();
@@ -49,7 +49,6 @@ public class UserMenuController {
             myAcc.setScene(new Scene(root, 900, 900));
             myAcc.setTitle("Hello!");
             myAcc.show();
-
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
