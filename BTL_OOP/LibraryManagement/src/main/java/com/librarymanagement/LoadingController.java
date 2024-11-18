@@ -37,11 +37,11 @@ public class LoadingController implements Initializable {
     }
 
     private void startLoading() {
-        Progress.setProgress(0);  // Initialize progress to 0
+        Progress.setProgress(0);
 
         Timeline timeline = new Timeline();
 
-        timeline.setCycleCount(1);  // Run only once
+        timeline.setCycleCount(1);
 
         for (int i = 0; i <= 22; i++) {
             final int progressValue = i; // Need to make this final for the lambda
@@ -52,15 +52,15 @@ public class LoadingController implements Initializable {
         }
 
         timeline.setOnFinished(event -> {
-            loadNextPage();  // Call method to load the next page after loading completes
+            loadNextPage();
         });
 
-        // Start the timeline animation
+
         timeline.play();
     }
     private void loadNextPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml")); // Update with your actual FXML file path
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
             Pane nextPage = loader.load();
 
             stage = (Stage) scenePane.getScene().getWindow();
