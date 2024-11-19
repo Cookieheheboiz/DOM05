@@ -67,7 +67,7 @@ public class ReturnController {
             try (Connection connection = DatabaseConnection.getConnection()) {
                 String sql = "DELETE FROM borrowed_books WHERE id = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, selectedBook.getId());
+                preparedStatement.setInt(1, selectedBook.getBookID());
                 preparedStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);

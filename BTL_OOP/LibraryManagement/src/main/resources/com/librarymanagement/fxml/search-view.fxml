@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
 <AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.SearchBookController">
     <ImageView fx:id="backgroundImageView" fitHeight="900.0" fitWidth="900.0" preserveRatio="false">
         <image>
@@ -21,11 +20,7 @@
       <font>
          <Font size="18.0" />
       </font></TextField>
-    <Button layoutX="411.0" layoutY="108.0" onAction="#onSearchButtonClick" prefHeight="41.0" prefWidth="78.0" text="Search">
-      <stylesheets>
-         <URL value="@../css/NeonButton.css" />
-         <URL value="@../css/BlurAnchorPaneGray.css" />
-      </stylesheets></Button>
+    <Button layoutX="411.0" layoutY="108.0" onAction="#onSearchButtonClick" prefHeight="41.0" prefWidth="78.0" text="Search" />
 
     <TableView fx:id="bookTableView" layoutX="107.0" layoutY="177.0" prefHeight="522.0" prefWidth="687.0">
         <columns>
@@ -37,7 +32,7 @@
             <TableColumn fx:id="categoryColumn" prefWidth="108.0" text="Category" />
         </columns>
     </TableView>
-    <Button fx:id="AddDoc" layoutX="370.0" layoutY="751.0" mnemonicParsing="false" onAction="#ThemSach" prefHeight="41.0" prefWidth="163.0" stylesheets="@../css/NeonButton.css" text="Add documents">
+    <Button fx:id="AddDoc" layoutX="370.0" layoutY="751.0" mnemonicParsing="false" onAction="#ThemSach" prefHeight="41.0" prefWidth="163.0" text="Add documents">
         <font>
             <Font size="18.0" />
         </font>

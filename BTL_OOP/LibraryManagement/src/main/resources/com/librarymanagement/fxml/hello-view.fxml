@@ -54,6 +54,7 @@
                   <Image url="@../../../image/transparent-logo-book-3.png" />
                </image>
             </ImageView>
+            <Button fx:id="forgetPass" layoutX="592.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="46.0" prefWidth="196.0" text="Forget password ?" />
          </children>
       </AnchorPane>
    </children>

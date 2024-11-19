@@ -12,29 +12,11 @@ public class Book {
     private String year;
     private String category;
     private ImageView coverImage;
-    private String bookID;
+    private int bookID;
     private String bookName;
     private String borrowerName;
     private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
     private LocalDate returnDate;
-
-    // Constructor cho bảng `docs`
-    public Book(int id, String title, String author, String publisher, String category) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.category = category;
-    }
-
-    // Constructor cho bảng `borrowed_books`
-    public Book(int id, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
-        this.id = id;
-        this.title = bookName; // Dùng title thay cho book_name
-        this.borrowerName = borrowerName;
-        this.borrowDate = borrowDate;
-        this.returnDate = returnDate;
-    }
 
     public Book(String title, String author, String publisher, String year, String category, ImageView coverImage) {
         this.title = title;
@@ -45,7 +27,7 @@ public class Book {
         this.coverImage = coverImage;
     }
 
-    public Book(String bookID, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
+    public Book(int bookID, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.borrowerName = borrowerName;
@@ -59,7 +41,7 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Book(String bookID, String title, String author, String publisher, String category) {
+    public Book(int bookID, String title, String author, String publisher, String category) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -73,16 +55,8 @@ public class Book {
     public String getYear() { return year; }
     public String getCategory() { return category; }
     public ImageView getCoverImage() { return coverImage; }
-    public String getBookID() {
+    public int getBookID() {
         return bookID;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBookName() {
@@ -125,7 +99,7 @@ public class Book {
         this.coverImage = coverImage;
     }
 
-    public void setBookID(String bookID) {
+    public void setBookID(int bookID) {
         this.bookID = bookID;
     }
 

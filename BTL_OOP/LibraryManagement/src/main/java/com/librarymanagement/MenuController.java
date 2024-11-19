@@ -49,9 +49,18 @@ public class MenuController {
 
             // Đóng giao diện menu
             currentStage.close();
+            event.getSource();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+    }
+    @FXML
+    private void initialize() {
+        // Thiết lập sự kiện cho nút borrowAndReturn
+        borrowAndReturn.setOnAction(event -> openBorrowAndReturn());
+    }
+
+    private void openBorrowAndReturn() {
     }
 
     public void Logout() {
