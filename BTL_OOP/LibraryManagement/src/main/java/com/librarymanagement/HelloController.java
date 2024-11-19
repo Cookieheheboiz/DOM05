@@ -2,6 +2,7 @@ package com.librarymanagement;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,7 +39,8 @@ public class HelloController {
 
     private boolean checkClose = false;
 
-
+    @FXML
+    private Button forgetPass;
 
     public void loginButtonOnAction(ActionEvent event) {
         if (usernameTextField.getText().isBlank() == false || passwordTextField.getText().isBlank() == false) {
@@ -150,7 +152,7 @@ public class HelloController {
         }
     }
 
-    public void loadScene2() {
+    private void loadScene2() {
         try {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
@@ -166,7 +168,43 @@ public class HelloController {
         }
     }
 
-    public void handleForgetPass(ActionEvent actionEvent) {
+    @FXML
+    private void handleForgetPass(ActionEvent event) {
+        try {
+            Stage currentStage = (Stage) forgetPass.getScene().getWindow();
+            currentStage.close();
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/reset_password.fxml"));
+            Parent root = loader.load();
+
+            ResetPasswordController resetPasswordController = loader.getController();
+
+            Stage resetStage = new Stage();
+            resetStage.initStyle(StageStyle.UNDECORATED);
+            resetStage.setScene(new Scene(root, 619, 313));
+            resetStage.setTitle("Reset Password");
+
+            resetPasswordController.setOnSuccess(() -> {
+                resetStage.close();
+                showLoginScreen();
+            });
+
+            resetStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showLoginScreen() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.setScene(new Scene(root, 900, 900));
+            loginStage.setTitle("Login");
+            loginStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

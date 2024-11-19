@@ -3,6 +3,7 @@ package com.librarymanagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -48,13 +49,18 @@ public class MenuController {
 
             // Đóng giao diện menu
             currentStage.close();
-            e.printStackTrace();
+            event.getSource();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     @FXML
     private void initialize() {
         // Thiết lập sự kiện cho nút borrowAndReturn
         borrowAndReturn.setOnAction(event -> openBorrowAndReturn());
+    }
+
+    private void openBorrowAndReturn() {
     }
 
     public void Logout() {

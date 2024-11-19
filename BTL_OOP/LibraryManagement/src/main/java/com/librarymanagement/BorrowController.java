@@ -73,7 +73,7 @@ public class BorrowController {
                     );
 
                     boolean alreadyExists = bookTableView.getItems().stream()
-                            .anyMatch(existingBook -> existingBook.getId() == book.getId());
+                            .anyMatch(existingBook -> existingBook.getBookID() == book.getBookID());
 
                     if (!alreadyExists) {
                         bookTableView.getItems().add(book);

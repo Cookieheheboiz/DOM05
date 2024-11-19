@@ -34,7 +34,7 @@
             </ImageView>
             <Button fx:id="LoginButton" layoutX="188.0" layoutY="632.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="Login">
                <effect>
-                  <DropShadow height="102.76" radius="82.1275" spread="0.46" width="227.75">
+                  <DropShadow height="41.27" radius="24.645000000000003" spread="0.46" width="59.31">
                      <color>
                         <Color red="0.062745101749897" green="0.6823529601097107" blue="0.5058823823928833" />
                      </color>
@@ -54,7 +54,7 @@
                   <Image url="@../../../image/transparent-logo-book-3.png" />
                </image>
             </ImageView>
-            <Button fx:id="forgetPass" layoutX="604.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="34.0" prefWidth="166.0" text="Forget password ?" />
+            <Button fx:id="forgetPass" layoutX="592.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="46.0" prefWidth="196.0" text="Forget password ?" />
          </children>
       </AnchorPane>
    </children>

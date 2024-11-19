@@ -1,7 +1,9 @@
 package com.librarymanagement;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -10,6 +12,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class ResetPasswordController {
+
+    private Runnable onSuccess;
+    public void setOnSuccess(Runnable onSuccess) {
+        this.onSuccess = onSuccess;
+        System.out.println("Callback set successfully.");
+
+    }
+    @FXML
+    private Label Status;
 
     @FXML
     private TextField EnterUser;
@@ -27,29 +38,35 @@ public class ResetPasswordController {
         String confirmPassword = ConfirmPass.getText();
 
         if (username.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            showAlert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
+            Status.setText("Vui lòng điền đầy đủ thông tin.");
             return;
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            showAlert("Error", "Passwords do not match.");
+            Status.setText("Mật khẩu xác minh không khớp.");
             return;
         }
 
         boolean updated = updatePasswordInDatabase(username, newPassword);
         if (updated) {
-            showAlert("Success", "Password updated successfully!");
+            Status.setText("Cập nhật mật khẩu thành công!");
+            if (onSuccess != null) {
+                onSuccess.run();
+            }
         } else {
-            showAlert("Error", "Failed to update the password. Please try again.");
+            Status.setText("Không cập nhật mật khẩu thành công. Thử lại!");
         }
+
+
+
     }
 
     private boolean updatePasswordInDatabase(String username, String newPassword) {
-        String url = "jdbc:mysql://localhost:3306/your_database"; // Replace with your DB URL
-        String user = "your_db_user"; // Replace with your DB username
-        String password = "your_db_password"; // Replace with your DB password
+        String url = "jdbc:mysql://localhost:3306/librarymanagement"; // Replace with your DB URL
+        String user = "root"; // Replace with your DB username
+        String password = "123456"; // Replace with your DB password
 
-        String sql = "UPDATE users SET password = ? WHERE username = ?";
+        String sql = "UPDATE user_id SET Password = ? WHERE Username = ?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -60,17 +77,12 @@ public class ResetPasswordController {
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
 
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 
 }
