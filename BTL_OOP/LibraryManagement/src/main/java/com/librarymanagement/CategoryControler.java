@@ -45,8 +45,34 @@ public class CategoryControler implements Initializable {
     private SplitMenuButton Category;
 
 
+    @FXML
+    private Label Sum;
 
     private Stage stage;
+
+    private int countBooks() {
+        int count = 0;
+        String query = "SELECT COUNT(*) AS total FROM docs";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Error counting books in the database.");
+            errorAlert.showAndWait();
+        }
+
+        return count;
+    }
+
 
     @FXML
     public void exitButton(ActionEvent event) {
@@ -106,19 +132,16 @@ public class CategoryControler implements Initializable {
     }
 
     public void loadBooksByGenre(String category) {
-        // Clear the current table view
         AddToTable.getItems().clear();
 
         DatabaseConnection databaseConnector = new DatabaseConnection();
         Connection connection = databaseConnector.getConnection();
 
-        String query =
-                "SELECT title, author, publisher FROM docs WHERE category = ?";
+        String query = "SELECT title, author, publisher FROM docs WHERE category = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, category);
-
             ResultSet resultSet = preparedStatement.executeQuery();
 
             ObservableList<Book> books = FXCollections.observableArrayList();
@@ -127,21 +150,15 @@ public class CategoryControler implements Initializable {
                 String bookTitle = resultSet.getString("title");
                 String author = resultSet.getString("author");
                 String publisher = resultSet.getString("publisher");
-                books.add(new Book(bookTitle, author,publisher));
+                books.add(new Book(bookTitle, author, publisher));
             }
 
-            // Close the resources
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-            // Set the items for the table view
             AddToTable.setItems(books);
-
-            // Map the table columns to the Book class properties
-            AddTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-            AddAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
-            publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+            updateBookCount(); // Update count after loading books by genre
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,6 +182,51 @@ public class CategoryControler implements Initializable {
         AddAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
 
+
+        loadAllBooks();
+        updateBookCount();
+    }
+
+    private void updateBookCount() {
+        int totalBooks = countBooks();
+        Sum.setText("Tổng số sách:  " + totalBooks);
+    }
+
+    public void loadAllBooks() {
+        AddToTable.getItems().clear();
+
+        DatabaseConnection databaseConnector = new DatabaseConnection();
+        Connection connection = databaseConnector.getConnection();
+
+        String query = "SELECT * FROM docs";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            ObservableList<Book> books = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                String bookTitle = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                String publisher = resultSet.getString("publisher");
+                books.add(new Book(bookTitle, author, publisher));
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+            // Set items in TableView
+            AddToTable.setItems(books);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Error loading books from the database.");
+            errorAlert.showAndWait();
+        }
     }
 
     public void Back(ActionEvent actionEvent) {

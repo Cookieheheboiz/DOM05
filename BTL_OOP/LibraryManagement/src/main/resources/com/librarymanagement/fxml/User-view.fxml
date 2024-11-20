@@ -21,7 +21,7 @@
               <columns>
                 <TableColumn fx:id="AddID" prefWidth="95.99997329711914" text="ID" />
                 <TableColumn fx:id="AddName" minWidth="0.0" prefWidth="168.0000457763672" text="Full_name" />
-                  <TableColumn fx:id="AddMail" prefWidth="164.66668701171875" text="Mail" />
+                  <TableColumn fx:id="AddRole" prefWidth="164.66668701171875" text="MyRole" />
                   <TableColumn fx:id="AddUsername" prefWidth="172.00009155273438" text="Username" />
                   <TableColumn fx:id="AddPassword" prefWidth="208.66668701171875" text="Password" />
               </columns>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,26 +9,41 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="scenePane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFF00;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.CategoryControler">
-    <children>
+<AnchorPane fx:id="scenePane" prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.CategoryControler">
 
+
+
+    <children>
+        <ImageView fx:id="backgroundImageView" fitHeight="904.0" fitWidth="900.0" preserveRatio="false">
+            <image>
+                <Image url="@../../../image/253418_resized.jpg" />
+            </image>
+        </ImageView>
         <!-- SplitMenuButton for Entertain (without MenuItem defined here) -->
         <SplitMenuButton fx:id="Category" layoutX="386.0" layoutY="21.0" onAction="#AddCategory" text="Category" />
 
         <!-- Exit button -->
         <Button fx:id="exit" layoutX="824.0" layoutY="15.0" onAction="#exitButton" text="Exit" />
-        <TableView fx:id="AddToTable" layoutX="62.0" layoutY="190.0" prefHeight="340.0" prefWidth="769.0">
+        <TableView fx:id="AddToTable" layoutX="286.0" layoutY="147.0" prefHeight="511.0" prefWidth="612.0">
             <columns>
-                <TableColumn fx:id="AddTitle" prefWidth="247.19999313354492" text="Title" />
-                <TableColumn fx:id="AddAuthor" prefWidth="280.79998779296875" text="Author" />
-                <TableColumn fx:id="publisher" prefWidth="240.800048828125" text="Publish" />
+                <TableColumn fx:id="AddTitle" prefWidth="213.0" text="Title" />
+                <TableColumn fx:id="AddAuthor" prefWidth="209.0" text="Author" />
+                <TableColumn fx:id="publisher" prefWidth="175.0" text="Publish" />
             </columns>
         </TableView>
-      <Button fx:id="back" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#Back" prefHeight="35.0" prefWidth="46.0" style="-fx-background-color: black;" />
-      <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="back" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#Back" prefHeight="35.0" prefWidth="46.0" style="-fx-background-color: black;">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/back.jpg" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <ImageView fitHeight="267.0" fitWidth="284.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../image/back.jpg" />
+            <Image url="@../../../image/pointonright.gif" />
          </image>
       </ImageView>
+      <Label fx:id="Sum" layoutX="40.0" layoutY="668.0" prefHeight="32.0" prefWidth="179.0" style="-fx-background-color: yellow;" text="Tổng số sách:  " />
     </children>
 </AnchorPane>

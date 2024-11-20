@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowAndReturnController">
+    <children>
+        <!-- ImageView for the background -->
+        <ImageView fx:id="anh1" fitHeight="563.0" fitWidth="900.0" layoutY="29.0" preserveRatio="false">
+            <image>
+                <Image url="@../../../image/muontrasach1.jpg" />
+            </image>
+        </ImageView>
+
+        <!-- VBox for buttons -->
+        <VBox alignment="CENTER" spacing="10">
+            <children>
+                <Button onAction="#onBorrowBooks" prefHeight="223.0" prefWidth="302.0" text="Mượn sách" />
+                <Button onAction="#onReturnBooks" prefHeight="242.0" prefWidth="302.0" text="Trả sách" />
+                <Button onAction="#onBackToMenu" prefHeight="80.0" prefWidth="302.0" text="Quay lại Menu chính" />
+            </children>
+        </VBox>
+    </children>
+</StackPane>

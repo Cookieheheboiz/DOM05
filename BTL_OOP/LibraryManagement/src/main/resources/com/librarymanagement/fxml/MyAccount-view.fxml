@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.UserMenuController">
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.UserAccount">
    <children>
       <ImageView fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -16,7 +16,7 @@
       </ImageView>
       <AnchorPane prefHeight="900.0" prefWidth="218.0" style="-fx-background-color: rgba(101, 67, 33, 0.5);;">
          <children>
-            <Button fx:id="UserIn4" layoutX="30.0" layoutY="121.0" mnemonicParsing="false" onAction="#MyAccountAction" prefHeight="55.0" prefWidth="165.0" stylesheets="@../css/fontUser-menu.css" text="Tài khoản">
+            <Button fx:id="UserIn4" layoutX="41.0" layoutY="30.0" mnemonicParsing="false" onAction="#MyAccountAction" prefHeight="55.0" prefWidth="165.0" stylesheets="@../css/fontUser-menu.css" text="Tài khoản">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -103,5 +103,10 @@
             <Pane layoutX="215.0" layoutY="805.0" prefHeight="77.0" prefWidth="5.0" style="-fx-background-color: black;" />
          </children>
       </AnchorPane>
+      <ImageView fitHeight="293.0" fitWidth="253.0" layoutX="378.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../image/super_loading.gif" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

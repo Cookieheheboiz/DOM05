@@ -125,6 +125,14 @@ public class SearchBookController {
     public void ThemSach(ActionEvent actionEvent) {
         Book selectedBook = bookTableView.getSelectionModel().getSelectedItem();
 
+        if (selectedBook == null) {
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.WARNING);
+            alert.setTitle("Chưa có sách nào được chọn !");
+            alert.setContentText("Hãy một cuốn !");
+            alert.showAndWait();
+            return;
+        }
+
         String title = selectedBook.getTitle();
         String author = selectedBook.getAuthor();
         String publisher = selectedBook.getPublisher();

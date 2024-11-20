@@ -5,13 +5,14 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 
 public class Book {
+    private int id;
     private String title;
     private String author;
     private String publisher;
     private String year;
     private String category;
     private ImageView coverImage;
-    private String bookID;
+    private int bookID;
     private String bookName;
     private String borrowerName;
     private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
@@ -26,7 +27,7 @@ public class Book {
         this.coverImage = coverImage;
     }
 
-    public Book(String bookID, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
+    public Book(int bookID, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.borrowerName = borrowerName;
@@ -40,7 +41,7 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Book(String bookID, String title, String author, String publisher, String category) {
+    public Book(int bookID, String title, String author, String publisher, String category) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
@@ -54,7 +55,7 @@ public class Book {
     public String getYear() { return year; }
     public String getCategory() { return category; }
     public ImageView getCoverImage() { return coverImage; }
-    public String getBookID() {
+    public int getBookID() {
         return bookID;
     }
 
@@ -98,7 +99,7 @@ public class Book {
         this.coverImage = coverImage;
     }
 
-    public void setBookID(String bookID) {
+    public void setBookID(int bookID) {
         this.bookID = bookID;
     }
 
