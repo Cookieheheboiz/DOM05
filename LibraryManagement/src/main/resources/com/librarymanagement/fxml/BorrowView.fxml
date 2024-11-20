@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowController">
+    <VBox alignment="TOP_CENTER" layoutY="2.0" prefHeight="850.0" prefWidth="900.0" spacing="10">
+        <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Borrow Books" />
+
+        <!-- ComboBox để chọn tiêu đề sách -->
+        <Label text="Vui lòng chọn sách:" />
+        <ComboBox fx:id="bookComboBox" prefWidth="250.0" />
+
+        <!-- DatePicker để chọn ngày mượn và ngày trả -->
+        <Label text="Ngày mượn:" />
+        <DatePicker fx:id="startDatePicker" prefWidth="250.0" />
+        <Label text="Ngày trả:" />
+        <DatePicker fx:id="endDatePicker" prefWidth="250.0" />
+
+        <!-- Nút Borrow -->
+        <Button fx:id="borrowButton" onAction="#onBorrowButtonClick" prefWidth="150.0" text="Borrow Selected Book" />
+
+        <!-- Nút Back -->
+        <Button fx:id="backButton" onAction="#onBackButtonClick" prefWidth="150.0" text="Back to Main Menu" />
+
+        <!-- TableView hiển thị thông tin sách -->
+        <TableView fx:id="bookTableView" prefHeight="400.0" prefWidth="850.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="100.0" text="ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="200.0" text="TITLE" />
+                <TableColumn fx:id="authorColumn" prefWidth="200.0" text="AUTHOR" />
+                <TableColumn fx:id="publisherColumn" prefWidth="200.0" text="PUBLISHER" />
+                <TableColumn fx:id="categoryColumn" prefWidth="150.0" text="CATEGORY" />
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>
