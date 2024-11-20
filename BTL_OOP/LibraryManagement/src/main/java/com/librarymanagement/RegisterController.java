@@ -87,10 +87,6 @@ public class RegisterController {
         reflection.setTopOpacity(0.7); // Độ mờ của phần đầu của phản chiếu
         reflection.setBottomOpacity(0.0);
         UpHead.setEffect(reflection);
-
-
-
-
     }
 
     public void registerButtonAction(ActionEvent event) {
@@ -116,10 +112,11 @@ public class RegisterController {
         LocalDate DateOfBirth = BirthdayField.getValue();
         String formattedDateOfBirth = DateOfBirth != null ? DateOfBirth.toString() : null;
         String PhoneNumber = PhonenumberField.getText();
+        String MyRole = "User";
 
 
-        String insertField = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, DateOfBirth, PhoneNumber) VALUES('";
-        String insertValue = ID + "','" + First_name + "','" + Last_name + "','" + Username + "','" +  Password + "','" + formattedDateOfBirth + "','" + PhoneNumber +"')";
+        String insertField = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, MyRole, DateOfBirth, PhoneNumber) VALUES('";
+        String insertValue = ID + "','" + First_name + "','" + Last_name + "','" + Username + "','" +  Password + "','" + MyRole + "','" + formattedDateOfBirth + "','" + PhoneNumber +"')";
         String insertToRegister = insertField + insertValue;
 
 
