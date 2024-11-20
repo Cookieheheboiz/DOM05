@@ -21,11 +21,12 @@
         </ImageView>
         <!-- SplitMenuButton for Entertain (without MenuItem defined here) -->
         <SplitMenuButton fx:id="Category" layoutX="386.0" layoutY="21.0" onAction="#AddCategory" text="Category" />
-        <TableView fx:id="AddToTable" layoutX="286.0" layoutY="147.0" prefHeight="511.0" prefWidth="612.0">
+        <TableView fx:id="AddToTable" layoutX="273.0" layoutY="102.0" prefHeight="511.0" prefWidth="626.0">
             <columns>
-                <TableColumn fx:id="AddTitle" prefWidth="213.0" text="Title" />
-                <TableColumn fx:id="AddAuthor" prefWidth="209.0" text="Author" />
-                <TableColumn fx:id="publisher" prefWidth="175.0" text="Publish" />
+                <TableColumn fx:id="AddTitle" prefWidth="228.7999267578125" text="Title" />
+                <TableColumn fx:id="AddAuthor" prefWidth="175.20010375976562" text="Author" />
+                <TableColumn fx:id="publisher" minWidth="0.0" prefWidth="131.99993896484375" text="Publish" />
+                <TableColumn fx:id="quantity" prefWidth="88.7999267578125" text="Quantity" />
             </columns>
         </TableView>
       <Button fx:id="back" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#Back" prefHeight="35.0" prefWidth="46.0" style="-fx-background-color: black;">
@@ -36,7 +37,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <ImageView fitHeight="267.0" fitWidth="284.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="160.0" fitWidth="273.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../image/pointonright.gif" />
          </image>

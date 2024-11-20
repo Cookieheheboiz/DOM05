@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class CategoryControler implements Initializable {
 
 
+    public TableColumn quantity;
     @FXML
     private AnchorPane scenePane;
 
