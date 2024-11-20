@@ -32,6 +32,8 @@ public class HelloController {
     private TextField usernameTextField;
     @FXML
     private PasswordField passwordTextField;
+    @FXML
+    private Button forgetPass;
 
     public String nextScenePath;
 
@@ -179,6 +181,46 @@ public class HelloController {
 
     public void setNextScenePath(String nextScenePath) {
         this.nextScenePath = nextScenePath;
+    }
+
+    @FXML
+    private void handleForgetPass(ActionEvent event) {
+        try {
+            Stage currentStage = (Stage) forgetPass.getScene().getWindow();
+            currentStage.close();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/reset_password.fxml"));
+            Parent root = loader.load();
+
+            ResetPasswordController resetPasswordController = loader.getController();
+
+            Stage resetStage = new Stage();
+            resetStage.initStyle(StageStyle.UNDECORATED);
+            resetStage.setScene(new Scene(root, 619, 313));
+            resetStage.setTitle("Reset Password");
+
+            resetPasswordController.setOnSuccess(() -> {
+                resetStage.close();
+                showLoginScreen();
+            });
+
+            resetStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showLoginScreen() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
+            Stage loginStage = new Stage();
+            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.setScene(new Scene(root, 900, 900));
+            loginStage.setTitle("Login");
+            loginStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

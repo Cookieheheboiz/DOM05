@@ -34,7 +34,7 @@
             <Image url="@../../../image/2816415cmfqjcza78.gif" />
          </image>
       </ImageView>
-      <Button fx:id="Borrowmn" layoutX="172.0" layoutY="385.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Người mượn">
+      <Button fx:id="Borrowmn" layoutX="172.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrowerAction" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Người mượn">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
