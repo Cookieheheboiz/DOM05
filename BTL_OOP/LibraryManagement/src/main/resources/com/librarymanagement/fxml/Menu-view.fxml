@@ -67,7 +67,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="Gamefield" layoutX="493.0" layoutY="500.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Game">
+      <Button fx:id="Gamefield" layoutX="493.0" layoutY="500.0" mnemonicParsing="false" onAction="#openGameView" prefHeight="70.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Game">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
                <image>

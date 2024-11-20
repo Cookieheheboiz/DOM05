@@ -99,6 +99,14 @@ public class Book {
         this.coverImage = coverImage;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setBookID(int bookID) {
         this.bookID = bookID;
     }
