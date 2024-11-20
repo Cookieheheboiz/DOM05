@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 
 public class CategoryControler implements Initializable {
 
-    @FXML
-    private Button exit;
 
     @FXML
     private AnchorPane scenePane;

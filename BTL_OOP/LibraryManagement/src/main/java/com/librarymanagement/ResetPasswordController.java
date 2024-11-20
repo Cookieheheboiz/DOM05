@@ -16,8 +16,6 @@ public class ResetPasswordController {
     private Runnable onSuccess;
     public void setOnSuccess(Runnable onSuccess) {
         this.onSuccess = onSuccess;
-        System.out.println("Callback set successfully.");
-
     }
     @FXML
     private Label Status;
