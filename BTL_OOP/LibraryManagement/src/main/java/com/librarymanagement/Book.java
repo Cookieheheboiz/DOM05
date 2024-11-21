@@ -16,6 +16,7 @@ public class Book {
     private String borrowerName;
     private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
     private LocalDate returnDate;
+    private int quantity;
 
     public Book(String title, String author, String publisher, String year, String category, ImageView coverImage) {
         this.title = title;
@@ -34,10 +35,11 @@ public class Book {
         this.returnDate = returnDate;  // Khởi tạo ngày trả
     }
 
-    public Book(String bookTitle, String author, String publisher) {
+    public Book(String bookTitle, String author, String publisher,int quantity) {
         this.title = bookTitle;
         this.author = author;
         this.publisher = publisher;
+        this.quantity=quantity;
     }
 
     public Book(int bookID, String title, String author, String publisher, String category) {
@@ -48,6 +50,13 @@ public class Book {
         this.category = category;
     }
 
+
+public int getQuantity() {
+        return quantity;
+}
+public void setQuantity(int quantity){
+        this.quantity=quantity;
+}
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public String getPublisher() { return publisher; }

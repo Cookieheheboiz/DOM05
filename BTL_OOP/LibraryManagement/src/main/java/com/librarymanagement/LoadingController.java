@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class LoadingController implements Initializable {
 
+
+
     @FXML
     private AnchorPane scenePane;
 
