@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -28,11 +27,7 @@ import java.util.ResourceBundle;
 
 public class CategoryControler implements Initializable {
 
-    @FXML
-    private Button Deletebook;
 
-    @FXML
-    private AnchorPane scenePane;
 
     @FXML
     private TableView<Book> AddToTable;
@@ -57,7 +52,7 @@ public class CategoryControler implements Initializable {
 
 
 
-    private Stage stage;
+   
 
     /**
      * Counts the total number of books in the database.

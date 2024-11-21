@@ -90,18 +90,23 @@ public class UserMenuController {
 
     public void LibraryStorage() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/StorageBooks-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/StorageBooks-view.fxml"));
+            Parent root = loader.load();
+
+            UserStorageController controller = loader.getController();
+
+
             Stage viewBook = new Stage();
             viewBook.initStyle(StageStyle.UNDECORATED);
             viewBook.setScene(new Scene(root, 900, 900));
-            viewBook.setTitle("Hello!");
+            viewBook.setTitle("Storage Books");
             viewBook.show();
 
         } catch (Exception e) {
             e.printStackTrace();
-            e.getCause();
         }
     }
+
 
     public void LibraryStorageAction() {
         Stage stage = (Stage) StorageLib.getScene().getWindow();
