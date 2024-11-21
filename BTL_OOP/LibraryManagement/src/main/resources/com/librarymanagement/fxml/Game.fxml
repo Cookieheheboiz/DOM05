@@ -41,5 +41,13 @@
     <Button fx:id="option2Button" layoutX="347.0" layoutY="361.0" onAction="#handleAnswer2" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10;" text="Câu trả lời 2" />
     <Button fx:id="option3Button" layoutX="347.0" layoutY="305.0" onAction="#handleAnswer3" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10;" text="Câu trả lời 3" />
     <Button fx:id="startButton" layoutX="476.0" layoutY="454.0" onAction="#startGame" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="Bắt đầu" />
-    <Button fx:id="returnToMenuButton" layoutX="14.0" layoutY="32.0" onAction="#returnToMenu" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="Quay về menu" />
+    <Button fx:id="returnToMenuButton" layoutX="14.0" layoutY="32.0" onAction="#returnToMenu" style="-fx-background-color: transparent;">
+        <graphic>
+            <ImageView fitHeight="40" fitWidth="40">
+                <image>
+                    <Image url="@../../../image/return_icon.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 </AnchorPane>
