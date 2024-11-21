@@ -19,21 +19,21 @@ import java.sql.ResultSet;
 public class ReturnController {
 
     @FXML
-    private TableView<Book> borrowedBooksTable;
+    private TableView<BorrowedBook> borrowedBooksTable;
     @FXML
-    private TableColumn<Book, String> titleColumn;
+    private TableColumn<BorrowedBook, String> titleColumn;
     @FXML
-    private TableColumn<Book, String> authorColumn;
+    private TableColumn<BorrowedBook, String> borrowDateColumn;
     @FXML
-    private TableColumn<Book, String> publisherColumn;
+    private TableColumn<BorrowedBook, String> returnDateColumn;
 
-    private ObservableList<Book> borrowedBooks;
+    private ObservableList<BorrowedBook> borrowedBooks;
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-        publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
+        returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
 
         loadBorrowedBooks();
     }
@@ -41,17 +41,15 @@ public class ReturnController {
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM borrowed_books1";
+            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                borrowedBooks.add(new Book(
-                        resultSet.getInt("id"),
+                borrowedBooks.add(new BorrowedBook(
                         resultSet.getString("title"),
-                        resultSet.getString("author"),
-                        resultSet.getString("publisher"),
-                        resultSet.getString("category")
+                        resultSet.getDate("borrow_date").toString(),
+                        resultSet.getDate("return_date").toString()
                 ));
             }
             borrowedBooksTable.setItems(borrowedBooks);
@@ -62,12 +60,14 @@ public class ReturnController {
 
     @FXML
     public void returnSelectedBooks(ActionEvent event) {
-        Book selectedBook = borrowedBooksTable.getSelectionModel().getSelectedItem();
+        BorrowedBook selectedBook = borrowedBooksTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             try (Connection connection = DatabaseConnection.getConnection()) {
-                String sql = "DELETE FROM borrowed_books1 WHERE id = ?";
+                String sql = "DELETE FROM borrowed_books1 WHERE title = ? AND borrow_date = ? AND return_date = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1, selectedBook.getBookID());
+                preparedStatement.setString(1, selectedBook.getTitle());
+                preparedStatement.setString(2, selectedBook.getBorrowDate());
+                preparedStatement.setString(3, selectedBook.getReturnDate());
                 preparedStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);

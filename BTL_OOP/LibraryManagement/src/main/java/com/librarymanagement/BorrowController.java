@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class BorrowController {
 
@@ -28,6 +30,10 @@ public class BorrowController {
     private TableColumn<Book, String> publisherColumn;
     @FXML
     private TableColumn<Book, String> categoryColumn;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
     @FXML
     private Button borrowButton;
     @FXML
@@ -56,45 +62,67 @@ public class BorrowController {
     @FXML
     private void onBorrowButtonClick(ActionEvent event) {
         String selectedTitle = bookComboBox.getValue();
-        if (selectedTitle != null) {
-            try (Connection connection = DatabaseConnection.getConnection()) {
-                String sql = "SELECT * FROM docs WHERE title = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, selectedTitle);
-                ResultSet resultSet = preparedStatement.executeQuery();
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
 
-                if (resultSet.next()) {
-                    Book book = new Book(
-                            resultSet.getInt("id"),
-                            resultSet.getString("title"),
-                            resultSet.getString("author"),
-                            resultSet.getString("publisher"),
-                            resultSet.getString("category")
-                    );
-
-                    boolean alreadyExists = bookTableView.getItems().stream()
-                            .anyMatch(existingBook -> existingBook.getBookID() == book.getBookID());
-
-                    if (!alreadyExists) {
-                        bookTableView.getItems().add(book);
-
-                        // Lưu vào database `borrowed_books`
-                        String insertSql = "INSERT INTO borrowed_books1 (title, author, publisher, category) VALUES (?, ?, ?, ?)";
-                        PreparedStatement insertStatement = connection.prepareStatement(insertSql);
-                        insertStatement.setString(1, book.getTitle());
-                        insertStatement.setString(2, book.getAuthor());
-                        insertStatement.setString(3, book.getPublisher());
-                        insertStatement.setString(4, book.getCategory());
-                        insertStatement.executeUpdate();
-                    } else {
-                        showAlert("This book is already in the list.");
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
+        if (selectedTitle == null) {
             showAlert("Please select a book from the dropdown.");
+            return;
+        }
+
+        if (startDate == null || endDate == null) {
+            showAlert("Please select both borrow and return dates.");
+            return;
+        }
+
+        if (startDate.isAfter(endDate)) {
+            showAlert("Borrow date cannot be after return date.");
+            return;
+        }
+
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        if (daysBetween > 90) {
+            showAlert("The borrow duration cannot exceed 90 days.");
+            return;
+        }
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM docs WHERE title = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, selectedTitle);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Book book = new Book(
+                        resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("author"),
+                        resultSet.getString("publisher"),
+                        resultSet.getString("category")
+                );
+
+                boolean alreadyExists = bookTableView.getItems().stream()
+                        .anyMatch(existingBook -> existingBook.getId() == book.getId());
+
+                if (!alreadyExists) {
+                    bookTableView.getItems().add(book);
+
+                    // Lưu vào database borrowed_books
+                    String insertSql = "INSERT INTO borrowed_books1 (title, author, publisher, category, borrow_date, return_date) VALUES (?, ?, ?, ?, ?, ?)";
+                    PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+                    insertStatement.setString(1, book.getTitle());
+                    insertStatement.setString(2, book.getAuthor());
+                    insertStatement.setString(3, book.getPublisher());
+                    insertStatement.setString(4, book.getCategory());
+                    insertStatement.setDate(5, java.sql.Date.valueOf(startDate));
+                    insertStatement.setDate(6, java.sql.Date.valueOf(endDate));
+                    insertStatement.executeUpdate();
+                } else {
+                    showAlert("This book is already in the list.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -118,4 +146,4 @@ public class BorrowController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}
+}   

@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 
 public class Book {
+    private int id;
     private String title;
     private String author;
     private String publisher;
@@ -105,6 +106,14 @@ public void setQuantity(int quantity){
 
     public void setCoverImage(ImageView coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setBookID(int bookID) {

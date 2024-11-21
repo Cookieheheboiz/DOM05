@@ -1,8 +1,5 @@
 package com.librarymanagement;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
-import com.librarymanagement.LoadingController;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
@@ -36,11 +32,14 @@ public class HelloController {
     private TextField usernameTextField;
     @FXML
     private PasswordField passwordTextField;
+    @FXML
+    private Button forgetPass;
+
+    public String nextScenePath;
 
     private boolean checkClose = false;
 
-    @FXML
-    private Button forgetPass;
+
 
     public void loginButtonOnAction(ActionEvent event) {
         if (usernameTextField.getText().isBlank() == false || passwordTextField.getText().isBlank() == false) {
@@ -49,7 +48,7 @@ public class HelloController {
             validateLogin();
             if(checkClose) {
                 System.out.println("sadas");
-                stage.close();
+
             }
             else {
                 System.out.println("You are tried to login, but it's failed");
@@ -89,11 +88,12 @@ public class HelloController {
                 if ("Admin".equals(retrievedRole)) {
                     loginMessageLabel.setText("Welcome, Admin!");
                     checkClose = true;
-                    loadScene1();
+                    showLoadingScene("/com/librarymanagement/fxml/Menu-view.fxml");
+
                 } else if ("User".equals(retrievedRole)) {
                     loginMessageLabel.setText("Welcome, User!");
                     checkClose = true;
-                    loadScene2();
+                    showLoadingScene("/com/librarymanagement/fxml/UserMenu-view.fxml");
                 } else {
                     loginMessageLabel.setText("Invalid role. Please contact support.");
                 }
@@ -101,20 +101,11 @@ public class HelloController {
                 // If no record is found
                 loginMessageLabel.setText("Incorrect username or password. Please try again.");
             }
-
-            loginMessageLabel.setText("Congratulations, you are logged in");
-
         } catch (Exception e) {
             e.printStackTrace();
             loginMessageLabel.setText("An error occurred during login. Please try again.");
         }
-
-
-
-
     }
-
-
 
 
 
@@ -133,8 +124,6 @@ public class HelloController {
         }
     }
 
-
-
     private void loadScene1() {
         try {
 
@@ -152,7 +141,7 @@ public class HelloController {
         }
     }
 
-    private void loadScene2() {
+    public void loadScene2() {
         try {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
@@ -166,6 +155,32 @@ public class HelloController {
             e.printStackTrace();
             e.getCause();
         }
+    }
+
+    private void showLoadingScene(String nextScenePath) {
+        try {
+            // Load the loading screen FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/loading.fxml"));
+            Parent loadingRoot = loader.load();
+
+            // Get the LoadingController instance
+            LoadingController loadingController = loader.getController();
+
+            // Set the next scene path in the LoadingController
+            loadingController.setNextScenePath(nextScenePath);
+
+            // Show the loading scene
+            Stage stage = (Stage) LoginButton.getScene().getWindow();
+            Scene loadingScene = new Scene(loadingRoot);
+            stage.setScene(loadingScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setNextScenePath(String nextScenePath) {
+        this.nextScenePath = nextScenePath;
     }
 
     @FXML
@@ -206,5 +221,14 @@ public class HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public boolean isCheckClose() {
+        return checkClose;
+    }
+
+    public void setCheckClose(boolean checkClose) {
+        this.checkClose = checkClose;
     }
 }

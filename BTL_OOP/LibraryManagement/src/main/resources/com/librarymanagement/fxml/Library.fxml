@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #F0E68C;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowAndReturnController">
+<AnchorPane prefHeight="900.0" prefWidth="900.0" style="-fx-background-color: #F0E68C;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.borrowAndReturnController">
     <children>
         <TextField fx:id="txtBorrowerName" layoutX="169.0" layoutY="415.0" style="-fx-background-color: #F5F5DC;" />
         <ComboBox fx:id="comboBookName" layoutX="135.0" layoutY="183.0" prefHeight="26.0" prefWidth="212.0" style="-fx-background-color: #F5F5DC;" />
