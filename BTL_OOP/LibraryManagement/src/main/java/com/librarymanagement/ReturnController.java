@@ -1,5 +1,7 @@
 package com.librarymanagement;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,18 +30,20 @@ public class ReturnController {
     @FXML
     private TableColumn<BorrowedBook, String> returnDateColumn;
     @FXML
-    private TableColumn<BorrowedBook, String> userColumn; // Thêm cột user
+    private TableColumn<BorrowedBook, String> userColumn;
 
     private ObservableList<BorrowedBook> borrowedBooks;
+    private Timeline refreshTimeline; // Timeline để làm mới dữ liệu
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("user")); // Ánh xạ cột user
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
 
         loadBorrowedBooks();
+        setupAutoRefresh(); // Kích hoạt cập nhật thời gian thực
     }
 
     private void loadBorrowedBooks() {
@@ -53,13 +58,22 @@ public class ReturnController {
                         resultSet.getString("title"),
                         resultSet.getDate("borrow_date").toString(),
                         resultSet.getDate("return_date").toString(),
-                        resultSet.getString("user") // Lấy dữ liệu user
+                        resultSet.getString("user")
                 ));
             }
             borrowedBooksTable.setItems(borrowedBooks);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupAutoRefresh() {
+        // Định cấu hình Timeline để tự động làm mới TableView mỗi 5 giây
+        refreshTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+            loadBorrowedBooks(); // Gọi lại phương thức để tải dữ liệu
+        }));
+        refreshTimeline.setCycleCount(Timeline.INDEFINITE); // Lặp vô hạn
+        refreshTimeline.play(); // Bắt đầu chạy
     }
 
     @FXML
@@ -72,7 +86,7 @@ public class ReturnController {
                 preparedStatement.setString(1, selectedBook.getTitle());
                 preparedStatement.setString(2, selectedBook.getBorrowDate());
                 preparedStatement.setString(3, selectedBook.getReturnDate());
-                preparedStatement.setString(4, selectedBook.getUser()); // Thêm điều kiện user
+                preparedStatement.setString(4, selectedBook.getUser());
                 preparedStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);
@@ -87,6 +101,8 @@ public class ReturnController {
     @FXML
     public void goBackToMainView(ActionEvent event) {
         try {
+            // Dừng refresh khi quay lại màn hình chính
+            refreshTimeline.stop();
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
