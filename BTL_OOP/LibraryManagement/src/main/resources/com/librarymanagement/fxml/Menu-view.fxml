@@ -34,14 +34,6 @@
             <Image url="@../../../image/2816415cmfqjcza78.gif" />
          </image>
       </ImageView>
-      <Button fx:id="Borrowmn" layoutX="172.0" layoutY="385.0" mnemonicParsing="false" onAction="#borrowerAction" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Người mượn">
-         <graphic>
-            <ImageView fitHeight="46.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/OIP__2_-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
       <Button fx:id="employeeField" layoutX="503.0" layoutY="381.0" mnemonicParsing="false" onAction="#employeeAction" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Tài khoản">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
@@ -50,7 +42,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="Storagemn" layoutX="181.0" layoutY="504.0" mnemonicParsing="false" onAction="#AddStorage" prefHeight="46.0" prefWidth="193.0" stylesheets="@../css/ButtonHover.css" text="Kho sách">
+      <Button fx:id="Storagemn" layoutX="164.0" layoutY="508.0" mnemonicParsing="false" onAction="#AddStorage" prefHeight="46.0" prefWidth="193.0" stylesheets="@../css/ButtonHover.css" text="Kho sách">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +50,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="borrowAndReturn" layoutX="180.0" layoutY="613.0" mnemonicParsing="false" onAction="#showBorrowAndReturnView" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Mượn-trả sách">
+      <Button fx:id="borrowAndReturn" layoutX="164.0" layoutY="613.0" mnemonicParsing="false" onAction="#showBorrowAndReturnView" prefHeight="62.0" prefWidth="244.0" stylesheets="@../css/ButtonHover.css" text="Lượt mượn-trả">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -79,15 +71,17 @@
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../image/OIP-removebg-preview.png" />
+                  <Image url="@../../../image/exit_button.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="SearchBook" layoutX="207.0" layoutY="299.0" mnemonicParsing="false" onAction="#FindBook" prefHeight="50.0" prefWidth="167.0" stylesheets="@../css/ButtonHover.css" text="Tìm kiếm" />
-      <ImageView fitHeight="42.0" fitWidth="55.0" layoutX="199.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../image/bt_search.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="SearchBook" layoutX="164.0" layoutY="393.0" mnemonicParsing="false" onAction="#FindBook" prefHeight="58.0" prefWidth="227.0" stylesheets="@../css/ButtonHover.css" text="Thêm sách ">
+         <graphic>
+            <ImageView fitHeight="42.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/loop_search-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </Pane>

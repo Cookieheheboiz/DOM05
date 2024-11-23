@@ -7,6 +7,9 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ReturnController">
     <children>
+
+
+
         <TableView fx:id="borrowedBooksTable" layoutX="130.0" layoutY="14.0" prefHeight="600.0" prefWidth="600.0">
             <columns>
                 <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Title" />

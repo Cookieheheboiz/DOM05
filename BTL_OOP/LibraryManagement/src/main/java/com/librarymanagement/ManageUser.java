@@ -17,8 +17,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ManageUser {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
     @FXML
     private TableView<UserData> UserIn4;
@@ -69,20 +74,25 @@ public class ManageUser {
             String query = "SELECT User_id as id, author, title AS borrowedBook, borrow_date AS borrowDate, return_date AS returnDate FROM borrowed_books1";
             ResultSet resultSet = statement.executeQuery(query);
 
-            // Iterate through the result set and populate the list
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String author = resultSet.getString("author");
                 String borrowedBook = resultSet.getString("borrowedBook");
                 String borrowDate = resultSet.getString("borrowDate");
                 String returnDate = resultSet.getString("returnDate");
-                String status = "Chưa trả"; // Always set status to "Chưa trả"
+                LocalDate returnLocalDate = LocalDate.parse(returnDate, DATE_FORMATTER);
+                LocalDate today = LocalDate.now();
+                String status = "";
 
-                // Add data to the ObservableList
+                if (today.isAfter(returnLocalDate)) {
+                    status = "Quá hạn"; // Overdue
+                }
+                else {
+                    status = "Chưa trả"; // Not yet returned
+                }
                 userList.add(new UserData(id, author, borrowedBook, borrowDate, returnDate, status));
             }
 
-            // Close connections
             resultSet.close();
             statement.close();
             connection.close();
