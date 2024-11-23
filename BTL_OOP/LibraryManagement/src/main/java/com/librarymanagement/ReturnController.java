@@ -26,6 +26,8 @@ public class ReturnController {
     private TableColumn<BorrowedBook, String> borrowDateColumn;
     @FXML
     private TableColumn<BorrowedBook, String> returnDateColumn;
+    @FXML
+    private TableColumn<BorrowedBook, String> userColumn; // Thêm cột user
 
     private ObservableList<BorrowedBook> borrowedBooks;
 
@@ -34,6 +36,7 @@ public class ReturnController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("user")); // Ánh xạ cột user
 
         loadBorrowedBooks();
     }
@@ -41,7 +44,7 @@ public class ReturnController {
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1";
+            String sql = "SELECT title, borrow_date, return_date, user FROM borrowed_books1";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -49,7 +52,8 @@ public class ReturnController {
                 borrowedBooks.add(new BorrowedBook(
                         resultSet.getString("title"),
                         resultSet.getDate("borrow_date").toString(),
-                        resultSet.getDate("return_date").toString()
+                        resultSet.getDate("return_date").toString(),
+                        resultSet.getString("user") // Lấy dữ liệu user
                 ));
             }
             borrowedBooksTable.setItems(borrowedBooks);
@@ -63,11 +67,12 @@ public class ReturnController {
         BorrowedBook selectedBook = borrowedBooksTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             try (Connection connection = DatabaseConnection.getConnection()) {
-                String sql = "DELETE FROM borrowed_books1 WHERE title = ? AND borrow_date = ? AND return_date = ?";
+                String sql = "DELETE FROM borrowed_books1 WHERE title = ? AND borrow_date = ? AND return_date = ? AND user = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, selectedBook.getTitle());
                 preparedStatement.setString(2, selectedBook.getBorrowDate());
                 preparedStatement.setString(3, selectedBook.getReturnDate());
+                preparedStatement.setString(4, selectedBook.getUser()); // Thêm điều kiện user
                 preparedStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);
