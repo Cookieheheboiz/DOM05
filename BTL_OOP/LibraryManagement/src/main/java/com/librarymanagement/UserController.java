@@ -99,7 +99,7 @@ public class UserController {
         DatabaseConnection databaseConnector = new DatabaseConnection();
         Connection connection = databaseConnector.getConnection();
 
-        String query = "SELECT ID, Full_name, MyRole, Username, Password FROM user_id";
+        String query = "SELECT ID, CONCAT(First_name, ' ', Last_name) AS Full_name, MyRole, Username, Password FROM user_id";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);

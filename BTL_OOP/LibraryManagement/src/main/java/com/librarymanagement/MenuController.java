@@ -39,7 +39,7 @@ public class MenuController {
 
     public void showBorrowAndReturnView(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/ManageUser-view.fxml"));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.setScene(new Scene(root));
             currentStage.setTitle("Borrow and Return Books");
@@ -127,11 +127,12 @@ public class MenuController {
 
     public void borrowerAction(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/User-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/ManageUser-view.fxml"));
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.setScene(new Scene(root, 900, 900));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

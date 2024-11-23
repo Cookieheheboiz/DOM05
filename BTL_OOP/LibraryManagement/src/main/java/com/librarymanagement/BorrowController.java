@@ -108,7 +108,7 @@ public class BorrowController {
                     bookTableView.getItems().add(book);
 
                     // Lưu vào database borrowed_books
-                    String insertSql = "INSERT INTO borrowed_books1 (title, author, publisher, category, borrow_date, return_date) VALUES (?, ?, ?, ?, ?, ?)";
+                    String insertSql = "INSERT INTO borrowed_books1 (title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?)";
                     PreparedStatement insertStatement = connection.prepareStatement(insertSql);
                     insertStatement.setString(1, book.getTitle());
                     insertStatement.setString(2, book.getAuthor());
@@ -116,9 +116,9 @@ public class BorrowController {
                     insertStatement.setString(4, book.getCategory());
                     insertStatement.setDate(5, java.sql.Date.valueOf(startDate));
                     insertStatement.setDate(6, java.sql.Date.valueOf(endDate));
+                    insertStatement.setInt(7, HelloController.loginUserId);
                     insertStatement.executeUpdate();
-                } else {
-                    showAlert("This book is already in the list.");
+
                 }
             }
         } catch (Exception e) {
