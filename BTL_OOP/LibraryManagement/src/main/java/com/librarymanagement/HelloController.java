@@ -39,6 +39,8 @@ public class HelloController {
 
     private boolean checkClose = false;
 
+    public static String currentUser;
+
 
 
     public void loginButtonOnAction(ActionEvent event) {
@@ -80,9 +82,11 @@ public class HelloController {
 
 
             if (resultSet.next()) { // Check if a matching record exists
+                currentUser = resultSet.getString("Username");
                 System.out.println("Username: " + resultSet.getString("Username"));
                 System.out.println("Password: " + resultSet.getString("Password"));
                 System.out.println("Role: " + resultSet.getString("MyRole"));
+                System.out.println("Username: " + currentUser);
                 String retrievedRole = resultSet.getString("MyRole");
 
                 if ("Admin".equals(retrievedRole)) {

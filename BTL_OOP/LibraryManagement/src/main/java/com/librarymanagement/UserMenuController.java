@@ -1,12 +1,16 @@
 package com.librarymanagement;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class UserMenuController {
     @FXML
@@ -37,6 +41,18 @@ public class UserMenuController {
             e.printStackTrace();
             e.getCause();
         }
+    }
+
+    public void showBorrowAndReturnView(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Borrow and Return Books");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void LogoutAction() {

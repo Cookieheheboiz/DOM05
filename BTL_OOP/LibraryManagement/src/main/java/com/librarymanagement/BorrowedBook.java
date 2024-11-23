@@ -4,11 +4,13 @@ public class BorrowedBook {
     private String title;
     private String borrowDate;
     private String returnDate;
+    private String user;
 
-    public BorrowedBook(String title, String borrowDate, String returnDate) {
+    public BorrowedBook(String title, String borrowDate, String returnDate, String user) {
         this.title = title;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
+        this.user = user;
     }
 
     public String getTitle() {
@@ -33,5 +35,13 @@ public class BorrowedBook {
 
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

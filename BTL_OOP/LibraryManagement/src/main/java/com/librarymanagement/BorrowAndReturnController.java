@@ -21,7 +21,7 @@ public class BorrowAndReturnController {
     }
 
     public void onBackToMenu(MouseEvent event) {
-        loadView("/com/librarymanagement/fxml/Menu-view.fxml", event);
+        loadView("/com/librarymanagement/fxml/UserMenu-view.fxml", event);
     }
 
     private void loadView(String fxmlPath, MouseEvent event) {
