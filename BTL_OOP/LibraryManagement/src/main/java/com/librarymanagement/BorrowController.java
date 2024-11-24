@@ -87,7 +87,7 @@ public class BorrowController {
         }
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT * FROM docs WHERE title = ?";
+            String sql = "SELECT id, title, author, publisher, category FROM docs WHERE title = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, selectedTitle);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -101,28 +101,48 @@ public class BorrowController {
                         resultSet.getString("category")
                 );
 
-                boolean alreadyExists = bookTableView.getItems().stream()
-                        .anyMatch(existingBook -> existingBook.getId() == book.getId());
+                String checkExistingSql = "SELECT count(*) FROM borrowed_books1 WHERE id = ? AND user_id = ?";
+                PreparedStatement checkExistingStmt = connection.prepareStatement(checkExistingSql);
+                checkExistingStmt.setInt(1, book.getId());
+                checkExistingStmt.setInt(2, HelloController.loginUserId); // Assuming HelloController has loginUserId
+                ResultSet checkExistingResult = checkExistingStmt.executeQuery();
 
-                if (!alreadyExists) {
+                if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0 ) {
+                    showAlert("You have already borrowed this book. You cannot borrow it again.");
+                    return;  // Prevent borrowing if the book is already borrowed by the user
+                }
+                if (bookTableView.getItems().isEmpty()) {
                     bookTableView.getItems().add(book);
 
-                    // Lưu vào database borrowed_books
-                    String insertSql = "INSERT INTO borrowed_books1 (title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?)";
+                    String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
                     PreparedStatement insertStatement = connection.prepareStatement(insertSql);
-                    insertStatement.setString(1, book.getTitle());
-                    insertStatement.setString(2, book.getAuthor());
-                    insertStatement.setString(3, book.getPublisher());
-                    insertStatement.setString(4, book.getCategory());
-                    insertStatement.setDate(5, java.sql.Date.valueOf(startDate));
-                    insertStatement.setDate(6, java.sql.Date.valueOf(endDate));
-                    insertStatement.setInt(7, HelloController.loginUserId);
+                    System.out.println(book.getId());
+
+                    insertStatement.setInt(1,book.getId());
+                    insertStatement.setString(2, book.getTitle());
+                    insertStatement.setString(3, book.getAuthor());
+                    insertStatement.setString(4, book.getPublisher());
+                    insertStatement.setString(5, book.getCategory());
+                    insertStatement.setDate(6, java.sql.Date.valueOf(startDate));
+                    insertStatement.setDate(7, java.sql.Date.valueOf(endDate));
+                    insertStatement.setInt(8, HelloController.loginUserId);
                     insertStatement.executeUpdate();
 
+                    String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE title = ?";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                    updateStatement.setString(1, book.getTitle());
+
+                    updateStatement.executeUpdate();
+                    showAlert("The book has been successfully borrowed.");
                 }
+                else {
+                    showAlert("You can only borrow one book at a time.");
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
+            showAlert("An error occurred while borrowing the book. Please try again.");
         }
     }
 

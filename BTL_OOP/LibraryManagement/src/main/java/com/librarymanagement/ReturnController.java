@@ -1,5 +1,6 @@
 package com.librarymanagement;
 
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class ReturnController {
     private TableColumn<BorrowedBook, String> returnDateColumn;
 
     private ObservableList<BorrowedBook> borrowedBooks;
+
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
@@ -71,6 +73,11 @@ public class ReturnController {
                 preparedStatement.setString(3, selectedBook.getReturnDate());
                 preparedStatement.executeUpdate();
 
+                String updateSql = "UPDATE docs SET quantity = quantity + 1 WHERE title = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                updateStatement.setString(1, selectedBook.getTitle());
+                updateStatement.executeUpdate();
+
                 borrowedBooks.remove(selectedBook);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -79,6 +86,9 @@ public class ReturnController {
             showAlert("Please select a book to return.");
         }
     }
+
+
+
 
     @FXML
     public void goBackToMainView(ActionEvent event) {
