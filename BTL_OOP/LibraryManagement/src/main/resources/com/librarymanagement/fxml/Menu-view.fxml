@@ -58,7 +58,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="borrowAndReturn" layoutX="180.0" layoutY="613.0" mnemonicParsing="false" onAction="#showBorrowAndReturnView" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Mượn-trả sách">
+      <Button fx:id="borrowAndReturn" layoutX="180.0" layoutY="613.0" mnemonicParsing="false" onAction="#borrowAndReturnAction" prefHeight="46.0" prefWidth="211.0" stylesheets="@../css/ButtonHover.css" text="Mượn-trả sách">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>

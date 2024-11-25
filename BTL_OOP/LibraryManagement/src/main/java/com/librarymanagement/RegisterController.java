@@ -92,6 +92,7 @@ public class RegisterController {
     public void registerButtonAction(ActionEvent event) {
         if (passwordFillField.getText().equals(ConfirmpasswordField.getText())) {
             registerAccount();
+
             confirmPasswordLabel.setText("Your password has been set correctly");
             registerMessageLabel.setText("Account has been registered successfully");
         } else {

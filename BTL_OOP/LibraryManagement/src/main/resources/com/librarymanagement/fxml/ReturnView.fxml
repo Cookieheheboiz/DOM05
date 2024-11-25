@@ -5,16 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ReturnController">
+<AnchorPane prefHeight="900.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ReturnController">
     <children>
-        <TableView fx:id="borrowedBooksTable" layoutX="130.0" layoutY="14.0" prefHeight="600.0" prefWidth="600.0">
+        <!-- Adjusted TableView dimensions -->
+        <TableView fx:id="borrowedBooksTable" layoutX="40.0" layoutY="50.0" prefHeight="700.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="titleColumn" prefWidth="280.0" text="Title" />
-                <TableColumn fx:id="authorColumn" prefWidth="280.0" text="Author" />
-                <TableColumn fx:id="publisherColumn" prefWidth="290.0" text="Publisher" />
+                <TableColumn fx:id="titleColumn" prefWidth="150.0" text="Title" />
+                <TableColumn fx:id="borrowDateColumn" prefWidth="150.0" text="Borrow Date" />
+                <TableColumn fx:id="returnDateColumn" prefWidth="150.0" text="Return Date" />
+                <TableColumn fx:id="userColumn" prefWidth="150.0" text="User" />
             </columns>
         </TableView>
-        <Button layoutX="400.0" layoutY="645.0" onAction="#returnSelectedBooks" text="Trả sách" />
-        <Button layoutX="400.0" layoutY="700.0" onAction="#goBackToMainView" text="Quay lại" />
+
+        <!-- Adjusted Buttons layout -->
+        <Button layoutX="293.0" layoutY="779.0" onAction="#returnSelectedBooks" text="Trả sách" />
+        <Button layoutX="293.0" layoutY="822.0" onAction="#goBackToMainView" text="Quay lại" />
     </children>
 </AnchorPane>

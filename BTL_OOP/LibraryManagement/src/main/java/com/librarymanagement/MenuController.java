@@ -33,35 +33,31 @@ public class MenuController {
     @FXML
     private Button LogoutField;
 
-    public void showBorrowAndReturnView(ActionEvent event) {
+    public void showBorrowAndReturnView() {
         try {
-            // Tải giao diện BorrowAndReturn.fxml
+
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
-
-            // Lấy Stage hiện tại từ sự kiện (menu)
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Tạo và hiển thị giao diện mới
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(root, 900, 900));
             stage.setTitle("Borrow and Return Books");
             stage.show();
-
-            // Đóng giao diện menu
-            currentStage.close();
-            event.getSource();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    private void initialize() {
-        // Thiết lập sự kiện cho nút borrowAndReturn
-        borrowAndReturn.setOnAction(event -> openBorrowAndReturn());
+
+    public void borrowAndReturnAction() {
+        Stage stage = (Stage) borrowAndReturn.getScene().getWindow();
+        stage.close();
+        showBorrowAndReturnView();
     }
 
-    private void openBorrowAndReturn() {
-    }
+
+
+
+
+
 
     public void Logout() {
         try {
@@ -147,7 +143,7 @@ public class MenuController {
 
     public void borrower() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/User-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowerManager-view.fxml"));
             Stage employ = new Stage();
             employ.initStyle(StageStyle.UNDECORATED);
             employ.setScene(new Scene(root, 900, 900));
@@ -165,4 +161,6 @@ public class MenuController {
         stage.close();
         borrower();
     }
+
+
 }
