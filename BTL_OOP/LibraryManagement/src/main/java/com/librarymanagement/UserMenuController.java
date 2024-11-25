@@ -489,6 +489,7 @@ public class UserMenuController extends CategoryControler {
             logout.setScene(new Scene(root, 900, 900));
             logout.setTitle("Hello!");
             logout.show();
+            currentMediaPlayer.setMute(true);
 
         } catch (Exception e) {
             e.printStackTrace();
