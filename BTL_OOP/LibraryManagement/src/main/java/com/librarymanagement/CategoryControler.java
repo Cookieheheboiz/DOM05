@@ -11,8 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,33 +27,39 @@ import java.util.ResourceBundle;
 
 public class CategoryControler implements Initializable {
 
-    @FXML
-    private Button exit;
 
-    @FXML
-    private AnchorPane scenePane;
 
     @FXML
     private TableView<Book> AddToTable;
+
     @FXML
     private TableColumn<Book, String> AddTitle;
+
     @FXML
     private TableColumn<Book, String> AddAuthor;
 
     @FXML
     private TableColumn<Book, String> publisher;
+
+    @FXML
+    private TableColumn<Book, Integer> quantity;
+
     @FXML
     private SplitMenuButton Category;
-
 
     @FXML
     private Label Sum;
 
-    private Stage stage;
 
+
+   
+
+    /**
+     * Counts the total number of books in the database.
+     */
     private int countBooks() {
         int count = 0;
-        String query = "SELECT COUNT(*) AS total FROM docs";
+        String query = "SELECT sum(quantity) AS total FROM docs";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -64,26 +71,12 @@ public class CategoryControler implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("Error counting books in the database.");
-            errorAlert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Error counting books in the database.");
         }
 
         return count;
     }
 
-
-    @FXML
-    public void exitButton(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to exit?");
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            stage = (Stage) scenePane.getScene().getWindow();
-            stage.close();
-        }
-    }
 
     @FXML
     public void AddCategory(ActionEvent actionEvent) {
@@ -98,49 +91,43 @@ public class CategoryControler implements Initializable {
         }
     }
 
+    /**
+     * Fetches unique genres from the database.
+     */
     private String[] fetchGenresFromDatabase() {
         List<String> genres = new ArrayList<>();
+        String query = "SELECT DISTINCT category FROM docs";
 
-
-        String sql = "SELECT DISTINCT category FROM docs";
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql);
+             PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String category = rs.getString("category");
-                genres.add(category);
+                genres.add(rs.getString("category"));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return genres.toArray(new String[0]);
     }
 
     @FXML
     public void handleGenreSelection(ActionEvent actionEvent) {
-        // Extract the source of the event, which is a MenuItem
         MenuItem clickedItem = (MenuItem) actionEvent.getSource();
-
-        // Get the text (genre) of the selected MenuItem
         String selectedGenre = clickedItem.getText();
-
-        // Now load books based on the selected genre
         loadBooksByGenre(selectedGenre);
     }
 
     public void loadBooksByGenre(String category) {
         AddToTable.getItems().clear();
 
-        DatabaseConnection databaseConnector = new DatabaseConnection();
-        Connection connection = databaseConnector.getConnection();
+        String query = "SELECT title, author, publisher, sum(quantity) as total FROM docs WHERE category = ? group by title, author, publisher";
 
-        String query = "SELECT title, author, publisher FROM docs WHERE category = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, category);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -149,104 +136,166 @@ public class CategoryControler implements Initializable {
             while (resultSet.next()) {
                 String bookTitle = resultSet.getString("title");
                 String author = resultSet.getString("author");
-                String publisher = resultSet.getString("publisher");
-                books.add(new Book(bookTitle, author, publisher));
+                String bookPublisher = resultSet.getString("publisher");
+                int quantity = resultSet.getInt("total");
+
+                books.add(new Book(bookTitle, author, bookPublisher, quantity));
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-
             AddToTable.setItems(books);
-            updateBookCount(); // Update count after loading books by genre
+            updateBookCount();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("Error loading books for the selected genre.");
-            errorAlert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Error loading books for the selected genre.");
         }
     }
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize entertainment and academic menus
-        // Populating SplitMenuButton for entertainment genres
-           // Populating SplitMenuButton for academic genres
-
-        // Configure the TableView columns on initialization
         AddTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         AddAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
         publisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-
-        loadAllBooks();
+        quantity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        quantity.setOnEditCommit(event -> {
+            Book book = event.getRowValue();
+            int newQuantity = event.getNewValue();
+            updateQuantityInDatabase(book, newQuantity);
+            book.setQuantity(newQuantity); // Update the local object
+            updateBookCount();
+        });
         updateBookCount();
+        loadAllBooks();
+        AddToTable.setEditable(true);
+
+
+    }
+
+    private void updateQuantityInDatabase(Book book, int newQuantity) {
+        String query = "UPDATE docs SET quantity = ? WHERE title = ? AND author = ? AND publisher = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, newQuantity);
+            stmt.setString(2, book.getTitle());
+            stmt.setString(3, book.getAuthor());
+            stmt.setString(4, book.getPublisher());
+
+            int rowsUpdated = stmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Quantity updated successfully!");
+            } else {
+                System.out.println("Failed to update quantity in the database.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error updating quantity in the database.");
+        }
     }
 
     private void updateBookCount() {
         int totalBooks = countBooks();
-        Sum.setText("Tổng số sách:  " + totalBooks);
+        Sum.setText("Tổng số sách: " + totalBooks);
     }
+
+
 
     public void loadAllBooks() {
         AddToTable.getItems().clear();
 
-        DatabaseConnection databaseConnector = new DatabaseConnection();
-        Connection connection = databaseConnector.getConnection();
+        String query = "SELECT title, author, publisher, sum(quantity) as total FROM docs group by title, author, publisher";
 
-        String query = "SELECT * FROM docs";
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             ObservableList<Book> books = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
                 String bookTitle = resultSet.getString("title");
                 String author = resultSet.getString("author");
-                String publisher = resultSet.getString("publisher");
-                books.add(new Book(bookTitle, author, publisher));
+                String bookPublisher = resultSet.getString("publisher");
+                int quantity = resultSet.getInt("total");
+
+                books.add(new Book(bookTitle, author, bookPublisher, quantity));
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-
-            // Set items in TableView
             AddToTable.setItems(books);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText(null);
-            errorAlert.setContentText("Error loading books from the database.");
-            errorAlert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Error loading books from the database.");
         }
     }
 
+    @FXML
     public void Back(ActionEvent actionEvent) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
-        Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
+            Parent root = loader.load();
 
-        // Get the current stage (window)
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-        // Set the new scene with the previous screen
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    public void deleteBook(ActionEvent actionEvent) {
+        Book selectedBook = AddToTable.getSelectionModel().getSelectedItem();
+        if (selectedBook == null) {
+            showAlert(Alert.AlertType.WARNING,  "Please select a book to delete.");
+            return;
+        }
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Deletion");
+        confirmationAlert.setHeaderText("Are you sure you want to delete this book?");
+        confirmationAlert.setContentText("Book: " + selectedBook.getTitle());
+
+        if (confirmationAlert.showAndWait().get() != ButtonType.OK) {
+            return;
+        }
+
+        String query = "DELETE FROM docs WHERE title = ? AND author = ? AND publisher = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setString(1, selectedBook.getTitle());
+            stmt.setString(2, selectedBook.getAuthor());
+            stmt.setString(3, selectedBook.getPublisher());
+
+            int rowsDeleted = stmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                // Remove the book from the TableView
+                AddToTable.getItems().remove(selectedBook);
+
+                // Update the total book count
+                updateBookCount();
+
+                showAlert(Alert.AlertType.INFORMATION,  "The book has been deleted successfully.");
+            } else {
+                showAlert(Alert.AlertType.ERROR,  "Failed to delete the book.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,  "Error deleting the book from the database.");
+        }
+
+    }
 }
-
-
-

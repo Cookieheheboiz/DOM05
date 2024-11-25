@@ -21,7 +21,7 @@
          </font></Text>
       <ImageView fitHeight="152.0" fitWidth="175.0" layoutX="375.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../image/super_loading.gif" />
+            <Image url="@../../../image/super-loading-unscreen.gif" />
          </image>
       </ImageView>
     </children>

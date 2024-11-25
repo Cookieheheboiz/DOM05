@@ -32,9 +32,9 @@
                   <Image url="@../../../image/password-icon-png-4.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="LoginButton" layoutX="188.0" layoutY="622.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="Login">
+            <Button fx:id="LoginButton" layoutX="188.0" layoutY="632.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="Login">
                <effect>
-                  <DropShadow height="102.76" radius="82.1275" spread="0.46" width="227.75">
+                  <DropShadow height="41.27" radius="24.645000000000003" spread="0.46" width="59.31">
                      <color>
                         <Color red="0.062745101749897" green="0.6823529601097107" blue="0.5058823823928833" />
                      </color>
@@ -48,13 +48,13 @@
                      </color>
                   </DropShadow>
                </effect></Button>
-            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="188.0" layoutY="561.0" prefHeight="40.0" prefWidth="557.0" textFill="#feff05" />
+            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="188.0" layoutY="580.0" prefHeight="40.0" prefWidth="403.0" textFill="#feff05" />
             <ImageView fitHeight="92.0" fitWidth="122.0" layoutX="406.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../image/transparent-logo-book-3.png" />
                </image>
             </ImageView>
-            <Button fx:id="forgetPass" layoutX="592.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="46.0" prefWidth="196.0" text="Forget password ?" />
+            <Button fx:id="forgetPass" layoutX="592.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="46.0" prefWidth="196.0" stylesheets="@../css/ButtonHover.css" text="Forget password ?" />
          </children>
       </AnchorPane>
    </children>

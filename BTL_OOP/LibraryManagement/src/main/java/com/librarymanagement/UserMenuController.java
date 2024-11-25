@@ -96,28 +96,38 @@ public class UserMenuController {
         }
     }
 
-    public void BorrowedBookAction() {
-        Stage stage = (Stage) BorrowedBook.getScene().getWindow();
-        stage.close();
-        BorrowBook();
+    public void BorrowedBookAction(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowAndReturnView.fxml"));
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("Borrow and Return Books");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
 
     public void LibraryStorage() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/StorageBooks-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/StorageBooks-view.fxml"));
+            Parent root = loader.load();
+
+            UserStorageController controller = loader.getController();
+
+
             Stage viewBook = new Stage();
             viewBook.initStyle(StageStyle.UNDECORATED);
             viewBook.setScene(new Scene(root, 900, 900));
-            viewBook.setTitle("Hello!");
+            viewBook.setTitle("Storage Books");
             viewBook.show();
 
         } catch (Exception e) {
             e.printStackTrace();
-            e.getCause();
         }
     }
+
 
     public void LibraryStorageAction() {
         Stage stage = (Stage) StorageLib.getScene().getWindow();
@@ -146,12 +156,8 @@ public class UserMenuController {
         LibraryCard();
     }
 
-
-
-
-
-
-
-
-
+private int loginUserId;
+    public void setLoginUserId(int loginUserId) {
+        this.loginUserId = loginUserId;
+    }
 }
