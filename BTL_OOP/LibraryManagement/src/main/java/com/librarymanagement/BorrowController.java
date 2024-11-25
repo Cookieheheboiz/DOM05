@@ -87,7 +87,7 @@ public class BorrowController {
         }
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT id, title, author, publisher, category FROM docs WHERE title = ?";
+            String sql = "SELECT id, title, author, publisher, category, quantity FROM docs WHERE title = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, selectedTitle);
             ResultSet resultSet = preparedStatement.executeQuery();
