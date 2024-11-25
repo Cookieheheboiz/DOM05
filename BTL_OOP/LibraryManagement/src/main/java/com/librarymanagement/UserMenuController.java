@@ -54,6 +54,15 @@ public class UserMenuController extends CategoryControler {
     private Label BirthdayField;
 
     @FXML
+    private Label Cardi4name;
+    @FXML
+    private Label Cardi4ID;
+    @FXML
+    private Label Cardi4birthday;
+    @FXML
+    private Label Cardi4phone;
+
+    @FXML
     private ComboBox<String> bookComboBox;
     @FXML
     private TableView<Book> bookTableView;
@@ -136,6 +145,8 @@ public class UserMenuController extends CategoryControler {
 
     @FXML
     private AnchorPane StorageBookAnchorPane;
+    @FXML
+    private AnchorPane UserCardAnchorPane;
 
 
     @FXML
@@ -153,6 +164,12 @@ public class UserMenuController extends CategoryControler {
 
         PhonenumberField.setText(session.getPhoneNumber());
         BirthdayField.setText(session.getBirthday());
+
+        // Populate the labels in LibraryCard
+        Cardi4name.setText(session.getFullName());
+        Cardi4ID.setText(String.valueOf(session.getUserID()));
+        Cardi4birthday.setText(session.getBirthday());
+        Cardi4phone.setText(session.getPhoneNumber());
 
         // return Book part
         borrowedBooks = FXCollections.observableArrayList();
@@ -334,7 +351,7 @@ public class UserMenuController extends CategoryControler {
 
     private void hideAllAnchorPanes() {
         AnchorPane[] panes = {userIn4anchorPane, FirstanchorPane, BorrowBookanchorpane, ReturnBookAnchorPane, ReturnAndBorrowAnchorpane,
-                                StorageBookAnchorPane}; // Include all anchor panes here
+                                StorageBookAnchorPane, UserCardAnchorPane}; // Include all anchor panes here
         for (AnchorPane pane : panes) {
             if (pane != null) {
                 pane.setVisible(false);
@@ -384,6 +401,13 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
+    public void switchToLibraryCardAnchorPane() {
+        hideAllAnchorPanes();
+        if (UserCardAnchorPane != null) {
+            UserCardAnchorPane.setVisible(true);
+        }
+    }
+
     public void Logout() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/hello-view.fxml"));
@@ -408,27 +432,6 @@ public class UserMenuController extends CategoryControler {
         Stage stage = (Stage) LogOutbutton.getScene().getWindow();
         stage.close();
         Logout();
-    }
-
-    public void LibraryStorage() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/StorageBooks-view.fxml"));
-            Stage viewBook = new Stage();
-            viewBook.initStyle(StageStyle.UNDECORATED);
-            viewBook.setScene(new Scene(root, 900, 900));
-            viewBook.setTitle("Hello!");
-            viewBook.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-    }
-
-    public void LibraryStorageAction() {
-        Stage stage = (Stage) StorageLib.getScene().getWindow();
-        stage.close();
-        LibraryStorage();
     }
 
     public void LibraryCard() {
