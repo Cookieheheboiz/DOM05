@@ -93,6 +93,14 @@ public class BorrowController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+
+                int quantity = resultSet.getInt("quantity");
+
+                if (quantity <= 0) {
+                    showAlert("The books are fully borrowed!");
+                    return;
+                }
+
                 Book book = new Book(
                         resultSet.getInt("id"),
                         resultSet.getString("title"),
@@ -109,9 +117,9 @@ public class BorrowController {
 
                 if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0 ) {
                     showAlert("You have already borrowed this book. You cannot borrow it again.");
-                    return;  // Prevent borrowing if the book is already borrowed by the user
+                    return;
                 }
-                if (bookTableView.getItems().isEmpty()) {
+
                     bookTableView.getItems().add(book);
 
                     String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
@@ -134,10 +142,7 @@ public class BorrowController {
 
                     updateStatement.executeUpdate();
                     showAlert("The book has been successfully borrowed.");
-                }
-                else {
-                    showAlert("You can only borrow one book at a time.");
-                }
+
 
             }
         } catch (Exception e) {

@@ -62,7 +62,7 @@ public class ResetPasswordController {
     private boolean updatePasswordInDatabase(String username, String newPassword) {
         String url = "jdbc:mysql://localhost:3306/librarymanagement"; // Replace with your DB URL
         String user = "root"; // Replace with your DB username
-        String password = "Dangquochuy24982765@"; // Replace with your DB password
+        String password = "123456"; // Replace with your DB password
 
         String sql = "UPDATE user_id SET Password = ? WHERE Username = ?";
 

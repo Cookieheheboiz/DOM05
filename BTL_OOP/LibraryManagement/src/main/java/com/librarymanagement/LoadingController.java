@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -60,7 +59,6 @@ public class LoadingController extends HelloController implements Initializable 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nextScenePath));
             Parent nextPage = loader.load();
 
-            // Get the current stage and set the new scene
             Stage stage = (Stage) scenePane.getScene().getWindow();
             stage.setScene(new Scene(nextPage));
             stage.show();

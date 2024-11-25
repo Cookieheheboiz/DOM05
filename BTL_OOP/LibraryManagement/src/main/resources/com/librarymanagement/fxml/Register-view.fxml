@@ -31,7 +31,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="useridTextField" layoutX="187.0" layoutY="245.0" prefHeight="24.0" prefWidth="483.0" promptText="Student's ID " />
+      <TextField fx:id="useridTextField" layoutX="187.0" layoutY="245.0" prefHeight="24.0" prefWidth="483.0" promptText="Student's ID (enter an interger) " />
       <Label layoutX="187.0" layoutY="296.0" prefHeight="32.0" prefWidth="83.0" text="First_name">
          <font>
             <Font size="16.0" />
@@ -44,7 +44,7 @@
          </font>
       </Label>
       <TextField fx:id="LastnameField" layoutX="187.0" layoutY="410.0" prefHeight="24.0" prefWidth="483.0" promptText="Lastname" />
-      <Label layoutX="187.0" layoutY="450.0" prefHeight="32.0" prefWidth="83.0" text="DateOfBirth">
+      <Label layoutX="187.0" layoutY="450.0" prefHeight="32.0" prefWidth="115.0" text="DateOfBirth">
          <font>
             <Font size="16.0" />
          </font>

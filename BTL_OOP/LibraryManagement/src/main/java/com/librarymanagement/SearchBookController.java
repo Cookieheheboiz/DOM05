@@ -144,7 +144,31 @@ public class SearchBookController {
         String publisher = selectedBook.getPublisher();
         String category = selectedBook.getCategory();
 
-        String query = "SELECT sum(*) FROM docs WHERE title = ? AND author = ? AND publisher = ?";
+        String checkQuery = "SELECT * FROM docs WHERE title = ? AND author = ? AND publisher = ? AND category = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement checkStmt = connection.prepareStatement(checkQuery)) {
+
+            checkStmt.setString(1, title);
+            checkStmt.setString(2, author);
+            checkStmt.setString(3, publisher);
+            checkStmt.setString(4, category);
+
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Sách đã tồn tại!");
+                alert.setContentText("Cuốn sách này đã được thêm vào trước đó!");
+                alert.showAndWait();
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            TrangThai.setText("Error checking book existence.");
+            return;
+        }
+
+
+        String query = "SELECT sum(quantity) AS total_quantity FROM docs WHERE title = ? AND author = ? AND publisher = ?";
         int currentQuantity = 0;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -155,7 +179,7 @@ public class SearchBookController {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                currentQuantity = rs.getInt("quantity"); // Get the current quantity
+                currentQuantity = rs.getInt("total_quantity"); // Get the current quantity
             }
 
         } catch (SQLException e) {

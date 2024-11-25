@@ -25,7 +25,6 @@
             <TableColumn fx:id="Status" prefWidth="112.0" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="deleteUser" layoutX="607.0" layoutY="704.0" mnemonicParsing="false" onAction="#DeleteUser" prefHeight="49.0" prefWidth="121.0" text="Delete user" />
       <Button fx:id="Return" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#reTurn" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: black;">
          <graphic>
             <ImageView fitHeight="49.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
