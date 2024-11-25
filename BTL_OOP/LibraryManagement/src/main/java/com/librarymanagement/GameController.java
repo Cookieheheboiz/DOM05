@@ -23,7 +23,7 @@ public class GameController {
     @FXML
     private Label questionLabel, correctAnswersLabel;
     @FXML
-    private Button option1Button, option2Button, option3Button, startButton, returnToMenuButton;
+    private Button option1Button, option2Button, option3Button, replayButton, option4Button, startButton, returnToMenuButton, fiftyFiftyButton;
     @FXML
     private ImageView heart1, heart2, heart3;
 
@@ -31,6 +31,8 @@ public class GameController {
     private int currentQuestionIndex = 0;
     private int hearts = 3;
     private int correctAnswers = 0;
+    private boolean fiftyFiftyUsedThisGame = false; // Trạng thái 50:50 của cả lần chơi
+    private boolean fiftyFiftyUsedCurrentQuestion = false; // Trạng thái 50:50 của từng câu hỏi
     private final Image heartImage = new Image(getClass().getResource("/image/heart_icon.png").toString());
     private final Image emptyHeartImage = new Image(getClass().getResource("/image/empty_heart_icon.png").toString());
 
@@ -51,13 +53,36 @@ public class GameController {
                         resultSet.getString("option1"),
                         resultSet.getString("option2"),
                         resultSet.getString("option3"),
+                        resultSet.getString("option4"),
                         resultSet.getInt("correct_option")
                 ));
             }
-            Collections.shuffle(questionList);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void replayGame() {
+        resetGame();
+    }
+
+    private void resetGame() {
+        hearts = 3;
+        correctAnswers = 0;
+        currentQuestionIndex = 0;
+        fiftyFiftyUsedThisGame = false; // Reset trạng thái 50:50 của cả lần chơi
+        fiftyFiftyButton.setDisable(false);
+        correctAnswersLabel.setText("Câu trả lời đúng: " + correctAnswers);
+
+        // Xáo trộn danh sách câu hỏi
+        Collections.shuffle(questionList);
+
+        updateHeartDisplay();
+        startButton.setDisable(true);
+        replayButton.setDisable(false);
+        enableAnswerButtons();
+        loadNextQuestion();
     }
 
     @FXML
@@ -65,7 +90,13 @@ public class GameController {
         hearts = 3;
         correctAnswers = 0;
         currentQuestionIndex = 0;
+        fiftyFiftyUsedThisGame = false; // Reset trạng thái 50:50 của cả lần chơi
+        fiftyFiftyButton.setDisable(false);
         correctAnswersLabel.setText("Câu trả lời đúng: " + correctAnswers);
+
+        // Xáo trộn danh sách câu hỏi
+        Collections.shuffle(questionList);
+
         updateHeartDisplay();
         startButton.setDisable(true);
         enableAnswerButtons();
@@ -80,6 +111,9 @@ public class GameController {
     }
 
     private void loadNextQuestion() {
+        fiftyFiftyUsedCurrentQuestion = false; // Reset trạng thái 50:50 của từng câu hỏi
+        enableAnswerButtons();
+
         if (currentQuestionIndex < questionList.size()) {
             Question currentQuestion = questionList.get(currentQuestionIndex);
 
@@ -87,18 +121,21 @@ public class GameController {
             answers.add(currentQuestion.getOption1());
             answers.add(currentQuestion.getOption2());
             answers.add(currentQuestion.getOption3());
+            answers.add(currentQuestion.getOption4());
             Collections.shuffle(answers);
 
             questionLabel.setText(currentQuestion.getQuestion());
             option1Button.setText(answers.get(0));
             option2Button.setText(answers.get(1));
             option3Button.setText(answers.get(2));
+            option4Button.setText(answers.get(3));
 
             int correctIndex = answers.indexOf(
                     switch (currentQuestion.getCorrectOption()) {
                         case 1 -> currentQuestion.getOption1();
                         case 2 -> currentQuestion.getOption2();
                         case 3 -> currentQuestion.getOption3();
+                        case 4 -> currentQuestion.getOption4();
                         default -> throw new IllegalStateException("Invalid correct option index");
                     });
             currentQuestion.setCorrectOption(correctIndex + 1);
@@ -124,6 +161,11 @@ public class GameController {
         processAnswer(3);
     }
 
+    @FXML
+    private void handleAnswer4() {
+        processAnswer(4);
+    }
+
     private void processAnswer(int selectedOption) {
         Question currentQuestion = questionList.get(currentQuestionIndex);
 
@@ -135,15 +177,34 @@ public class GameController {
             hearts--;
             updateHeartDisplay();
             if (hearts == 0) {
-                questionLabel.setText("Bạn đã thua! Nhấn 'Bắt đầu' để chơi lại.");
-                disableAnswerButtons();
-                startButton.setDisable(false);
+                showGameOverDialog();
                 return;
             }
             currentQuestionIndex++;
         }
 
         loadNextQuestion();
+    }
+
+    private void showGameOverDialog() {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("Bạn đã thua!");
+        alert.setContentText("Bạn có muốn chơi lại không?");
+
+        // Tùy chọn: Có hoặc Không
+        javafx.scene.control.ButtonType yesButton = new javafx.scene.control.ButtonType("Có");
+        javafx.scene.control.ButtonType noButton = new javafx.scene.control.ButtonType("Không");
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        // Xử lý lựa chọn
+        alert.showAndWait().ifPresent(response -> {
+            if (response == yesButton) {
+                resetGame();
+            } else {
+                resetGameUI(); // Trở về giao diện ban đầu
+            }
+        });
     }
 
     private void updateHeartDisplay() {
@@ -156,12 +217,14 @@ public class GameController {
         option1Button.setDisable(true);
         option2Button.setDisable(true);
         option3Button.setDisable(true);
+        option4Button.setDisable(true);
     }
 
     private void enableAnswerButtons() {
         option1Button.setDisable(false);
         option2Button.setDisable(false);
         option3Button.setDisable(false);
+        option4Button.setDisable(false);
     }
 
     @FXML
@@ -175,5 +238,28 @@ public class GameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void useFiftyFifty() {
+        if (fiftyFiftyUsedThisGame || fiftyFiftyUsedCurrentQuestion) return;
+
+        fiftyFiftyUsedThisGame = true; // Đánh dấu đã sử dụng trong lần chơi này
+        fiftyFiftyUsedCurrentQuestion = true; // Đánh dấu đã sử dụng trong câu hỏi này
+        fiftyFiftyButton.setDisable(true);
+
+        Question currentQuestion = questionList.get(currentQuestionIndex);
+        List<Button> buttons = List.of(option1Button, option2Button, option3Button, option4Button);
+        List<Button> incorrectButtons = new ArrayList<>();
+
+        for (int i = 0; i < buttons.size(); i++) {
+            if (i + 1 != currentQuestion.getCorrectOption()) {
+                incorrectButtons.add(buttons.get(i));
+            }
+        }
+
+        Collections.shuffle(incorrectButtons);
+        incorrectButtons.get(0).setDisable(true);
+        incorrectButtons.get(1).setDisable(true);
     }
 }
