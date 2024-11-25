@@ -8,32 +8,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ManageUser">
-   <children>
-       <ImageView fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-           <image>
-               <Image url="@../../../image/Library_background_resized_900x900.png" />
-           </image>
-       </ImageView>
+    <children>
+        <ImageView fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../image/Library_background_resized_900x900.png" />
+            </image>
+        </ImageView>
 
-      <TableView fx:id="UserIn4" layoutX="10.0" layoutY="102.0" prefHeight="524.0" prefWidth="880.0">
-        <columns>
-          <TableColumn fx:id="UserId" prefWidth="125.0" text="User ID" />
-          <TableColumn fx:id="BorrowedBook" prefWidth="205.0" text="Book's title" />
-            <TableColumn fx:id="author" prefWidth="128.0" text="Author" />
-            <TableColumn fx:id="BorrowDate" prefWidth="161.0" text="Borrow date" />
-            <TableColumn fx:id="ReturnDate" prefWidth="146.0" text="Return date" />
-            <TableColumn fx:id="Status" prefWidth="112.0" text="Status" />
-        </columns>
-      </TableView>
-      <Button fx:id="deleteUser" layoutX="607.0" layoutY="704.0" mnemonicParsing="false" onAction="#DeleteUser" prefHeight="49.0" prefWidth="121.0" text="Delete user" />
-      <Button fx:id="Return" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#reTurn" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: black;">
-         <graphic>
-            <ImageView fitHeight="49.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/back.jpg" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-   </children>
+        <TableView fx:id="UserIn4" layoutX="10.0" layoutY="102.0" prefHeight="524.0" prefWidth="880.0">
+            <columns>
+                <TableColumn fx:id="UserId" prefWidth="125.0" text="User ID" />
+                <TableColumn fx:id="BorrowedBook" prefWidth="205.0" text="Book's title" />
+                <TableColumn fx:id="author" prefWidth="128.0" text="Author" />
+                <TableColumn fx:id="BorrowDate" prefWidth="161.0" text="Borrow date" />
+                <TableColumn fx:id="ReturnDate" prefWidth="146.0" text="Return date" />
+                <TableColumn fx:id="Status" prefWidth="112.0" text="Status" />
+            </columns>
+        </TableView>
+        <Button fx:id="Return" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#reTurn" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: black;">
+            <graphic>
+                <ImageView fitHeight="49.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../image/back.jpg" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
 </AnchorPane>

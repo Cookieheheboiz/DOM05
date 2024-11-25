@@ -49,10 +49,10 @@
             </ImageView>
         </graphic>
     </Button>
-    <Button fx:id="option1Button" layoutX="25.0" layoutY="450.0" minWidth="203.0" onAction="#handleAnswer1" prefHeight="46.0" prefWidth="300.0" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 1" />
-    <Button fx:id="option2Button" layoutX="550.0" layoutY="450.0" onAction="#handleAnswer2" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 2" />
-    <Button fx:id="option3Button" layoutX="25.0" layoutY="600.0" onAction="#handleAnswer3" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 3" />
-    <Button fx:id="option4Button" layoutX="550.0" layoutY="600.0" onAction="#handleAnswer4" style="-fx-font-size: 16; -fx-background-color: #FFD700; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 4" />
+    <Button fx:id="option1Button" layoutX="25.0" layoutY="450.0" minWidth="203.0" onAction="#handleAnswer1" prefHeight="46.0" prefWidth="300.0" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 1" />
+    <Button fx:id="option2Button" layoutX="550.0" layoutY="450.0" onAction="#handleAnswer2" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 2" />
+    <Button fx:id="option3Button" layoutX="25.0" layoutY="600.0" onAction="#handleAnswer3" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 3" />
+    <Button fx:id="option4Button" layoutX="550.0" layoutY="600.0" onAction="#handleAnswer4" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 4" />
     <!-- 50:50 Button -->
     <Button fx:id="fiftyFiftyButton" layoutX="735.0" layoutY="826.0" onAction="#useFiftyFifty" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="50:50" />
     <!-- Label for 50:50 -->

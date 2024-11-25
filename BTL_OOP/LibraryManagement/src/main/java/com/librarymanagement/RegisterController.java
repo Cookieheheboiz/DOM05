@@ -23,7 +23,9 @@ import java.io.IOException;
 
 import java.io.File;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class RegisterController {
@@ -89,13 +91,10 @@ public class RegisterController {
 
     public void registerButtonAction(ActionEvent event) {
         if (passwordFillField.getText().equals(ConfirmpasswordField.getText())) {
+            registerAccount();
 
             confirmPasswordLabel.setText("Your password has been set correctly");
-
-            if (registerAccount()) {
-
-                registerMessageLabel.setText("Account has been registered successfully");
-            }
+            registerMessageLabel.setText("Account has been registered successfully");
         } else {
             confirmPasswordLabel.setText("Your password doesn't match");
         }
@@ -103,8 +102,7 @@ public class RegisterController {
 
     }
 
-
-    public Boolean registerAccount() {
+    public void registerAccount() {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
         String ID = useridTextField.getText();
@@ -117,65 +115,23 @@ public class RegisterController {
         String PhoneNumber = PhonenumberField.getText();
         String MyRole = "User";
 
-        try {
-            // Check for duplicate username
-            String checkUsernameQuery = "SELECT COUNT(*) FROM user_id WHERE Username = ?";
-            String checkIDQuery = "SELECT COUNT(*) FROM user_id WHERE ID = ?";
 
-            boolean usernameExists = false;
-            boolean idExists = false;
+        String insertField = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, MyRole, DateOfBirth, PhoneNumber) VALUES('";
+        String insertValue = ID + "','" + First_name + "','" + Last_name + "','" + Username + "','" +  Password + "','" + MyRole + "','" + formattedDateOfBirth + "','" + PhoneNumber +"')";
+        String insertToRegister = insertField + insertValue;
 
-            try (PreparedStatement usernameStmt = connectDB.prepareStatement(checkUsernameQuery);
-                 PreparedStatement idStmt = connectDB.prepareStatement(checkIDQuery)) {
 
-                // Check for existing username
-                usernameStmt.setString(1, Username);
-                ResultSet usernameResult = usernameStmt.executeQuery();
-                if (usernameResult.next() && usernameResult.getInt(1) > 0) {
-                    usernameExists = true;
-                }
+        try{
+            Statement statement = connectDB.createStatement();
+            statement.executeUpdate(insertToRegister);
 
-                // Check for existing ID
-                idStmt.setString(1, ID);
-                ResultSet idResult = idStmt.executeQuery();
-                if (idResult.next() && idResult.getInt(1) > 0) {
-                    idExists = true;
-                }
-            }
+            registerMessageLabel.setText("Your account has been signed up successfully");
 
-            // Provide user feedback
-            if (usernameExists) {
-                registerMessageLabel.setText("Username is already registered. Please choose a different one.");
-                return false;
-            }
-
-            if (idExists) {
-                registerMessageLabel.setText("ID is already registered. Please use a different ID.");
-                return false;
-            }
-
-            // Insert new account
-            String insertQuery = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, MyRole, DateOfBirth, PhoneNumber) " +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement insertStmt = connectDB.prepareStatement(insertQuery)) {
-                insertStmt.setString(1, ID);
-                insertStmt.setString(2, First_name);
-                insertStmt.setString(3, Last_name);
-                insertStmt.setString(4, Username);
-                insertStmt.setString(5, Password);
-                insertStmt.setString(6, MyRole);
-                insertStmt.setString(7, formattedDateOfBirth);
-                insertStmt.setString(8, PhoneNumber);
-
-                insertStmt.executeUpdate();
-            }
-            return true;
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            registerMessageLabel.setText("Error: Unable to register account. Please try again.");
-            return false;
+            e.getCause();
         }
-    }
 
+
+    }
 }

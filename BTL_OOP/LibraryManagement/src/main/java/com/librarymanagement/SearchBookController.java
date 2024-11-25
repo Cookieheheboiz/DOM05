@@ -144,7 +144,7 @@ public class SearchBookController {
         String publisher = selectedBook.getPublisher();
         String category = selectedBook.getCategory();
 
-        String query = "SELECT sum(*) FROM docs WHERE title = ? AND author = ? AND publisher = ?";
+        String query = "SELECT sum(quantity) AS total_quantity FROM docs WHERE title = ? AND author = ? AND publisher = ?";
         int currentQuantity = 0;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -155,7 +155,7 @@ public class SearchBookController {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                currentQuantity = rs.getInt("quantity"); // Get the current quantity
+                currentQuantity = rs.getInt("total_quantity"); // Get the current quantity
             }
 
         } catch (SQLException e) {
@@ -165,7 +165,7 @@ public class SearchBookController {
 
         currentQuantity++;
 
-        String sql = "INSERT INTO docs (title, author, publisher, category,quantity) VALUES (?, ?, ?, ?,?)";
+        String sql = "INSERT INTO docs (title, author, publisher, category, quantity) VALUES (?, ?, ?, ?,?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
