@@ -18,6 +18,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
+import javafx.scene.control.ToggleButton;
+
 
 public class GameController {
     @FXML
@@ -26,6 +31,8 @@ public class GameController {
     private Button option1Button, option2Button, option3Button, replayButton, option4Button, startButton, returnToMenuButton, fiftyFiftyButton;
     @FXML
     private ImageView heart1, heart2, heart3;
+    @FXML
+    private ToggleButton musicToggleButton;
 
     private List<Question> questionList;
     private int currentQuestionIndex = 0;
@@ -35,12 +42,31 @@ public class GameController {
     private boolean fiftyFiftyUsedCurrentQuestion = false; // Trạng thái 50:50 của từng câu hỏi
     private final Image heartImage = new Image(getClass().getResource("/image/heart_icon.png").toString());
     private final Image emptyHeartImage = new Image(getClass().getResource("/image/empty_heart_icon.png").toString());
+    private MediaPlayer mediaPlayer;
 
     @FXML
     public void initialize() {
         loadQuestionsFromDatabase();
         resetGameUI();
+        // Đường dẫn tới file nhạc
+        String musicFile = "D:/DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/music/ailatrieuphu.mp3";
+        Media media = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        // Phát nhạc nền khi giao diện khởi chạy
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Phát lặp lại
+        mediaPlayer.play();
     }
+
+    @FXML
+    private void toggleMusic() {
+        if (musicToggleButton.isSelected()) {
+            mediaPlayer.play();
+        } else {
+            mediaPlayer.pause();
+        }
+    }
+
 
     private void loadQuestionsFromDatabase() {
         questionList = new ArrayList<>();
@@ -229,6 +255,9 @@ public class GameController {
 
     @FXML
     private void returnToMenu(ActionEvent event) {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop(); // Dừng nhạc khi trở về menu
+        }
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
