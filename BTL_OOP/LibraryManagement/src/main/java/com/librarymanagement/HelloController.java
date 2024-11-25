@@ -23,6 +23,10 @@ public class HelloController {
     @FXML
     private Button SignupButton;
 
+    public static int loginUserId;
+
+
+
     @FXML
     private Button LoginButton;
     @FXML
@@ -39,7 +43,6 @@ public class HelloController {
 
     private boolean checkClose = false;
 
-    public static String currentUser;
 
 
 
@@ -72,7 +75,7 @@ public class HelloController {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connectDB = databaseConnection.getConnection();
 
-        String verifyLogin = "SELECT Username, Password, MyRole FROM user_id WHERE Username = ? AND Password = ?";
+        String verifyLogin = "SELECT ID, Username, Password, MyRole FROM user_id WHERE Username = ? AND Password = ?";
         try {
             PreparedStatement preparedStatement = connectDB.prepareStatement(verifyLogin);
             preparedStatement.setString(1, usernameTextField.getText());
@@ -82,11 +85,11 @@ public class HelloController {
 
 
             if (resultSet.next()) { // Check if a matching record exists
-                currentUser = resultSet.getString("Username");
+                loginUserId = resultSet.getInt("ID");
+                System.out.println("ID: " + resultSet.getInt("ID"));
                 System.out.println("Username: " + resultSet.getString("Username"));
                 System.out.println("Password: " + resultSet.getString("Password"));
                 System.out.println("Role: " + resultSet.getString("MyRole"));
-                System.out.println("Username: " + currentUser);
                 String retrievedRole = resultSet.getString("MyRole");
 
                 if ("Admin".equals(retrievedRole)) {
@@ -150,6 +153,8 @@ public class HelloController {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
             Stage menuStage = new Stage();
+
+
             menuStage.initStyle(StageStyle.UNDECORATED);
             menuStage.setScene(new Scene(root, 900, 900));
             menuStage.setTitle("Signup");

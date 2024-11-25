@@ -174,7 +174,7 @@ public class RegisterController {
         } catch (SQLException e) {
             e.printStackTrace();
             registerMessageLabel.setText("Error: Unable to register account. Please try again.");
-        return false;
+            return false;
         }
     }
 
