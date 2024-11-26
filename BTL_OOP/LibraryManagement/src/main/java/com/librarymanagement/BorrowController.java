@@ -61,6 +61,7 @@ public class BorrowController {
 
     @FXML
     private void onBorrowButtonClick(ActionEvent event) {
+        UserSession session = UserSession.getInstance();
         String selectedTitle = bookComboBox.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
@@ -87,7 +88,7 @@ public class BorrowController {
         }
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT id, title, author, publisher, category, quantity FROM docs WHERE title = ?";
+            String sql = "SELECT id, title, author, publisher, category FROM docs WHERE title = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, selectedTitle);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,7 +113,7 @@ public class BorrowController {
                 String checkExistingSql = "SELECT count(*) FROM borrowed_books1 WHERE id = ? AND user_id = ?";
                 PreparedStatement checkExistingStmt = connection.prepareStatement(checkExistingSql);
                 checkExistingStmt.setInt(1, book.getId());
-                checkExistingStmt.setInt(2, HelloController.loginUserId); // Assuming HelloController has loginUserId
+                checkExistingStmt.setInt(2, session.getUserID()); // Assuming HelloController has loginUserId
                 ResultSet checkExistingResult = checkExistingStmt.executeQuery();
 
                 if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0 ) {

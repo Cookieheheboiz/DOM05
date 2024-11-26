@@ -197,7 +197,7 @@ public class UserMenuController extends CategoryControler {
 
         try {
             // Đọc danh sách file nhạc từ thư mục
-            File musicDirectory = new File("D:/DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/music");
+            File musicDirectory = new File("D:/DOM05/BTL_OOP/LibraryManagement/src/main/resources/music");
             File[] musicFiles = musicDirectory.listFiles((dir, name) -> name.endsWith(".mp3"));
 
             if (musicFiles != null) {

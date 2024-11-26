@@ -21,7 +21,8 @@
         </ImageView>
         <!-- SplitMenuButton for Entertain (without MenuItem defined here) -->
         <SplitMenuButton fx:id="Category" layoutX="386.0" layoutY="21.0" onAction="#AddCategory" text="Category" />
-        <TableView fx:id="AddToTable" layoutX="273.0" layoutY="82.0" prefHeight="511.0" prefWidth="626.0">
+        <TableView fx:id="AddToTable" layoutX="286.0" layoutY="147.0" prefHeight="511.0" prefWidth="612.0">
+
             <columns>
                 <TableColumn fx:id="AddTitle" prefWidth="228.7999267578125" text="Title" />
                 <TableColumn fx:id="AddAuthor" prefWidth="175.20010375976562" text="Author" />

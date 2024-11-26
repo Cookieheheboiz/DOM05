@@ -104,7 +104,7 @@
             <Pane layoutY="808.0" prefHeight="77.0" prefWidth="5.0" style="-fx-background-color: black;" />
             <Pane layoutX="1.0" layoutY="879.0" prefHeight="7.0" prefWidth="218.0" style="-fx-background-color: black;" />
             <Pane layoutX="215.0" layoutY="805.0" prefHeight="77.0" prefWidth="5.0" style="-fx-background-color: black;" />
-            <Button fx:id="PlaygameButton" layoutX="30.0" layoutY="686.0" mnemonicParsing="false" onAction="#LibraryCardAction" prefHeight="55.0" prefWidth="165.0" stylesheets="@../css/fontUser-menu.css" text="Chơi Game">
+            <Button fx:id="PlaygameButton" layoutX="30.0" layoutY="686.0" mnemonicParsing="false" onAction="#openGameView" prefHeight="55.0" prefWidth="165.0" stylesheets="@../css/fontUser-menu.css" text="Chơi Game">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -160,18 +160,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="FirstanchorPane" layoutX="221.0" prefHeight="900.0" prefWidth="679.0" visible="false">
-         <children>
-            <TableView fx:id="SuggestTable" layoutX="23.0" layoutY="181.0" prefHeight="537.0" prefWidth="633.0">
-               <columns>
-                  <TableColumn fx:id="TierSuggest" prefWidth="39.99998474121094" text="Tier" />
-                  <TableColumn fx:id="TitleSuggest" prefWidth="211.99993896484375" text="Title" />
-                  <TableColumn fx:id="AuthorSuggest" prefWidth="129.33340454101562" text="Author" />
-                  <TableColumn fx:id="CategorySuggest" prefWidth="171.33331298828125" text="Category" />
-                  <TableColumn fx:id="AmountSuggest" prefWidth="78.6666259765625" text="Amount" />
-               </columns>
-            </TableView>
-         </children></AnchorPane>
+      <AnchorPane fx:id="FirstanchorPane" layoutX="221.0" prefHeight="900.0" prefWidth="679.0" visible="false" />
       <AnchorPane fx:id="BorrowBookanchorpane" layoutX="221.0" layoutY="3.0" prefHeight="900.0" prefWidth="679.0" visible="false">
          <children>
             <VBox alignment="TOP_CENTER" layoutY="2.0" prefHeight="900.0" prefWidth="679.0" spacing="10">
@@ -284,5 +273,7 @@
             </Label>
          </children>
       </AnchorPane>
+      <Button layoutX="705.0" layoutY="38.0" mnemonicParsing="false" onAction="#onNextButtonClick" text="Chuyển nhạc" />
+      <Button fx:id="muteButton" layoutX="800.0" layoutY="38.0" mnemonicParsing="false" onAction="#onMuteButtonClick" text="Tắt/mở nhạc" />
    </children>
 </AnchorPane>

@@ -49,7 +49,7 @@ public class GameControllerUser {
         loadQuestionsFromDatabase();
         resetGameUI();
         // Đường dẫn tới file nhạc
-        String musicFile = "D:/DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/music_game/ailatrieuphu.mp3";
+        String musicFile = "D:/DOM05/BTL_OOP/LibraryManagement/src/main/resources/music_game/ailatrieuphu.mp3";
         Media media = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
