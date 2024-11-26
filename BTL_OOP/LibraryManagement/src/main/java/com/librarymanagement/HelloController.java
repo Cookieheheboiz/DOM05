@@ -41,17 +41,15 @@ public class HelloController {
     private boolean checkClose = false;
 
 
-
     public void loginButtonOnAction(ActionEvent event) {
         if (usernameTextField.getText().isBlank() == false || passwordTextField.getText().isBlank() == false) {
             Stage stage = (Stage) LoginButton.getScene().getWindow();
 
             validateLogin();
-            if(checkClose) {
+            if (checkClose) {
                 System.out.println("sadas");
 
-            }
-            else {
+            } else {
                 System.out.println("You are tried to login, but it's failed");
             }
         } else if (usernameTextField.getText().isBlank() == true || passwordTextField.getText().isBlank() == true) {
@@ -65,7 +63,6 @@ public class HelloController {
         createAccount();
 
     }
-
 
 
     public void validateLogin() {
@@ -126,7 +123,6 @@ public class HelloController {
     }
 
 
-
     public void createAccount() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Register-view.fxml"));
@@ -152,8 +148,7 @@ public class HelloController {
             menuStage.setScene(new Scene(root, 900, 900));
             menuStage.setTitle("Signup");
             menuStage.show();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
@@ -168,8 +163,7 @@ public class HelloController {
             menuStage.setScene(new Scene(root, 900, 900));
             menuStage.setTitle("Signup");
             menuStage.show();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }

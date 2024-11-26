@@ -65,8 +65,6 @@ public class SearchBookController {
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
 
 
-
-
     }
 
     @FXML
@@ -106,7 +104,6 @@ public class SearchBookController {
                     String category = volumeInfo.has("categories") ? volumeInfo.getAsJsonArray("categories").get(0).getAsString() : "N/A";
 
 
-
                     ImageView coverImage = null;
                     if (volumeInfo.has("imageLinks") && volumeInfo.getAsJsonObject("imageLinks").has("thumbnail")) {
                         String coverUrl = volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString();
@@ -125,7 +122,6 @@ public class SearchBookController {
         }
         bookTableView.setItems(books);
     }
-
 
 
     public void ThemSach(ActionEvent actionEvent) {
@@ -191,7 +187,7 @@ public class SearchBookController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
             Parent root = loader.load();
 
-            Stage stage = (Stage) ((Node) actionEvent.getSource()). getScene().getWindow();
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

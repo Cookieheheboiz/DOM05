@@ -34,6 +34,7 @@ public class LoadingController extends HelloController implements Initializable 
     private String fullName;
     private String phoneNumber;
     private String birthday;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Progress.setStyle("-fx-accent: #0080FF;");
@@ -49,18 +50,18 @@ public class LoadingController extends HelloController implements Initializable 
         timeline.setCycleCount(1);
 
         for (int i = 0; i <= 22; i++) {
-            final int progressValue = i; // Need to make this final for the lambda
+            final int progressValue = i;
             timeline.getKeyFrames().add(new KeyFrame(
-                    Duration.seconds(i * 0.3), // Change this to adjust the timing
-                    event -> Progress.setProgress(progressValue / 20.0) // Incrementally set the progress
+                    Duration.seconds(i * 0.3),
+                    event -> Progress.setProgress(progressValue / 20.0)
             ));
         }
         timeline.setOnFinished(event -> loadNextPage());
         timeline.play();
     }
+
     private void loadNextPage() {
         try {
-            // Load the next scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nextScenePath));
 
             if (nextScenePath.equals("/com/librarymanagement/fxml/UserMenu-view.fxml")) {
@@ -69,7 +70,6 @@ public class LoadingController extends HelloController implements Initializable 
             }
             Parent nextPage = loader.load();
 
-            // Get the current stage and set the new scene
             Stage stage = (Stage) scenePane.getScene().getWindow();
             stage.setScene(new Scene(nextPage));
             stage.show();
@@ -78,7 +78,6 @@ public class LoadingController extends HelloController implements Initializable 
         }
     }
 
-    // Setter for nextScenePath
     public void setNextScenePath(String nextScenePath) {
         this.nextScenePath = nextScenePath;
     }

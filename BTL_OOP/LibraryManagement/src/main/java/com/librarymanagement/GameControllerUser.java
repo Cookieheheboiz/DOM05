@@ -18,9 +18,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
 import java.io.File;
+
 import javafx.scene.control.ToggleButton;
 
 
@@ -38,8 +41,8 @@ public class GameControllerUser {
     private int currentQuestionIndex = 0;
     private int hearts = 3;
     private int correctAnswers = 0;
-    private boolean fiftyFiftyUsedThisGame = false; // Trạng thái 50:50 của cả lần chơi
-    private boolean fiftyFiftyUsedCurrentQuestion = false; // Trạng thái 50:50 của từng câu hỏi
+    private boolean fiftyFiftyUsedThisGame = false;
+    private boolean fiftyFiftyUsedCurrentQuestion = false;
     private final Image heartImage = new Image(getClass().getResource("/image/heart_icon.png").toString());
     private final Image emptyHeartImage = new Image(getClass().getResource("/image/empty_heart_icon.png").toString());
     private MediaPlayer mediaPlayer;
@@ -48,13 +51,12 @@ public class GameControllerUser {
     public void initialize() {
         loadQuestionsFromDatabase();
         resetGameUI();
-        // Đường dẫn tới file nhạc
+
         String musicFile = "D:/DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/music_game/ailatrieuphu.mp3";
         Media media = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
-        // Phát nhạc nền khi giao diện khởi chạy
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Phát lặp lại
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
 
@@ -97,11 +99,10 @@ public class GameControllerUser {
         hearts = 3;
         correctAnswers = 0;
         currentQuestionIndex = 0;
-        fiftyFiftyUsedThisGame = false; // Reset trạng thái 50:50 của cả lần chơi
+        fiftyFiftyUsedThisGame = false;
         fiftyFiftyButton.setDisable(false);
         correctAnswersLabel.setText("Câu trả lời đúng: " + correctAnswers);
 
-        // Xáo trộn danh sách câu hỏi
         Collections.shuffle(questionList);
 
         updateHeartDisplay();
@@ -116,11 +117,10 @@ public class GameControllerUser {
         hearts = 3;
         correctAnswers = 0;
         currentQuestionIndex = 0;
-        fiftyFiftyUsedThisGame = false; // Reset trạng thái 50:50 của cả lần chơi
+        fiftyFiftyUsedThisGame = false;
         fiftyFiftyButton.setDisable(false);
         correctAnswersLabel.setText("Câu trả lời đúng: " + correctAnswers);
 
-        // Xáo trộn danh sách câu hỏi
         Collections.shuffle(questionList);
 
         updateHeartDisplay();
@@ -137,7 +137,7 @@ public class GameControllerUser {
     }
 
     private void loadNextQuestion() {
-        fiftyFiftyUsedCurrentQuestion = false; // Reset trạng thái 50:50 của từng câu hỏi
+        fiftyFiftyUsedCurrentQuestion = false;
         enableAnswerButtons();
 
         if (currentQuestionIndex < questionList.size()) {
@@ -218,17 +218,15 @@ public class GameControllerUser {
         alert.setHeaderText("Bạn đã thua!");
         alert.setContentText("Bạn có muốn chơi lại không?");
 
-        // Tùy chọn: Có hoặc Không
         javafx.scene.control.ButtonType yesButton = new javafx.scene.control.ButtonType("Có");
         javafx.scene.control.ButtonType noButton = new javafx.scene.control.ButtonType("Không");
         alert.getButtonTypes().setAll(yesButton, noButton);
 
-        // Xử lý lựa chọn
         alert.showAndWait().ifPresent(response -> {
             if (response == yesButton) {
                 resetGame();
             } else {
-                resetGameUI(); // Trở về giao diện ban đầu
+                resetGameUI();
             }
         });
     }
@@ -256,7 +254,7 @@ public class GameControllerUser {
     @FXML
     private void returnToMenu(ActionEvent event) {
         if (mediaPlayer != null) {
-            mediaPlayer.stop(); // Dừng nhạc khi trở về menu
+            mediaPlayer.stop();
         }
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
@@ -273,8 +271,8 @@ public class GameControllerUser {
     private void useFiftyFifty() {
         if (fiftyFiftyUsedThisGame || fiftyFiftyUsedCurrentQuestion) return;
 
-        fiftyFiftyUsedThisGame = true; // Đánh dấu đã sử dụng trong lần chơi này
-        fiftyFiftyUsedCurrentQuestion = true; // Đánh dấu đã sử dụng trong câu hỏi này
+        fiftyFiftyUsedThisGame = true;
+        fiftyFiftyUsedCurrentQuestion = true;
         fiftyFiftyButton.setDisable(true);
 
         Question currentQuestion = questionList.get(currentQuestionIndex);

@@ -103,7 +103,7 @@ public class UserMenuController extends CategoryControler {
     private TableColumn<BorrowedBook, String> userColumn;
 
     private ObservableList<BorrowedBook> borrowedBooks;
-    private Timeline refreshTimeline; // Timeline để làm mới dữ liệu
+    private Timeline refreshTimeline;
 
     @FXML
     private TableView<BorrowedBook> SuggestTable;
@@ -132,7 +132,6 @@ public class UserMenuController extends CategoryControler {
 
     @FXML
     private Label Sum;
-
 
 
     @FXML
@@ -170,23 +169,19 @@ public class UserMenuController extends CategoryControler {
         super.initialize(location, resources);
         AddCategory();
 
-        // Get user data from the session
         UserSession session = UserSession.getInstance();
 
-        // Populate the labels in userI4anchorPane
         IDField.setText(String.valueOf(session.getUserID()));
         FullnameField.setText(session.getFullName());
 
         PhonenumberField.setText(session.getPhoneNumber());
         BirthdayField.setText(session.getBirthday());
 
-        // Populate the labels in LibraryCard
         Cardi4name.setText(session.getFullName());
         Cardi4ID.setText(String.valueOf(session.getUserID()));
         Cardi4birthday.setText(session.getBirthday());
         Cardi4phone.setText(session.getPhoneNumber());
 
-        // return Book part
         borrowedBooks = FXCollections.observableArrayList();
         titleColumn1.setCellValueFactory(new PropertyValueFactory<>("title"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
@@ -196,7 +191,7 @@ public class UserMenuController extends CategoryControler {
         loadBorrowedBooks();
 
         try {
-            // Đọc danh sách file nhạc từ thư mục
+
             File musicDirectory = new File("D:/DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/music");
             File[] musicFiles = musicDirectory.listFiles((dir, name) -> name.endsWith(".mp3"));
 
@@ -205,12 +200,11 @@ public class UserMenuController extends CategoryControler {
                     backgroundMusic.add(new Media(file.toURI().toString()));
                 }
 
-                // Bắt đầu phát bài đầu tiên
                 playMusic();
             } else {
                 System.out.println("No music files found in the directory.");
             }
-            } catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -322,7 +316,6 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
-    /// Borrow book anchorpane action
     @FXML
     private void onBorrowButtonClick(ActionEvent event) {
         String selectedTitle = bookComboBox.getValue();
@@ -379,7 +372,7 @@ public class UserMenuController extends CategoryControler {
                 checkExistingStmt.setInt(2, HelloController.loginUserId); // Assuming HelloController has loginUserId
                 ResultSet checkExistingResult = checkExistingStmt.executeQuery();
 
-                if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0 ) {
+                if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0) {
                     showAlert("You have already borrowed this book. You cannot borrow it again.");
                     return;
                 }
@@ -390,7 +383,7 @@ public class UserMenuController extends CategoryControler {
                 PreparedStatement insertStatement = connection.prepareStatement(insertSql);
                 System.out.println(book.getId());
 
-                insertStatement.setInt(1,book.getId());
+                insertStatement.setInt(1, book.getId());
                 insertStatement.setString(2, book.getTitle());
                 insertStatement.setString(3, book.getAuthor());
                 insertStatement.setString(4, book.getPublisher());
@@ -415,9 +408,6 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
-
-
-    /// show alert when user does not select a book to borrow
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -428,7 +418,7 @@ public class UserMenuController extends CategoryControler {
 
     private void hideAllAnchorPanes() {
         AnchorPane[] panes = {userIn4anchorPane, FirstanchorPane, BorrowBookanchorpane, ReturnBookAnchorPane, ReturnAndBorrowAnchorpane,
-                                StorageBookAnchorPane, UserCardAnchorPane}; // Include all anchor panes here
+                StorageBookAnchorPane, UserCardAnchorPane}; // Include all anchor panes here
         for (AnchorPane pane : panes) {
             if (pane != null) {
                 pane.setVisible(false);
@@ -443,14 +433,14 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
-    public void  switchToBorrowBookAnchorPane() {
+    public void switchToBorrowBookAnchorPane() {
         hideAllAnchorPanes();
         if (BorrowBookanchorpane != null) {
             BorrowBookanchorpane.setVisible(true);
         }
     }
 
-    public void  switchToReturnBookAnchorPane() {
+    public void switchToReturnBookAnchorPane() {
         hideAllAnchorPanes();
         if (ReturnBookAnchorPane != null) {
             ReturnBookAnchorPane.setVisible(true);
@@ -527,15 +517,11 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
-        public void LibraryCardAction() {
+    public void LibraryCardAction() {
         Stage stage = (Stage) LibCard.getScene().getWindow();
         stage.close();
         LibraryCard();
     }
-
-
-
-
 
 
     public void ChangePassword() {
@@ -557,14 +543,12 @@ public class UserMenuController extends CategoryControler {
         ChangePassword();
     }
 
-
-    // Show the book which user borrowed
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,HelloController.loginUserId);
+            preparedStatement.setInt(1, HelloController.loginUserId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -580,8 +564,6 @@ public class UserMenuController extends CategoryControler {
         }
     }
 
-
-    // Return the selected book
     @FXML
     public void returnSelectedBooks(ActionEvent event) {
         BorrowedBook selectedBook = borrowedBooksTable.getSelectionModel().getSelectedItem();
@@ -612,18 +594,14 @@ public class UserMenuController extends CategoryControler {
     private void reloadScene(ActionEvent event) {
         try {
             currentMediaPlayer.setMute(true);
-            // Save the current visible pane for restoration
-            String currentView = getCurrentVisiblePane(); // Implement this method to get the current view's ID or name
+            String currentView = getCurrentVisiblePane();
 
-            // Reload the FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
             Parent root = loader.load();
 
-            // Pass session and current view data to the new controller
             UserMenuController newController = loader.getController();
-            newController.restoreState(currentView); // Implement restoreState method in your controller
+            newController.restoreState(currentView);
 
-            // Get the current stage and set the new scene
             Stage stage = (Stage) ReloadButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -667,7 +645,5 @@ public class UserMenuController extends CategoryControler {
                 break;
         }
     }
-
-    /// Top 5 book suggest for user
 
 }

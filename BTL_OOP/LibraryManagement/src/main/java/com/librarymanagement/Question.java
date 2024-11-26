@@ -17,7 +17,6 @@ public class Question {
         this.correctOption = correctOption;
     }
 
-    // Getter
     public String getQuestion() {
         return question;
     }
@@ -42,7 +41,6 @@ public class Question {
         return correctOption;
     }
 
-    // Setter
     public void setCorrectOption(int correctOption) {
         this.correctOption = correctOption;
     }

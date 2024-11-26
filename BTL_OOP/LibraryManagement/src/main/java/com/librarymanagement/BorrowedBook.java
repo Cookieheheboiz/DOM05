@@ -59,7 +59,7 @@ public class BorrowedBook {
 
     public BorrowedBook(int id, String title, String borrowDate, String returnDate) {
         this.title = title;
-        this.id=id;
+        this.id = id;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
     }

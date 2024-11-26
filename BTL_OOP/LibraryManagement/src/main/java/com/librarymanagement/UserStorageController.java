@@ -22,7 +22,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.stage.Stage;
 
-public class UserStorageController extends CategoryControler{
+public class UserStorageController extends CategoryControler {
 
     @FXML
     private SplitMenuButton Category;
@@ -34,7 +34,7 @@ public class UserStorageController extends CategoryControler{
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
-AddCategory();
+        AddCategory();
     }
 
     @Override
@@ -65,7 +65,6 @@ AddCategory();
 
         return genres.toArray(new String[0]);
     }
-
 
 
     public void handleCategorySelection(ActionEvent event) {

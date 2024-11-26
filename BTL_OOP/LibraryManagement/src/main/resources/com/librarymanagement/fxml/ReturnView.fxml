@@ -7,7 +7,6 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ReturnController">
     <children>
-        <!-- Adjusted TableView dimensions -->
         <TableView fx:id="borrowedBooksTable" layoutX="40.0" layoutY="50.0" prefHeight="700.0" prefWidth="600.0">
             <columns>
                 <TableColumn fx:id="titleColumn" prefWidth="150.0" text="Title" />
@@ -16,8 +15,6 @@
                 <TableColumn fx:id="userColumn" prefWidth="150.0" text="User" />
             </columns>
         </TableView>
-
-        <!-- Adjusted Buttons layout -->
         <Button layoutX="293.0" layoutY="779.0" onAction="#returnSelectedBooks" text="Trả sách" />
         <Button layoutX="293.0" layoutY="822.0" onAction="#goBackToMainView" text="Quay lại" />
     </children>

@@ -14,9 +14,11 @@ import java.sql.PreparedStatement;
 public class ResetPasswordController {
 
     private Runnable onSuccess;
+
     public void setOnSuccess(Runnable onSuccess) {
         this.onSuccess = onSuccess;
     }
+
     @FXML
     private Label Status;
 
@@ -56,20 +58,19 @@ public class ResetPasswordController {
         }
 
 
-
     }
 
     private boolean updatePasswordInDatabase(String username, String newPassword) {
-        String url = "jdbc:mysql://localhost:3306/librarymanagement"; // Replace with your DB URL
-        String user = "root"; // Replace with your DB username
-        String password = "chitogeABVs32"; // Replace with your DB password
+        String url = "jdbc:mysql://localhost:3306/librarymanagement";
+        String user = "root";
+        String password = "chitogeABVs32";
 
         String sql = "UPDATE user_id SET Password = ? WHERE Username = ?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, newPassword); // Replace with hashed password for security
+            stmt.setString(1, newPassword);
             stmt.setString(2, username);
 
             int rowsAffected = stmt.executeUpdate();

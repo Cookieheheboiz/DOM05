@@ -1,4 +1,5 @@
 package com.librarymanagement;
+
 public class UserSession {
     private static UserSession instance;
 
@@ -17,7 +18,8 @@ public class UserSession {
     private String phoneNumber;
     private String birthday;
 
-    private UserSession() {}
+    private UserSession() {
+    }
 
     public static UserSession getInstance() {
         if (instance == null) {
@@ -26,7 +28,6 @@ public class UserSession {
         return instance;
     }
 
-    // Getters and setters
     public int getUserID() {
         return userID;
     }

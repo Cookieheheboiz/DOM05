@@ -80,9 +80,9 @@ public class RegisterController {
 
     public void textinHead() {
         Reflection reflection = new Reflection();
-        reflection.setFraction(0.7); // Độ dài của phần phản chiếu
-        reflection.setTopOffset(10.0); // Khoảng cách giữa phần chính và phần phản chiếu
-        reflection.setTopOpacity(0.7); // Độ mờ của phần đầu của phản chiếu
+        reflection.setFraction(0.7);
+        reflection.setTopOffset(10.0);
+        reflection.setTopOpacity(0.7);
         reflection.setBottomOpacity(0.0);
         UpHead.setEffect(reflection);
     }
@@ -118,7 +118,7 @@ public class RegisterController {
         String MyRole = "User";
 
         try {
-            // Check for duplicate username
+
             String checkUsernameQuery = "SELECT COUNT(*) FROM user_id WHERE Username = ?";
             String checkIDQuery = "SELECT COUNT(*) FROM user_id WHERE ID = ?";
 
@@ -128,14 +128,12 @@ public class RegisterController {
             try (PreparedStatement usernameStmt = connectDB.prepareStatement(checkUsernameQuery);
                  PreparedStatement idStmt = connectDB.prepareStatement(checkIDQuery)) {
 
-                // Check for existing username
                 usernameStmt.setString(1, Username);
                 ResultSet usernameResult = usernameStmt.executeQuery();
                 if (usernameResult.next() && usernameResult.getInt(1) > 0) {
                     usernameExists = true;
                 }
 
-                // Check for existing ID
                 idStmt.setString(1, ID);
                 ResultSet idResult = idStmt.executeQuery();
                 if (idResult.next() && idResult.getInt(1) > 0) {
@@ -143,7 +141,6 @@ public class RegisterController {
                 }
             }
 
-            // Provide user feedback
             if (usernameExists) {
                 registerMessageLabel.setText("Username is already registered. Please choose a different one.");
                 return false;
@@ -154,7 +151,6 @@ public class RegisterController {
                 return false;
             }
 
-            // Insert new account
             String insertQuery = "INSERT INTO user_id(ID, First_name, Last_name, Username, Password, MyRole, DateOfBirth, PhoneNumber) " +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement insertStmt = connectDB.prepareStatement(insertQuery)) {

@@ -10,7 +10,7 @@ public class UserData {
 
     public UserData(int id, String author, String borrowedBook, String borrowDate, String returnDate, String status) {
         this.id = id;
-        this.author=author;
+        this.author = author;
         this.borrowedBook = borrowedBook;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
@@ -21,7 +21,7 @@ public class UserData {
         return id;
     }
 
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 

@@ -93,20 +93,18 @@ public class UserController {
     }
 
     public void loadEmployeeData() {
-        // Clear the current table view
+
         AddtoTable.getItems().clear();
 
         DatabaseConnection databaseConnector = new DatabaseConnection();
         Connection connection = databaseConnector.getConnection();
 
-        // Adjusted query to concatenate first and last name
         String query = "SELECT ID, CONCAT(First_name, ' ', Last_name) AS Full_name, MyRole, Username, Password FROM user_id";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            // Create a list of Employee objects to store the data
             ObservableList<Employee> employees = FXCollections.observableArrayList();
 
             while (resultSet.next()) {
@@ -119,15 +117,12 @@ public class UserController {
                 employees.add(new Employee(id, fullname, role, username, pass));
             }
 
-            // Close the resources
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-            // Set the items for the table view
             AddtoTable.setItems(employees);
 
-            // Map the table columns to the Employee class properties
             AddID.setCellValueFactory(new PropertyValueFactory<>("ID"));
             AddName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             AddRole.setCellValueFactory(new PropertyValueFactory<>("Role"));
@@ -152,7 +147,6 @@ public class UserController {
         AddUsername.setCellValueFactory(new PropertyValueFactory<>("Username"));
         AddPassword.setCellValueFactory(new PropertyValueFactory<>("Password"));
 
-        // Load data into the table
         loadEmployeeData();
     }
 

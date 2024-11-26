@@ -10,19 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="900" prefWidth="900" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.GameController">
-    <!-- Background -->
     <ImageView fitHeight="900" fitWidth="900">
         <image>
             <Image url="@../../../image/ailatrieuphu.png" />
         </image>
     </ImageView>
-    <!-- Question Section -->
     <VBox alignment="CENTER" layoutX="50.0" layoutY="100.0" prefHeight="200" prefWidth="800" spacing="20">
         <children>
             <Label fx:id="questionLabel" style="-fx-background-color: #00BFFF; -fx-text-fill: #FFFFFF; -fx-font-size: 18; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;" text="Câu hỏi sẽ hiển thị ở đây" wrapText="true" />
         </children>
     </VBox>
-    <!-- Heart Images -->
     <HBox alignment="CENTER" layoutX="700" layoutY="20" spacing="10">
         <children>
             <ImageView fx:id="heart1" fitHeight="30" fitWidth="30" />
@@ -30,15 +27,12 @@
             <ImageView fx:id="heart3" fitHeight="30" fitWidth="30" />
         </children>
     </HBox>
-    <!-- Answer Section -->
     <VBox alignment="CENTER" layoutX="100" layoutY="450" spacing="15" />
-    <!-- Status Section -->
     <VBox alignment="CENTER" layoutX="700" layoutY="50" spacing="10">
         <Label fx:id="correctAnswersLabel" style="-fx-font-size: 16; -fx-text-fill: #FFFFFF;" text="Câu trả lời đúng: 0" />
     </VBox>
     <ToggleButton fx:id="musicToggleButton" layoutX="174.0" layoutY="839.0" onAction="#toggleMusic" selected="true" style="-fx-font-size: 14; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="Tắt/Mở Nhạc" />
 
-    <!-- Buttons -->
     <Button fx:id="startButton" layoutX="412.0" layoutY="749.0" onAction="#startGame" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="Bắt đầu" />
     <Button fx:id="returnToMenuButton" layoutX="14.0" layoutY="32.0" onAction="#returnToMenu" style="-fx-background-color: transparent;">
         <graphic>
@@ -53,9 +47,7 @@
     <Button fx:id="option2Button" layoutX="550.0" layoutY="450.0" onAction="#handleAnswer2" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 2" />
     <Button fx:id="option3Button" layoutX="25.0" layoutY="600.0" onAction="#handleAnswer3" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 3" />
     <Button fx:id="option4Button" layoutX="550.0" layoutY="600.0" onAction="#handleAnswer4" style="-fx-font-size: 16; -fx-background-color: #5F9EA0; -fx-text-fill: #FFFFFF; -fx-padding: 10; -fx-min-width: 300;" text="Câu trả lời 4" />
-    <!-- 50:50 Button -->
     <Button fx:id="fiftyFiftyButton" layoutX="735.0" layoutY="826.0" onAction="#useFiftyFifty" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="50:50" />
-    <!-- Label for 50:50 -->
     <Button fx:id="replayButton" layoutX="200.0" layoutY="749.0" onAction="#replayGame" style="-fx-font-size: 16; -fx-background-color: #FF8000; -fx-text-fill: #FFFFFF;" text="Chơi lại" />
     <Label layoutX="672.0" layoutY="834.0" style="-fx-font-size: 14; -fx-text-fill: #FFFFFF;" text="Trợ giúp:" textFill="WHITE" />
 </AnchorPane>

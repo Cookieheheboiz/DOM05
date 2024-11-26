@@ -5,36 +5,30 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowAndReturnController">
+<StackPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.librarymanagement.BorrowAndReturnController">
     <children>
-        <!-- Background Image -->
         <ImageView fx:id="anh1" fitHeight="563.0" fitWidth="900.0" preserveRatio="false">
             <image>
-                <Image url="@../../../image/pngtree-an-old-bookcase-in-a-library-image_2642908.jpg" />
+                <Image url="@../../../image/pngtree-an-old-bookcase-in-a-library-image_2642908.jpg"/>
             </image>
         </ImageView>
-
-        <!-- VBox for clickable images -->
         <VBox alignment="CENTER" spacing="20">
             <children>
                 <!-- Return to Menu (Image acting as button) -->
                 <ImageView fitHeight="151.0" fitWidth="209.0" onMouseClicked="#onBackToMenu">
                     <image>
-                        <Image url="@../../../image/return_icon.png" />
+                        <Image url="@../../../image/return_icon.png"/>
                     </image>
                 </ImageView>
-
-                <!-- Borrow Books (Image acting as button) -->
                 <ImageView fitHeight="129.0" fitWidth="180.0" onMouseClicked="#onBorrowBooks">
                     <image>
-                        <Image url="@../../../image/borrow_icon.png" />
+                        <Image url="@../../../image/borrow_icon.png"/>
                     </image>
                 </ImageView>
-
-                <!-- Return Books (Image acting as button) -->
                 <ImageView fitHeight="146.0" fitWidth="179.0" onMouseClicked="#onReturnBooks">
                     <image>
-                        <Image url="@../../../image/return_book_icon.png" />
+                        <Image url="@../../../image/return_book_icon.png"/>
                     </image>
                 </ImageView>
             </children>

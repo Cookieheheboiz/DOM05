@@ -35,7 +35,7 @@ public class ManageUser {
     private TableColumn<UserData, String> BorrowedBook;
 
     @FXML
-    private TableColumn<UserData,String>author;
+    private TableColumn<UserData, String> author;
     @FXML
     private TableColumn<UserData, String> BorrowDate;
 
@@ -50,7 +50,7 @@ public class ManageUser {
 
     @FXML
     public void initialize() {
-        // Configure table columns
+
         UserId.setCellValueFactory(new PropertyValueFactory<>("id"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         BorrowedBook.setCellValueFactory(new PropertyValueFactory<>("borrowedBook"));
@@ -58,16 +58,15 @@ public class ManageUser {
         ReturnDate.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         Status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Load data from the database
         loadData();
     }
 
     private void loadData() {
-        // Clear the current list to avoid duplicates
+
         userList.clear();
 
         try {
-            // Connect to the database
+
             Connection connection = DatabaseConnection.getConnection();
 
             Statement statement = connection.createStatement();
@@ -85,10 +84,9 @@ public class ManageUser {
                 String status = "";
 
                 if (today.isAfter(returnLocalDate)) {
-                    status = "Quá hạn"; // Overdue
-                }
-                else {
-                    status = "Chưa trả"; // Not yet returned
+                    status = "Quá hạn";
+                } else {
+                    status = "Chưa trả";
                 }
                 userList.add(new UserData(id, author, borrowedBook, borrowDate, returnDate, status));
             }
@@ -101,11 +99,8 @@ public class ManageUser {
             e.printStackTrace();
         }
 
-        // Set the data in the TableView
         UserIn4.setItems(userList);
     }
-
-
 
 
     public void DeleteUser(ActionEvent event) {

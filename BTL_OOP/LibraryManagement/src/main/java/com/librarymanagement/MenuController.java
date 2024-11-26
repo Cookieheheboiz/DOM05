@@ -82,13 +82,11 @@ public class MenuController {
 
     public void AddStorage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/category.fxml")); // Updated to category.fxml
-            AnchorPane nextPage = loader.load(); // Load the AnchorPane from category.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/category.fxml"));
+            AnchorPane nextPage = loader.load();
 
-            // Get the current stage
             Stage stage = (Stage) Storagemn.getScene().getWindow();
 
-            // Set the new scene with the loaded AnchorPane
             Scene scene = new Scene(nextPage);
             stage.setScene(scene);
             stage.show();
@@ -100,13 +98,11 @@ public class MenuController {
 
     public void FindBook() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/search-view.fxml")); // Updated to category.fxml
-            AnchorPane nextPage = loader.load(); // Load the AnchorPane from category.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/search-view.fxml"));
+            AnchorPane nextPage = loader.load();
 
-            // Get the current stage
             Stage stage = (Stage) SearchBook.getScene().getWindow();
 
-            // Set the new scene with the loaded AnchorPane
             Scene scene = new Scene(nextPage);
             stage.setScene(scene);
             stage.show();

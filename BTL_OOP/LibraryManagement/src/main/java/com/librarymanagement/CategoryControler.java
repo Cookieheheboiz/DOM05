@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 public class CategoryControler implements Initializable {
 
 
-
     @FXML
     private TableView<Book> AddToTable;
 
@@ -51,12 +50,6 @@ public class CategoryControler implements Initializable {
     private Label Sum;
 
 
-
-
-
-    /**
-     * Counts the total number of books in the database.
-     */
     private int countBooks() {
         int count = 0;
         String query = "SELECT sum(quantity) AS total FROM docs";
@@ -91,9 +84,6 @@ public class CategoryControler implements Initializable {
         }
     }
 
-    /**
-     * Fetches unique genres from the database.
-     */
     private String[] fetchGenresFromDatabase() {
         List<String> genres = new ArrayList<>();
         String query = "SELECT DISTINCT category FROM docs";
@@ -201,7 +191,6 @@ public class CategoryControler implements Initializable {
     }
 
 
-
     public void loadAllBooks() {
         AddToTable.getItems().clear();
 
@@ -256,7 +245,7 @@ public class CategoryControler implements Initializable {
     public void deleteBook(ActionEvent actionEvent) {
         Book selectedBook = AddToTable.getSelectionModel().getSelectedItem();
         if (selectedBook == null) {
-            showAlert(Alert.AlertType.WARNING,  "Please select a book to delete.");
+            showAlert(Alert.AlertType.WARNING, "Please select a book to delete.");
             return;
         }
 
@@ -287,14 +276,14 @@ public class CategoryControler implements Initializable {
                 // Update the total book count
                 updateBookCount();
 
-                showAlert(Alert.AlertType.INFORMATION,  "The book has been deleted successfully.");
+                showAlert(Alert.AlertType.INFORMATION, "The book has been deleted successfully.");
             } else {
-                showAlert(Alert.AlertType.ERROR,  "Failed to delete the book.");
+                showAlert(Alert.AlertType.ERROR, "Failed to delete the book.");
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,  "Error deleting the book from the database.");
+            showAlert(Alert.AlertType.ERROR, "Error deleting the book from the database.");
         }
 
     }

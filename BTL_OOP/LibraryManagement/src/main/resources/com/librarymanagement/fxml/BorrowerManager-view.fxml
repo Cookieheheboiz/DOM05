@@ -7,31 +7,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowerController">
-   <children>
-      <ImageView fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../image/Resized-Art-Library-Background.jpg" />
-         </image>
-      </ImageView>
-      <TableView fx:id="addtoTable" layoutX="89.0" layoutY="208.0" prefHeight="543.0" prefWidth="739.0">
-        <columns>
-          <TableColumn fx:id="addID" prefWidth="84.00003814697266" text="ID" />
-          <TableColumn fx:id="addFullname" prefWidth="167.99998474121094" text="Fullname" />
-            <TableColumn fx:id="addPhonenumber" prefWidth="142.00006103515625" text="PhoneNumber" />
-            <TableColumn fx:id="addDob" prefWidth="101.33334350585938" text="DateOfBirth" />
-            <TableColumn fx:id="addNumofBooks" prefWidth="157.33331298828125" text="NumOfBook" />
-            <TableColumn fx:id="addStatus" minWidth="9.3333740234375" prefWidth="88.66664632161462" text="Status" />
-        </columns>
-      </TableView>
-      <Button fx:id="ReturnButton" mnemonicParsing="false" onAction="#returnButtonAction" prefHeight="55.0" prefWidth="73.0" stylesheets="@../css/ButtonHoverInUserView.css">
-         <graphic>
-            <ImageView fitHeight="39.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../image/return-button-icon-vector-26555659-removebg-preview.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-   </children>
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.librarymanagement.BorrowerController">
+    <children>
+        <ImageView fitHeight="900.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../image/Resized-Art-Library-Background.jpg"/>
+            </image>
+        </ImageView>
+        <TableView fx:id="addtoTable" layoutX="89.0" layoutY="208.0" prefHeight="543.0" prefWidth="739.0">
+            <columns>
+                <TableColumn fx:id="addID" prefWidth="84.00003814697266" text="ID"/>
+                <TableColumn fx:id="addFullname" prefWidth="167.99998474121094" text="Fullname"/>
+                <TableColumn fx:id="addPhonenumber" prefWidth="142.00006103515625" text="PhoneNumber"/>
+                <TableColumn fx:id="addDob" prefWidth="101.33334350585938" text="DateOfBirth"/>
+                <TableColumn fx:id="addNumofBooks" prefWidth="157.33331298828125" text="NumOfBook"/>
+                <TableColumn fx:id="addStatus" minWidth="9.3333740234375" prefWidth="88.66664632161462" text="Status"/>
+            </columns>
+        </TableView>
+        <Button fx:id="ReturnButton" mnemonicParsing="false" onAction="#returnButtonAction" prefHeight="55.0"
+                prefWidth="73.0" stylesheets="@../css/ButtonHoverInUserView.css">
+            <graphic>
+                <ImageView fitHeight="39.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../image/return-button-icon-vector-26555659-removebg-preview.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
 </AnchorPane>

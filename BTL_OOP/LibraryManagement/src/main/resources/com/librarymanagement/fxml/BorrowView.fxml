@@ -11,42 +11,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.BorrowController">
-    <!-- Thêm ảnh nền -->
+<AnchorPane xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.librarymanagement.BorrowController">
     <children>
         <ImageView fitHeight="850.0" fitWidth="900.0" preserveRatio="false">
             <image>
-                <Image url="@../../../image/anime.jpg" />
+                <Image url="@../../../image/anime.jpg"/>
             </image>
         </ImageView>
 
         <VBox alignment="TOP_CENTER" layoutY="2.0" prefHeight="850.0" prefWidth="900.0" spacing="10">
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" text="Borrow Books" />
-
-            <!-- ComboBox để chọn tiêu đề sách -->
-            <Label style="-fx-text-fill: white;" text="Vui lòng chọn sách:" />
-            <ComboBox fx:id="bookComboBox" prefWidth="250.0" />
-
-            <!-- DatePicker để chọn ngày mượn và ngày trả -->
-            <Label style="-fx-text-fill: white;" text="Ngày mượn:" />
-            <DatePicker fx:id="startDatePicker" prefWidth="250.0" />
-            <Label style="-fx-text-fill: white;" text="Ngày trả:" />
-            <DatePicker fx:id="endDatePicker" prefWidth="250.0" />
-
-            <!-- Nút Borrow -->
-            <Button fx:id="borrowButton" onAction="#onBorrowButtonClick" prefWidth="150.0" text="Borrow Selected Book" />
-
-            <!-- Nút Back -->
-            <Button fx:id="backButton" onAction="#onBackButtonClick" prefWidth="150.0" text="Back to Main Menu" />
-
-            <!-- TableView hiển thị thông tin sách -->
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" text="Borrow Books"/>
+            <Label style="-fx-text-fill: white;" text="Vui lòng chọn sách:"/>
+            <ComboBox fx:id="bookComboBox" prefWidth="250.0"/>
+            <Label style="-fx-text-fill: white;" text="Ngày mượn:"/>
+            <DatePicker fx:id="startDatePicker" prefWidth="250.0"/>
+            <Label style="-fx-text-fill: white;" text="Ngày trả:"/>
+            <DatePicker fx:id="endDatePicker" prefWidth="250.0"/>
+            <Button fx:id="borrowButton" onAction="#onBorrowButtonClick" prefWidth="150.0" text="Borrow Selected Book"/>
+            <Button fx:id="backButton" onAction="#onBackButtonClick" prefWidth="150.0" text="Back to Main Menu"/>
             <TableView fx:id="bookTableView" prefHeight="400.0" prefWidth="850.0">
                 <columns>
-                    <TableColumn fx:id="idColumn" prefWidth="100.0" text="ID" />
-                    <TableColumn fx:id="titleColumn" prefWidth="314.39998626708984" text="TITLE" />
-                    <TableColumn fx:id="authorColumn" prefWidth="181.60006713867188" text="AUTHOR" />
-                    <TableColumn fx:id="publisherColumn" prefWidth="164.79998779296875" text="PUBLISHER" />
-                    <TableColumn fx:id="categoryColumn" prefWidth="139.99993896484375" text="CATEGORY" />
+                    <TableColumn fx:id="idColumn" prefWidth="100.0" text="ID"/>
+                    <TableColumn fx:id="titleColumn" prefWidth="314.39998626708984" text="TITLE"/>
+                    <TableColumn fx:id="authorColumn" prefWidth="181.60006713867188" text="AUTHOR"/>
+                    <TableColumn fx:id="publisherColumn" prefWidth="164.79998779296875" text="PUBLISHER"/>
+                    <TableColumn fx:id="categoryColumn" prefWidth="139.99993896484375" text="CATEGORY"/>
                 </columns>
             </TableView>
         </VBox>

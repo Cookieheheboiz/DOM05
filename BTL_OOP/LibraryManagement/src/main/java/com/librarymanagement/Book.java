@@ -14,10 +14,9 @@ public class Book {
     private ImageView coverImage;
     private String bookName;
     private String borrowerName;
-    private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
+    private LocalDate borrowDate;
     private LocalDate returnDate;
     private int quantity;
-
 
 
     public Book(String title, String author, String publisher, String year, String category, ImageView coverImage) {
@@ -33,15 +32,15 @@ public class Book {
         this.id = id;
         this.bookName = bookName;
         this.borrowerName = borrowerName;
-        this.borrowDate = borrowDate;  // Khởi tạo ngày mượn
-        this.returnDate = returnDate;  // Khởi tạo ngày trả
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
     }
 
-    public Book(String bookTitle, String author, String publisher,int quantity) {
+    public Book(String bookTitle, String author, String publisher, int quantity) {
         this.title = bookTitle;
         this.author = author;
         this.publisher = publisher;
-        this.quantity=quantity;
+        this.quantity = quantity;
     }
 
     public Book(int id, String title, String author, String publisher, String category) {
@@ -56,15 +55,34 @@ public class Book {
     public int getQuantity() {
         return quantity;
     }
-    public void setQuantity(int quantity){
-        this.quantity=quantity;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public String getPublisher() { return publisher; }
-    public String getYear() { return year; }
-    public String getCategory() { return category; }
-    public ImageView getCoverImage() { return coverImage; }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public ImageView getCoverImage() {
+        return coverImage;
+    }
 
     public String getBookName() {
         return bookName;
@@ -75,11 +93,11 @@ public class Book {
     }
 
     public LocalDate getBorrowDate() {
-        return borrowDate;  // Trả về ngày mượn
+        return borrowDate;
     }
 
     public LocalDate getReturnDate() {
-        return returnDate;  // Trả về ngày trả
+        return returnDate;
     }
 
     public void setTitle(String title) {
@@ -113,7 +131,6 @@ public class Book {
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     public void setBookName(String bookName) {
