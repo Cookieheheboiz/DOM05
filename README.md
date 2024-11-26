@@ -1,4 +1,4 @@
-# DomDomLibrary (LibraryManagement)
+![image](https://github.com/user-attachments/assets/3f2ffdfb-e5b0-45cb-a429-6c0beabaea04)# DomDomLibrary (LibraryManagement)
 
 #### Table of contents
 1. [Tác giả](#author)
@@ -22,7 +22,7 @@ DOM05
 * Ứng dụng còn tích hợp game “ai là triệu phú” hỏi về những kiến thức thú vị xoay quanh những cuốn sách, giúp người dùng giải trí và nâng cao kiến thức về sách.
 
 <p align="center">
-<img width="640" height="480" src="https://imgur.com/a/oCYuZ6i">
+<img width="640" height="480" src="https://i.imgur.com/XvsjSf1.png">
 </p>
 
 # Tính năng nổi bật <a name="features"></a>
@@ -39,7 +39,7 @@ User
 # UML Diagram <a name="uml"></a>
 
 <p align="center">
-<img width="640" height="480" src="https://imgur.com/a/fvidHj4">
+<img width="640" height="480" src="https://i.imgur.com/okluhcg.png">
 </p>
 
 # Cách sử dụng <a name="user-guide"></a>
