@@ -61,4 +61,4 @@ User
 * Cài đặt JDK 8 tại [đây](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html), có thể sử dụng Intellij để chạy chương trình viết bằng Java.
 1. Clone project từ repository
 2. Mở project trong IDE Intellij
-3. Tìm đến main/DictionaryApplication và run.
+3. Tìm đến main/LibraryManagement và run.
