@@ -160,18 +160,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="FirstanchorPane" layoutX="221.0" prefHeight="900.0" prefWidth="679.0" visible="false">
-         <children>
-            <TableView fx:id="SuggestTable" layoutX="23.0" layoutY="181.0" prefHeight="537.0" prefWidth="633.0">
-               <columns>
-                  <TableColumn fx:id="TierSuggest" prefWidth="39.99998474121094" text="Tier" />
-                  <TableColumn fx:id="TitleSuggest" prefWidth="211.99993896484375" text="Title" />
-                  <TableColumn fx:id="AuthorSuggest" prefWidth="129.33340454101562" text="Author" />
-                  <TableColumn fx:id="CategorySuggest" prefWidth="171.33331298828125" text="Category" />
-                  <TableColumn fx:id="AmountSuggest" prefWidth="78.6666259765625" text="Amount" />
-               </columns>
-            </TableView>
-         </children></AnchorPane>
+      <AnchorPane fx:id="FirstanchorPane" layoutX="221.0" prefHeight="900.0" prefWidth="679.0" visible="false" />
       <AnchorPane fx:id="BorrowBookanchorpane" layoutX="221.0" layoutY="3.0" prefHeight="900.0" prefWidth="679.0" visible="false">
          <children>
             <VBox alignment="TOP_CENTER" layoutY="2.0" prefHeight="900.0" prefWidth="679.0" spacing="10">
@@ -244,7 +233,7 @@
          <children>
             <ImageView fx:id="Back_groundimage" fitHeight="900.0" fitWidth="679.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../DOM05-j97/BTL_OOP/LibraryManagement/src/main/resources/image/storageuser_679x900.jpg" />
+                  <Image url="@../../../../../../../../../DOM05-namdz - Copy1/BTL_OOP/LibraryManagement/src/main/resources/image/storageuser_679x900.jpg" />
                </image>
             </ImageView>
             <TableView fx:id="AddToTable" layoutY="119.0" prefHeight="634.0" prefWidth="679.0">
