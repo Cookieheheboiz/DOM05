@@ -17,11 +17,13 @@ import java.io.IOException;
 
 public class MenuController {
 
+    public Button SearchBook;
     @FXML
-    private Button SearchBook;
+    private Button Borrowmn;
 
     @FXML
     private Button Storagemn;
+
     @FXML
     private Button GameField;
     @FXML
@@ -30,11 +32,6 @@ public class MenuController {
     private Button employeeField;
     @FXML
     private Button LogoutField;
-
-    @FXML
-    private void initialize() {
-        // Không cần thiết lập onAction ở đây, đã thiết lập trong FXML
-    }
 
     public void showBorrowAndReturnView(ActionEvent event) {
         try {
@@ -46,7 +43,6 @@ public class MenuController {
             e.printStackTrace();
         }
     }
-
     public void openGameView(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Game.fxml"));
@@ -66,12 +62,14 @@ public class MenuController {
             logout.setScene(new Scene(root, 900, 900));
             logout.setTitle("Hello!");
             logout.show();
+
         } catch (Exception e) {
             e.printStackTrace();
+            e.getCause();
         }
     }
 
-    public void LogoutAction(ActionEvent event) {
+    public void LogoutAction() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to exit?");
@@ -82,29 +80,42 @@ public class MenuController {
         }
     }
 
-    public void AddStorage(ActionEvent event) {
+    public void AddStorage() {
         try {
-            AnchorPane nextPage = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/category.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/category.fxml")); // Updated to category.fxml
+            AnchorPane nextPage = loader.load(); // Load the AnchorPane from category.fxml
+
+            // Get the current stage
             Stage stage = (Stage) Storagemn.getScene().getWindow();
-            stage.setScene(new Scene(nextPage));
+
+            // Set the new scene with the loaded AnchorPane
+            Scene scene = new Scene(nextPage);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public void FindBook(ActionEvent event) {
+    public void FindBook() {
         try {
-            AnchorPane nextPage = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/search-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/search-view.fxml")); // Updated to category.fxml
+            AnchorPane nextPage = loader.load(); // Load the AnchorPane from category.fxml
+
+            // Get the current stage
             Stage stage = (Stage) SearchBook.getScene().getWindow();
-            stage.setScene(new Scene(nextPage));
+
+            // Set the new scene with the loaded AnchorPane
+            Scene scene = new Scene(nextPage);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
-    public void employeeAction() {
+    public void employee() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/User-view.fxml"));
             Stage employ = new Stage();
@@ -118,4 +129,33 @@ public class MenuController {
             e.getCause();
         }
     }
+
+    public void employeeAction() {
+        Stage stage = (Stage) employeeField.getScene().getWindow();
+        stage.close();
+        employee();
+    }
+
+    public void borrower() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/BorrowerManager-view.fxml"));
+            Stage employ = new Stage();
+            employ.initStyle(StageStyle.UNDECORATED);
+            employ.setScene(new Scene(root, 900, 900));
+            employ.setTitle("Hello!");
+            employ.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void borrowerAction() {
+        Stage stage = (Stage) Borrowmn.getScene().getWindow();
+        stage.close();
+        borrower();
+    }
+
+
 }

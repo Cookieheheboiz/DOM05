@@ -7,9 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +22,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.google.gson.JsonArray;
@@ -34,7 +33,10 @@ import javafx.stage.Stage;
 
 public class SearchBookController {
 
-    private static final String API_KEY = "AIzaSyAFCqgbJEO66upyGY8u2pUnryQocE6e7aI";
+    @FXML
+    private Label TrangThai;
+
+    private static final String API_KEY = "AIzaSyD8mEOzazaLbRX0DYuvFrAincJHxitCjoU";
     @FXML
     private TextField searchField;
 
@@ -61,6 +63,10 @@ public class SearchBookController {
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<>("year"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+
+
+
     }
 
     @FXML
@@ -138,7 +144,28 @@ public class SearchBookController {
         String publisher = selectedBook.getPublisher();
         String category = selectedBook.getCategory();
 
-        String sql = "INSERT INTO docs (title, author, publisher, category) VALUES (?, ?, ?, ?)";
+        String query = "SELECT sum(quantity) AS total_quantity FROM docs WHERE title = ? AND author = ? AND publisher = ?";
+        int currentQuantity = 0;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, title);
+            stmt.setString(2, author);
+            stmt.setString(3, publisher);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                currentQuantity = rs.getInt("total_quantity"); // Get the current quantity
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        currentQuantity++;
+
+        String sql = "INSERT INTO docs (title, author, publisher, category, quantity) VALUES (?, ?, ?, ?,?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -146,12 +173,16 @@ public class SearchBookController {
             stmt.setString(2, author);
             stmt.setString(3, publisher);
             stmt.setString(4, category);
+            stmt.setInt(5, currentQuantity);
             stmt.executeUpdate();
 
-            System.out.println("Book added to database successfully!");
+
+            TrangThai.setText("Book added to database successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error adding book to the database.");
+
+
+            TrangThai.setText("Error adding book to the database.");
         }
     }
 

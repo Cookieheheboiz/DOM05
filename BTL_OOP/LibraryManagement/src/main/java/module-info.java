@@ -2,7 +2,6 @@ module com.librarymanagement {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-    requires javafx.graphics;
     requires java.sql;
     requires mysql.connector.j;
 
@@ -15,6 +14,7 @@ module com.librarymanagement {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires com.google.gson;
+    requires javafx.media;
 
     opens com.librarymanagement to javafx.fxml;
     exports com.librarymanagement;
