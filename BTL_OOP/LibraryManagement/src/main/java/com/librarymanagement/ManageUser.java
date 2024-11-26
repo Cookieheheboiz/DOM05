@@ -70,7 +70,7 @@ public class ManageUser {
             // Connect to the database
             Connection connection = DatabaseConnection.getConnection();
 
-           Statement statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             String query = "SELECT User_id as id, author, title AS borrowedBook, borrow_date AS borrowDate, return_date AS returnDate FROM borrowed_books1";
             ResultSet resultSet = statement.executeQuery(query);
 

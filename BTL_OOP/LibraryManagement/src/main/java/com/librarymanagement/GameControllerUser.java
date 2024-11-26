@@ -24,7 +24,7 @@ import java.io.File;
 import javafx.scene.control.ToggleButton;
 
 
-public class GameController {
+public class GameControllerUser {
     @FXML
     private Label questionLabel, correctAnswersLabel;
     @FXML
@@ -259,7 +259,7 @@ public class GameController {
             mediaPlayer.stop(); // Dừng nhạc khi trở về menu
         }
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/Menu-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Menu");

@@ -29,6 +29,10 @@ public class LoadingController extends HelloController implements Initializable 
 
     private Stage stage;
 
+    private String userID; // User information
+    private String fullName;
+    private String phoneNumber;
+    private String birthday;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Progress.setStyle("-fx-accent: #0080FF;");
@@ -57,6 +61,11 @@ public class LoadingController extends HelloController implements Initializable 
         try {
             // Load the next scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource(nextScenePath));
+
+            if (nextScenePath.equals("/com/librarymanagement/fxml/UserMenu-view.fxml")) {
+                UserMenuController controller = new UserMenuController();
+
+            }
             Parent nextPage = loader.load();
 
             Stage stage = (Stage) scenePane.getScene().getWindow();

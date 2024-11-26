@@ -1,0 +1,11 @@
+.button {
+    -fx-pref-height: 25px;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #42E695, #3BB2B8);
+    -fx-text-fill: Black; /* Text color */
+    -fx-font-size: 12px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);
+}

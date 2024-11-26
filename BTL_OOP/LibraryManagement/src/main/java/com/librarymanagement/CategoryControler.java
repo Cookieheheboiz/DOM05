@@ -52,7 +52,7 @@ public class CategoryControler implements Initializable {
 
 
 
-   
+
 
     /**
      * Counts the total number of books in the database.

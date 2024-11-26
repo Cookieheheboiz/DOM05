@@ -43,7 +43,7 @@ public class ReturnController {
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where User_id = ?";
+            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,HelloController.loginUserId);
             ResultSet resultSet = preparedStatement.executeQuery();

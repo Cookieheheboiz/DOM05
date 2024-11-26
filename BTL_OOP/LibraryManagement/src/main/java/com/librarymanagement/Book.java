@@ -53,12 +53,12 @@ public class Book {
     }
 
 
-public int getQuantity() {
+    public int getQuantity() {
         return quantity;
-}
-public void setQuantity(int quantity){
+    }
+    public void setQuantity(int quantity){
         this.quantity=quantity;
-}
+    }
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public String getPublisher() { return publisher; }

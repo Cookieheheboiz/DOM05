@@ -99,6 +99,7 @@ public class UserController {
         DatabaseConnection databaseConnector = new DatabaseConnection();
         Connection connection = databaseConnector.getConnection();
 
+        // Adjusted query to concatenate first and last name
         String query = "SELECT ID, CONCAT(First_name, ' ', Last_name) AS Full_name, MyRole, Username, Password FROM user_id";
 
         try {
@@ -141,6 +142,7 @@ public class UserController {
             errorAlert.showAndWait();
         }
     }
+
 
     public void initialize() {
         // Set up the columns
