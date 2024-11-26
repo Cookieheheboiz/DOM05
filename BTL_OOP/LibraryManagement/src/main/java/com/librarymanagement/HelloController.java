@@ -24,9 +24,6 @@ public class HelloController {
     private Button SignupButton;
 
     public static int loginUserId;
-
-
-
     @FXML
     private Button LoginButton;
     @FXML
@@ -42,7 +39,6 @@ public class HelloController {
     public String nextScenePath;
 
     private boolean checkClose = false;
-
 
 
 
@@ -71,11 +67,12 @@ public class HelloController {
     }
 
 
+
     public void validateLogin() {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connectDB = databaseConnection.getConnection();
 
-        String verifyLogin = "SELECT ID, Username, Password, MyRole FROM user_id WHERE Username = ? AND Password = ?";
+        String verifyLogin = "SELECT * FROM user_id WHERE Username = ? AND Password = ?";
         try {
             PreparedStatement preparedStatement = connectDB.prepareStatement(verifyLogin);
             preparedStatement.setString(1, usernameTextField.getText());
@@ -85,11 +82,14 @@ public class HelloController {
 
 
             if (resultSet.next()) { // Check if a matching record exists
-                loginUserId = resultSet.getInt("ID");
-                System.out.println("ID: " + resultSet.getInt("ID"));
                 System.out.println("Username: " + resultSet.getString("Username"));
                 System.out.println("Password: " + resultSet.getString("Password"));
                 System.out.println("Role: " + resultSet.getString("MyRole"));
+
+                int userID = resultSet.getInt("ID");
+                String fullName = resultSet.getString("Full_name");
+                String phoneNumber = resultSet.getString("PhoneNumber");
+                String birthday = resultSet.getString("DateOfBirth");
                 String retrievedRole = resultSet.getString("MyRole");
 
                 if ("Admin".equals(retrievedRole)) {
@@ -100,6 +100,17 @@ public class HelloController {
                 } else if ("User".equals(retrievedRole)) {
                     loginMessageLabel.setText("Welcome, User!");
                     checkClose = true;
+                    UserSession session = UserSession.getInstance();
+                    session.setUserID(userID);
+                    session.setUsername(resultSet.getString("Username"));
+                    session.setFullName(fullName);
+                    session.setPhoneNumber(phoneNumber);
+                    session.setBirthday(birthday);
+                    System.out.println("User ID: " + userID);
+                    System.out.println("Full Name: " + fullName);
+                    System.out.println("Phone Number: " + phoneNumber);
+                    System.out.println("Birthday: " + birthday);
+                    System.out.println("Username: " + resultSet.getString("Username"));
                     showLoadingScene("/com/librarymanagement/fxml/UserMenu-view.fxml");
                 } else {
                     loginMessageLabel.setText("Invalid role. Please contact support.");
@@ -153,8 +164,6 @@ public class HelloController {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/librarymanagement/fxml/UserMenu-view.fxml"));
             Stage menuStage = new Stage();
-
-
             menuStage.initStyle(StageStyle.UNDECORATED);
             menuStage.setScene(new Scene(root, 900, 900));
             menuStage.setTitle("Signup");
@@ -168,17 +177,13 @@ public class HelloController {
 
     private void showLoadingScene(String nextScenePath) {
         try {
-            // Load the loading screen FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/librarymanagement/fxml/loading.fxml"));
             Parent loadingRoot = loader.load();
 
-            // Get the LoadingController instance
+            // Get the LoadingController instance and set the next scene path
             LoadingController loadingController = loader.getController();
-
-            // Set the next scene path in the LoadingController
             loadingController.setNextScenePath(nextScenePath);
 
-            // Show the loading scene
             Stage stage = (Stage) LoginButton.getScene().getWindow();
             Scene loadingScene = new Scene(loadingRoot);
             stage.setScene(loadingScene);

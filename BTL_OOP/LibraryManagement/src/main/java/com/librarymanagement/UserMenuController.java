@@ -328,7 +328,6 @@ public class UserMenuController extends CategoryControler {
         String selectedTitle = bookComboBox.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-        UserSession session = UserSession.getInstance();
 
         if (selectedTitle == null) {
             showAlert("Please select a book from the dropdown.");
@@ -352,12 +351,20 @@ public class UserMenuController extends CategoryControler {
         }
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT id, title, author, publisher, category FROM docs WHERE title = ?";
+            String sql = "SELECT id, title, author, publisher, category, quantity FROM docs WHERE title = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, selectedTitle);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+
+                int quantity = resultSet.getInt("quantity");
+
+                if (quantity <= 0) {
+                    showAlert("The books are fully borrowed!");
+                    return;
+                }
+
                 Book book = new Book(
                         resultSet.getInt("id"),
                         resultSet.getString("title"),
@@ -369,40 +376,37 @@ public class UserMenuController extends CategoryControler {
                 String checkExistingSql = "SELECT count(*) FROM borrowed_books1 WHERE id = ? AND user_id = ?";
                 PreparedStatement checkExistingStmt = connection.prepareStatement(checkExistingSql);
                 checkExistingStmt.setInt(1, book.getId());
-                checkExistingStmt.setInt(2, session.getUserID()); // Assuming HelloController has loginUserId
+                checkExistingStmt.setInt(2, HelloController.loginUserId); // Assuming HelloController has loginUserId
                 ResultSet checkExistingResult = checkExistingStmt.executeQuery();
 
                 if (checkExistingResult.next() && checkExistingResult.getInt(1) > 0 ) {
                     showAlert("You have already borrowed this book. You cannot borrow it again.");
-                    return;  // Prevent borrowing if the book is already borrowed by the user
+                    return;
                 }
-                if (bookTableView.getItems().isEmpty()) {
-                    bookTableView.getItems().add(book);
 
-                    String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
-                    PreparedStatement insertStatement = connection.prepareStatement(insertSql);
-                    System.out.println(book.getId());
+                bookTableView.getItems().add(book);
 
-                    insertStatement.setInt(1,book.getId());
-                    insertStatement.setString(2, book.getTitle());
-                    insertStatement.setString(3, book.getAuthor());
-                    insertStatement.setString(4, book.getPublisher());
-                    insertStatement.setString(5, book.getCategory());
-                    insertStatement.setDate(6, java.sql.Date.valueOf(startDate));
-                    insertStatement.setDate(7, java.sql.Date.valueOf(endDate));
-                    insertStatement.setInt(8, session.getUserID());
-                    insertStatement.executeUpdate();
+                String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
+                PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+                System.out.println(book.getId());
 
-                    String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE title = ?";
-                    PreparedStatement updateStatement = connection.prepareStatement(updateSql);
-                    updateStatement.setString(1, book.getTitle());
+                insertStatement.setInt(1,book.getId());
+                insertStatement.setString(2, book.getTitle());
+                insertStatement.setString(3, book.getAuthor());
+                insertStatement.setString(4, book.getPublisher());
+                insertStatement.setString(5, book.getCategory());
+                insertStatement.setDate(6, java.sql.Date.valueOf(startDate));
+                insertStatement.setDate(7, java.sql.Date.valueOf(endDate));
+                insertStatement.setInt(8, HelloController.loginUserId);
+                insertStatement.executeUpdate();
 
-                    updateStatement.executeUpdate();
-                    showAlert("The book has been successfully borrowed.");
-                }
-                else {
-                    showAlert("You can only borrow one book at a time.");
-                }
+                String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE id = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                updateStatement.setInt(1, book.getId());
+
+                updateStatement.executeUpdate();
+                showAlert("The book has been successfully borrowed.");
+
 
             }
         } catch (Exception e) {
@@ -557,18 +561,13 @@ public class UserMenuController extends CategoryControler {
     // Show the book which user borrowed
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
-        UserSession session = UserSession.getInstance();
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where User_id = ?";
+            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,session.getUserID());
+            preparedStatement.setInt(1,HelloController.loginUserId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("Title: " + resultSet.getString("title"));
-                System.out.println("Borrow Date: " + resultSet.getDate("borrow_date"));
-                System.out.println("Return Date: " + resultSet.getDate("return_date"));
-
                 borrowedBooks.add(new BorrowedBook(
                         resultSet.getString("title"),
                         resultSet.getDate("borrow_date").toString(),
@@ -612,6 +611,7 @@ public class UserMenuController extends CategoryControler {
     @FXML
     private void reloadScene(ActionEvent event) {
         try {
+            currentMediaPlayer.setMute(true);
             // Save the current visible pane for restoration
             String currentView = getCurrentVisiblePane(); // Implement this method to get the current view's ID or name
 
@@ -669,66 +669,5 @@ public class UserMenuController extends CategoryControler {
     }
 
     /// Top 5 book suggest for user
-
-
-    private void loadTop5SuggestBook() {
-        TierSuggest.setCellValueFactory(new PropertyValueFactory<>("tier"));
-        TitleSuggest.setCellValueFactory(new PropertyValueFactory<>("title"));
-        AuthorSuggest.setCellValueFactory(new PropertyValueFactory<>("author"));
-        CategorySuggest.setCellValueFactory(new PropertyValueFactory<>("category"));
-        AmountSuggest.setCellValueFactory(new PropertyValueFactory<>("borrowCount"));
-
-        String query = """
-            
-                WITH BorrowCounts AS (
-                SELECT 
-                    title, 
-                    COUNT(*) AS borrow_count
-                FROM 
-                    borrowed_books1
-                GROUP BY 
-                    title
-            )
-            SELECT 
-                RANK() OVER (ORDER BY borrow_count DESC) AS tier,
-                title,
-                borrow_count
-            FROM 
-                BorrowCounts
-            LIMIT 5;
-            """;
-
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<BorrowedBook> suggestedBooks = new ArrayList<>();
-            while (resultSet.next()) {
-                int tier = resultSet.getInt("tier");
-                String title = resultSet.getString("title");
-                int borrowCount = resultSet.getInt("borrow_count");
-
-                // Query to get the author and category for the book (you may need to modify this if necessary)
-                String bookDetailsQuery = "SELECT author, category FROM docs WHERE title = ?";
-                PreparedStatement bookDetailsStmt = connection.prepareStatement(bookDetailsQuery);
-                bookDetailsStmt.setString(1, title);
-                ResultSet bookDetailsResult = bookDetailsStmt.executeQuery();
-
-                if (bookDetailsResult.next()) {
-                    String author = bookDetailsResult.getString("author");
-                    String category = bookDetailsResult.getString("category");
-
-                    // Create a BorrowedBook object and add it to the list
-                    BorrowedBook borrowedBook = new BorrowedBook(tier, title, author, category, borrowCount);
-                    suggestedBooks.add(borrowedBook);
-                }
-            }
-
-            // Set the items of the table view to the list of suggested books
-            SuggestTable.setItems(FXCollections.observableArrayList(suggestedBooks));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
