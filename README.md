@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3f2ffdfb-e5b0-45cb-a429-6c0beabaea04)# DomDomLibrary (LibraryManagement)
+# DomDomLibrary (LibraryManagement)
 
 #### Table of contents
 1. [Tác giả](#author)
