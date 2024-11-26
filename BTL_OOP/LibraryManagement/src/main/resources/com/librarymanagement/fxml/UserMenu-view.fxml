@@ -198,7 +198,7 @@
             <Button layoutX="293.0" layoutY="779.0" onAction="#returnSelectedBooks" text="Trả sách" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="ReturnAndBorrowAnchorpane" layoutX="222.0" layoutY="7.0" prefHeight="900.0" prefWidth="679.0">
+      <AnchorPane fx:id="ReturnAndBorrowAnchorpane" layoutX="222.0" layoutY="7.0" prefHeight="900.0" prefWidth="679.0" visible="false">
          <children>
             <Button fx:id="BRTbackTomainButton" layoutX="209.0" layoutY="155.0" mnemonicParsing="false" onAction="#switchToFirstAnchorPane" prefHeight="152.0" prefWidth="261.0" stylesheets="@../css/ClearBackgroundButton.css">
                <graphic>
