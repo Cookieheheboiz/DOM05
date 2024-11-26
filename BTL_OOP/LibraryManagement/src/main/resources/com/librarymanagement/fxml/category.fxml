@@ -21,9 +21,6 @@
         </ImageView>
         <!-- SplitMenuButton for Entertain (without MenuItem defined here) -->
         <SplitMenuButton fx:id="Category" layoutX="386.0" layoutY="21.0" onAction="#AddCategory" text="Category" />
-
-        <!-- Exit button -->
-        <Button fx:id="exit" layoutX="824.0" layoutY="15.0" onAction="#exitButton" text="Exit" />
         <TableView fx:id="AddToTable" layoutX="286.0" layoutY="147.0" prefHeight="511.0" prefWidth="612.0">
             <columns>
                 <TableColumn fx:id="AddTitle" prefWidth="213.0" text="Title" />
