@@ -121,28 +121,28 @@ public class BorrowController {
                     return;
                 }
 
-                bookTableView.getItems().add(book);
+                    bookTableView.getItems().add(book);
 
-                String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
-                PreparedStatement insertStatement = connection.prepareStatement(insertSql);
-                System.out.println(book.getId());
+                    String insertSql = "INSERT INTO borrowed_books1 (id, title, author, publisher, category, borrow_date, return_date,User_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
+                    PreparedStatement insertStatement = connection.prepareStatement(insertSql);
+                    System.out.println(book.getId());
 
-                insertStatement.setInt(1,book.getId());
-                insertStatement.setString(2, book.getTitle());
-                insertStatement.setString(3, book.getAuthor());
-                insertStatement.setString(4, book.getPublisher());
-                insertStatement.setString(5, book.getCategory());
-                insertStatement.setDate(6, java.sql.Date.valueOf(startDate));
-                insertStatement.setDate(7, java.sql.Date.valueOf(endDate));
-                insertStatement.setInt(8, HelloController.loginUserId);
-                insertStatement.executeUpdate();
+                    insertStatement.setInt(1,book.getId());
+                    insertStatement.setString(2, book.getTitle());
+                    insertStatement.setString(3, book.getAuthor());
+                    insertStatement.setString(4, book.getPublisher());
+                    insertStatement.setString(5, book.getCategory());
+                    insertStatement.setDate(6, java.sql.Date.valueOf(startDate));
+                    insertStatement.setDate(7, java.sql.Date.valueOf(endDate));
+                    insertStatement.setInt(8, HelloController.loginUserId);
+                    insertStatement.executeUpdate();
 
-                String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE id = ?";
-                PreparedStatement updateStatement = connection.prepareStatement(updateSql);
-                updateStatement.setInt(1, book.getId());
+                    String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE id = ?";
+                    PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                    updateStatement.setInt(1, book.getId());
 
-                updateStatement.executeUpdate();
-                showAlert("The book has been successfully borrowed.");
+                    updateStatement.executeUpdate();
+                    showAlert("The book has been successfully borrowed.");
 
 
             }
@@ -172,4 +172,4 @@ public class BorrowController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}
+}   

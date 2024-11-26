@@ -108,9 +108,6 @@ public class ManageUser {
 
 
 
-    public void DeleteUser(ActionEvent event) {
-
-    }
 
     public void reTurn(ActionEvent event) {
         try {

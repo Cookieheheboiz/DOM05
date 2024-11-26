@@ -73,9 +73,9 @@ public class ReturnController {
                 preparedStatement.setString(3, selectedBook.getReturnDate());
                 preparedStatement.executeUpdate();
 
-                String updateSql = "UPDATE docs SET quantity = quantity + 1 WHERE title = ?";
+                String updateSql = "UPDATE docs SET quantity = quantity + 1 WHERE id = ?";
                 PreparedStatement updateStatement = connection.prepareStatement(updateSql);
-                updateStatement.setString(1, selectedBook.getTitle());
+                updateStatement.setInt(1, selectedBook.getId());
                 updateStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);
