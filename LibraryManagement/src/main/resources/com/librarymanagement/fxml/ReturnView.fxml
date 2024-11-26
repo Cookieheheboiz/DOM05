@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.ReturnController">
+    <children>
+
+
+
+        <TableView fx:id="borrowedBooksTable" layoutX="130.0" layoutY="14.0" prefHeight="600.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Title" />
+                <TableColumn fx:id="borrowDateColumn" prefWidth="200.0" text="Borrow Date" />
+                <TableColumn fx:id="returnDateColumn" prefWidth="200.0" text="Return Date" />
+            </columns>
+        </TableView>
+        <Button layoutX="400.0" layoutY="645.0" onAction="#returnSelectedBooks" text="Trả sách" />
+        <Button layoutX="400.0" layoutY="700.0" onAction="#goBackToMainView" text="Quay lại" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.SearchBookController">
+    <ImageView fx:id="backgroundImageView" fitHeight="900.0" fitWidth="900.0" preserveRatio="false">
+        <image>
+            <Image url="@../../../image/Back_ground_search.jpg" />
+        </image>
+    </ImageView>
+
+    <TextField fx:id="searchField" layoutX="260.0" layoutY="43.0" prefHeight="41.0" prefWidth="383.0" promptText="Hãy nhập tên sách ">
+      <font>
+         <Font size="18.0" />
+      </font></TextField>
+    <Button layoutX="411.0" layoutY="108.0" onAction="#onSearchButtonClick" prefHeight="41.0" prefWidth="78.0" text="Search" />
+
+    <TableView fx:id="bookTableView" layoutX="107.0" layoutY="177.0" prefHeight="522.0" prefWidth="687.0">
+        <columns>
+            <TableColumn fx:id="coverColumn" prefWidth="116.0" text="Cover" />
+            <TableColumn fx:id="titleColumn" prefWidth="149.0" text="Title" />
+            <TableColumn fx:id="authorColumn" prefWidth="119.0" text="Author" />
+            <TableColumn fx:id="publisherColumn" prefWidth="110.0" text="Publisher" />
+            <TableColumn fx:id="yearColumn" prefWidth="84.0" text="Year" />
+            <TableColumn fx:id="categoryColumn" prefWidth="108.0" text="Category" />
+        </columns>
+    </TableView>
+    <Button fx:id="AddDoc" layoutX="370.0" layoutY="725.0" mnemonicParsing="false" onAction="#ThemSach" prefHeight="41.0" prefWidth="163.0" text="Add documents">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Button>
+   <Button fx:id="back" layoutX="29.0" layoutY="43.0" mnemonicParsing="false" onAction="#Back" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: black;">
+      <graphic>
+         <ImageView fitHeight="27.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../image/back.jpg" />
+            </image>
+         </ImageView>
+      </graphic></Button>
+   <Label fx:id="TrangThai" layoutX="310.0" layoutY="786.0" prefHeight="63.0" prefWidth="283.0" textFill="#ee07df">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+</AnchorPane>

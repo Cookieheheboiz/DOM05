@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.librarymanagement.HelloController">
+   <children>
+      <AnchorPane prefHeight="900.0" prefWidth="900.0">
+         <children>
+            <ImageView fitHeight="918.0" fitWidth="906.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/857a64ef-1d60-4fce-a626-364105d18e22.jpg" />
+               </image>
+            </ImageView>
+            <TextField fx:id="usernameTextField" alignment="CENTER" layoutX="341.0" layoutY="469.0" prefHeight="33.0" prefWidth="251.0" promptText="username" />
+            <PasswordField fx:id="passwordTextField" alignment="CENTER" layoutX="341.0" layoutY="521.0" prefHeight="33.0" prefWidth="251.0" promptText="password" />
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="292.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/login-icon-images-0.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="292.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/password-icon-png-4.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="LoginButton" layoutX="188.0" layoutY="632.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="Login">
+               <effect>
+                  <DropShadow height="41.27" radius="24.645000000000003" spread="0.46" width="59.31">
+                     <color>
+                        <Color red="0.062745101749897" green="0.6823529601097107" blue="0.5058823823928833" />
+                     </color>
+                  </DropShadow>
+               </effect></Button>
+            <Button fx:id="SignupButton" layoutX="188.0" layoutY="690.0" mnemonicParsing="false" onAction="#signupButtonAction" prefHeight="25.0" prefWidth="557.0" stylesheets="@../css/NeonButton.css" text="SignUp">
+               <effect>
+                  <DropShadow height="61.12" radius="31.225" spread="0.38" width="65.78">
+                     <color>
+                        <Color red="0.062745101749897" green="0.6823529601097107" blue="0.5058823823928833" />
+                     </color>
+                  </DropShadow>
+               </effect></Button>
+            <Label fx:id="loginMessageLabel" alignment="CENTER" layoutX="188.0" layoutY="580.0" prefHeight="40.0" prefWidth="403.0" textFill="#feff05" />
+            <ImageView fitHeight="92.0" fitWidth="122.0" layoutX="406.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../image/transparent-logo-book-3.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="forgetPass" layoutX="592.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleForgetPass" prefHeight="46.0" prefWidth="196.0" stylesheets="@../css/ButtonHover.css" text="Forget password ?" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
