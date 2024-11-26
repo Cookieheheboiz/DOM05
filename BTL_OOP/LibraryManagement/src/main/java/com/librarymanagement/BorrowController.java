@@ -136,9 +136,9 @@ public class BorrowController {
                     insertStatement.setInt(8, HelloController.loginUserId);
                     insertStatement.executeUpdate();
 
-                    String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE title = ?";
+                    String updateSql = "UPDATE docs SET quantity = quantity - 1 WHERE id = ?";
                     PreparedStatement updateStatement = connection.prepareStatement(updateSql);
-                    updateStatement.setString(1, book.getTitle());
+                    updateStatement.setInt(1, book.getId());
 
                     updateStatement.executeUpdate();
                     showAlert("The book has been successfully borrowed.");
