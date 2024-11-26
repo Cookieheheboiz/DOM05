@@ -1,5 +1,6 @@
 package com.librarymanagement;
 
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,17 +27,15 @@ public class ReturnController {
     private TableColumn<BorrowedBook, String> borrowDateColumn;
     @FXML
     private TableColumn<BorrowedBook, String> returnDateColumn;
-    @FXML
-    private TableColumn<BorrowedBook, String> userColumn; // Thêm cột user
 
     private ObservableList<BorrowedBook> borrowedBooks;
+
 
     public void initialize() {
         borrowedBooks = FXCollections.observableArrayList();
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         borrowDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("user")); // Ánh xạ cột user
 
         loadBorrowedBooks();
     }
@@ -44,16 +43,16 @@ public class ReturnController {
     private void loadBorrowedBooks() {
         borrowedBooks.clear();
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "SELECT title, borrow_date, return_date, user FROM borrowed_books1";
+            String sql = "SELECT title, borrow_date, return_date FROM borrowed_books1 where user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,HelloController.loginUserId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 borrowedBooks.add(new BorrowedBook(
                         resultSet.getString("title"),
                         resultSet.getDate("borrow_date").toString(),
-                        resultSet.getDate("return_date").toString(),
-                        resultSet.getString("user") // Lấy dữ liệu user
+                        resultSet.getDate("return_date").toString()
                 ));
             }
             borrowedBooksTable.setItems(borrowedBooks);
@@ -67,13 +66,17 @@ public class ReturnController {
         BorrowedBook selectedBook = borrowedBooksTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             try (Connection connection = DatabaseConnection.getConnection()) {
-                String sql = "DELETE FROM borrowed_books1 WHERE title = ? AND borrow_date = ? AND return_date = ? AND user = ?";
+                String sql = "DELETE FROM borrowed_books1 WHERE title = ? AND borrow_date = ? AND return_date = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, selectedBook.getTitle());
                 preparedStatement.setString(2, selectedBook.getBorrowDate());
                 preparedStatement.setString(3, selectedBook.getReturnDate());
-                preparedStatement.setString(4, selectedBook.getUser()); // Thêm điều kiện user
                 preparedStatement.executeUpdate();
+
+                String updateSql = "UPDATE docs SET quantity = quantity + 1 WHERE id = ?";
+                PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+                updateStatement.setInt(1, selectedBook.getId());
+                updateStatement.executeUpdate();
 
                 borrowedBooks.remove(selectedBook);
             } catch (Exception e) {
@@ -83,6 +86,9 @@ public class ReturnController {
             showAlert("Please select a book to return.");
         }
     }
+
+
+
 
     @FXML
     public void goBackToMainView(ActionEvent event) {

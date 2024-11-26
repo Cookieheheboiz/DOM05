@@ -12,11 +12,13 @@ public class Book {
     private String year;
     private String category;
     private ImageView coverImage;
-    private int bookID;
     private String bookName;
     private String borrowerName;
     private LocalDate borrowDate;  // Thêm thuộc tính ngày mượn
     private LocalDate returnDate;
+    private int quantity;
+
+
 
     public Book(String title, String author, String publisher, String year, String category, ImageView coverImage) {
         this.title = title;
@@ -27,37 +29,42 @@ public class Book {
         this.coverImage = coverImage;
     }
 
-    public Book(int bookID, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
-        this.bookID = bookID;
+    public Book(int id, String bookName, String borrowerName, LocalDate borrowDate, LocalDate returnDate) {
+        this.id = id;
         this.bookName = bookName;
         this.borrowerName = borrowerName;
         this.borrowDate = borrowDate;  // Khởi tạo ngày mượn
         this.returnDate = returnDate;  // Khởi tạo ngày trả
     }
 
-    public Book(String bookTitle, String author, String publisher) {
+    public Book(String bookTitle, String author, String publisher,int quantity) {
         this.title = bookTitle;
         this.author = author;
         this.publisher = publisher;
+        this.quantity=quantity;
     }
 
-    public Book(int bookID, String title, String author, String publisher, String category) {
-        this.bookID = bookID;
+    public Book(int id, String title, String author, String publisher, String category) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.category = category;
     }
 
+
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity){
+        this.quantity=quantity;
+    }
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public String getPublisher() { return publisher; }
     public String getYear() { return year; }
     public String getCategory() { return category; }
     public ImageView getCoverImage() { return coverImage; }
-    public int getBookID() {
-        return bookID;
-    }
 
     public String getBookName() {
         return bookName;
@@ -107,9 +114,7 @@ public class Book {
         this.id = id;
     }
 
-    public void setBookID(int bookID) {
-        this.bookID = bookID;
-    }
+
 
     public void setBookName(String bookName) {
         this.bookName = bookName;

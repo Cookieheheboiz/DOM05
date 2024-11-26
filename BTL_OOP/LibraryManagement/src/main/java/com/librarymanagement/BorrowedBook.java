@@ -4,13 +4,72 @@ public class BorrowedBook {
     private String title;
     private String borrowDate;
     private String returnDate;
-    private String user;
+    private int id;
+    private String author;
+    private String category;
+    private int count;
 
-    public BorrowedBook(String title, String borrowDate, String returnDate, String user) {
+    public int getTier() {
+        return tier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    private int tier;
+
+    public String getAuthorr() {
+        return author;
+    }
+
+    public void setAuthorr(String author) {
+        this.author = author;
+    }
+
+    public String getCategoryy() {
+        return category;
+    }
+
+    public void setCategoryy(String category) {
+        this.category = category;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public BorrowedBook(String title, String borrowDate, String returnDate) {
         this.title = title;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
-        this.user = user;
+    }
+
+    public BorrowedBook(int tier, String title, String author, String category, int count) {
+        this.tier = tier;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.count = count;
+    }
+
+    public BorrowedBook(int id, String title, String borrowDate, String returnDate) {
+        this.title = title;
+        this.id=id;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -35,13 +94,5 @@ public class BorrowedBook {
 
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 }
