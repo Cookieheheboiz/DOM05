@@ -6,8 +6,7 @@
 3. [Tính năng nổi bật](#features)
 4. [UML Diagram](#uml)
 5. [Cách sử dụng](#user-guide)
-6. [Phát triển tương lai](#future)
-7. [Cài đặt](#installation)
+6. [Cài đặt](#installation)
 
 # Tác giả <a name="author"></a>
 
@@ -46,9 +45,6 @@ User
 # Cách sử dụng <a name="user-guide"></a>
 
 * Video hướng dẫn sử dụng tại [Youtube](https://youtu.be/VqeeNMRmEaU?si=zVEVvyiYUU-L8GQJ).
-
-# Cách sử dụng <a name="future"></a>
-
 - Trước tiên, bạn cần phải có tài khoản để có thể đăng nhập và sử dụng hệ thống của chúng tôi. Vậy nên việc cần làm đầu tiên là đăng ký tài khoản ở mục signup, nên chú ý việc ID bạn cần nhập mã sinh viên của mình, sau đó nhập chính xác các thông tin khác để tránh xảy ra sai lầm, rủi ro trong việc lưu trữ thông tin.
 - Sau khi bạn đã có tài khoản thì tiến hành đăng nhập.
 - Ở trong phần của người đọc thì có những chức năng chính là thông tin của người dùng, thao tác mượn trả sách, xem trong kho sách có những loại sách nào, xem trước thẻ thư viện của chính mình, chơi mini game củng cố kiến thức về sách và những bài nhạc để giúp bạn thư giãn, tạo sự thú vị khi sử dụng sách
