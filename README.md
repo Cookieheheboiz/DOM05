@@ -1,4 +1,4 @@
-# LEARNLINGO (Dictionary App)
+# DomDomLibrary (LibraryManagement)
 
 #### Table of contents
 1. [Tác giả](#author)
